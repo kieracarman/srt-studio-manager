@@ -4,6 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const path = require('path');
+const passport = require('passport');
 
 require('dotenv').config();
 
@@ -49,6 +50,10 @@ mongoose
   )
   .then(() => console.log('Database Connected'))
   .catch((err) => console.log(err));
+
+// Passport middleware
+app.use(passport.initialize());
+require('./config/passport')(passport);
 
 // Routes that should handle requests
 app.use('/api/auth', Users);
