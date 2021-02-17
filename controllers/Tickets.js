@@ -30,7 +30,30 @@ exports.getOne = (req, res, next) => {
 
 // Handle incoming PATCH requests to modify item
 exports.updateOne = (req, res, next) => {
-  // *insert update stuff here
+  // Make sure update data is not empty
+  if (!req.body) {
+    return res.status(400).json({
+      message: 'Data to update can not be empty!',
+    });
+  }
+
+  Tickets.findByIdAndUpdate({ _id: req.params.id }, req.body, { useFindAndModify: false })
+    .then((item) => {
+      if (!item) {
+        res.status(404).json({
+          message: `Cannot update item with id=${req.params.id}: not found.`,
+        });
+      } else {
+        res.status(200).json({
+          message: 'Item updated.',
+          id: item._id,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err });
+      next(err);
+    });
 };
 
 // Handle incoming POST requests to create items
