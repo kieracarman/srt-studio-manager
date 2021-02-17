@@ -58,9 +58,7 @@ exports.updateOne = (req, res, next) => {
 
 // Handle incoming POST requests to create items
 exports.create = (req, res, next) => {
-  const newItem = new Tickets({
-    name: req.body.name,
-  });
+  const newItem = new Tickets(req.body);
   newItem.save()
     .then((item) => {
       res.status(201).json({

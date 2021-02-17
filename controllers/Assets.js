@@ -58,9 +58,7 @@ exports.updateOne = (req, res, next) => {
 
 // Handle incoming POST requests to create items
 exports.create = (req, res, next) => {
-  const newItem = new Assets({
-    name: req.body.name,
-  });
+  const newItem = new Assets(req.body);
   newItem.save()
     .then((item) => {
       res.status(201).json({

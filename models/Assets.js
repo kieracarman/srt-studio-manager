@@ -12,12 +12,12 @@ const assetsSchema = mongoose.Schema({
     type: String,
   },
   serialNumber: {
-    type: Number,
+    type: String,
   },
   tagNumber: {
     type: String,
   },
-  type: {
+  assetType: {
     type: String,
     required: true,
     enum: ['hardware', 'software'],
@@ -59,7 +59,10 @@ const assetsSchema = mongoose.Schema({
         type: Date,
         default: Date.now,
       },
-      author: mongoose.Schema.Types.ObjectId,
+      author: {
+        type: String,
+        required: true,
+      },
       notes: {
         type: String,
         required: true,
