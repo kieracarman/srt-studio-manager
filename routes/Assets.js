@@ -11,6 +11,6 @@ router.get('/', auth, Assets.getAll);
 router.get('/:id', auth, Assets.getOne);
 router.patch('/:id', auth, Assets.updateOne);
 router.post('/', auth, Assets.create);
-router.delete('/', auth, Assets.delete);
+router.delete('/:id', auth, Assets.delete);
 
 module.exports = router;

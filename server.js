@@ -61,11 +61,11 @@ app.use('/api/assets', Assets);
 app.use('/api/bookings', Bookings);
 app.use('/api/tickets', Tickets);
 
-// Catch errors that go beyong the above routes
+// Catch errors that go beyond the above routes
 app.use((req, res, next) => {
   const error = new Error('Not found');
   error.status = 404;
-  next(error);
+  next(error); // this is a problem, is not iterative over multiple errors
 });
 
 // Pass direct errors

@@ -1,6 +1,7 @@
 Essentially a library where users can check out gear
 
 User university SSO???
+* need Active Directory or LDAP server info to use that as our PassportJS strategy
 
 Current:
 Users
