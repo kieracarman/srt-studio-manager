@@ -17,7 +17,7 @@ exports.getOne = (req, res, next) => {
   Tickets.findById(req.params.id)
     .then((item) => {
       if (!item) {
-        res.status(404).json({ message: 'Item not found' });
+        res.status(404).json({ message: 'Ticket not found' });
       } else {
         res.status(200).json(item);
       }
@@ -41,7 +41,7 @@ exports.create = (req, res, next) => {
   newItem.save()
     .then((item) => {
       res.status(201).json({
-        message: 'Item added to assets.',
+        message: 'Ticket added.',
         id: item._id,
       });
     })
@@ -56,9 +56,9 @@ exports.delete = (req, res, next) => {
   Tickets.findByIdAndDelete(req.params.id)
     .then((item) => {
       if (!item) {
-        res.status(400).json({ message: 'Item does not exist.' });
+        res.status(400).json({ message: 'Ticket does not exist.' });
       }
-      res.status(200).json({ message: 'Item deleted.' });
+      res.status(200).json({ message: 'Ticket deleted.' });
     })
     .catch((err) => {
       res.status(500).json({ error: err });
