@@ -1,38 +1,287 @@
-.App {
+/* TEXT STYLES */
+
+h1 {
+  font-size: 36px;
+  margin: 0 0 16px 0;
+  text-align: left;
+}
+
+h2 {
+  font-size: 24px;
+  margin: 0 0 16px 0;
+  text-align: left;
+}
+
+p {
+  font-size: 16px;
+  color: #555;
+}
+
+.right {
+  text-align: right;
+}
+
+/* NAVBAR PROPERTIES */
+
+.topbar {
+  width: 100%;
+  height: 100%;
+}
+
+.middle {
+  
+}
+
+.navbar {
+  height: 100%;
+  width: 72px;
+  position: fixed;
+  top: 32px;
+  left: 0;
+  border-right: 1px solid #ddd;
+}
+
+.navbar-brand {
+  padding: 8px;
+  font-size: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.navbar-brand a {
+  color: #000;
+  text-decoration: none;
+}
+
+.navbar-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navbar-item a {
+  color: #000;
+  text-decoration: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.navbar-link {
+  opacity: 0.75;
+  font-size: 0.65rem;
+  display: block;
+  padding: 12px 0;
+}
+
+.navbar-link:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.navbar-link-active {
+  border-right: 3px solid #000;
+  opacity: 1;
+}
+
+.navbar-link-icon {
+  vertical-align: middle;
+  margin: 0px 0px 8px 0px;
+}
+
+.navbar-link-text {
+  vertical-align: middle;
+  color: #000;
+}
+
+.navbar-footer {
+  padding: 0px 0px 8px 0px;
+  bottom: 24px;
+  margin: 0;
+  position: absolute;
+  width: 100%;
+  list-style: none;
+  text-align: center;
+}
+
+.content {
+  margin-left: 72px;
+  padding: 24px;
+}
+
+@media screen and (min-width: 1200px) {
+  
+  .navbar {
+    width: 240px;
+    top: 61px;
   }
+
+  .navbar-brand {
+    padding: 16px 24px;
+    font-size: 1.5rem;
+  }
+
+  .navbar-list {
+    text-align: left;
+  }
+
+  .navbar-link {
+    font-size: 1.25rem;
+    padding: 12px 24px;
+  }
+
+  .navbar-link-icon {
+    margin: 0px 16px 0px 0px;
+  }
+
+  .navbar-link-text {
+    display: inline;
+  }
+
+  .navbar-footer {
+    text-align: left;
+    padding-bottom: 9px;
+    bottom: 64px;
+  }
+
+  .content {
+    margin-left: 240px;
+    padding: 24px 32px;
+  }
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+/* LOGIN FORM */
+
+.login-bg {
+  text-align: center;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: 100vh;
+  display: flex;
 }
 
-.App-link {
-  color: #61dafb;
+.login-box {
+  padding: 24px;
+  border: 1px solid #000;
+  border-radius: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.form-group {
+  margin: 0 0 1rem 0;
+}
+
+.form-control {
+  display: block;
+  padding: .375rem .75rem;
+  font-size: 24px;
+  border: 1px solid #000;
+  border-radius: 10px;
+}
+
+.form-error {
+  text-align: left;
+  color: #f00;
+  margin: 8px 8px;
+}
+
+.login-button {
+  border: none;
+  padding: 8px 24px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 10px;
+  display: inline-block;
+  font-size: 20px;
+  float: right;
+}
+
+/* ASSETS VIEW */
+
+.search-bar {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.search-bar-input {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 50%;
+}
+
+.search-bar-controls {
+  float: right;
+}
+
+.search-bar-controls div {
+  padding: 8px 16px;
+  color: #777;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-left: 8px;
+  display: inline-block;
+}
+
+.search-bar-controls div:hover {
+  border: 1px solid #555;
+  color: #000;
+  cursor: pointer;
+}
+
+.asset-list table {
+  border-spacing: 0;
+  width: 100%;
+}
+
+.asset-list-header {
+  text-align: left;
+}
+
+.asset-list-header tr {
+  padding: 0px 16px;
+}
+
+.asset-list-header th {
+  padding: 12px 0px;
+  border-bottom: 1px solid #ccc;
+}
+
+.asset-list-header a {
+  text-decoration: none;
+  color: #000;
+}
+
+.asset-list-header a:hover {
+  cursor: pointer;
+  color: #444;
+}
+
+.asset-list-header svg {
+  height: 12px;
+  width: 12px;
+  visibility: hidden;
+}
+
+.asset-list-item {
+  display: table-row;
+  color: #555;
+}
+
+.asset-list-item a {
+  color: #555;
+}
+
+.asset-list-item a:hover {
+  color: #000;
+}
+
+.asset-list-item td {
+  padding: 16px 0px;
+}
+
+.asset-list-item:hover {
+  color: #000;
+  border-radius: 4px;
+  cursor: pointer;
 }
