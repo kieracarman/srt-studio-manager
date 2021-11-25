@@ -11,6 +11,9 @@ const assetsSchema = mongoose.Schema({
   model: {
     type: String,
   },
+  description: {
+    type: String,
+  },
   serialNumber: {
     type: String,
   },
@@ -22,14 +25,14 @@ const assetsSchema = mongoose.Schema({
     required: true,
     enum: ['hardware', 'software'],
   },
-  dateInService: {
-    type: Date,
-  },
-  dateOutOfService: {
+  acquisitionDate: {
     type: Date,
   },
   acquisitionType: {
     type: String,
+  },
+  transactionAmount: {
+    type: Number,
   },
   minimumAccessLevel: {
     type: String,
