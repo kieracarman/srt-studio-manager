@@ -1,13 +1,14 @@
-import React from 'react';
-import { Edit, Delete } from 'react-feather';
+import { React, Component } from 'react';
 
-const AssetListItem = () => (
-  <div className='asset-list-item'>
-      <td>1234</td>
-      <td>Neumann</td>
-      <td>U47</td>
-      <td>Active</td>
-  </div>
-);
-
-export default AssetListItem;
+export default class AssetListItem extends Component {
+  render () {
+    return(
+      <tr className='asset-list-item'>
+        <td>{this.props.tagNumber}</td>
+        <td>{this.props.make}</td>
+        <td>{this.props.model}</td>
+        <td>{this.props.status}</td>
+      </tr>
+    )
+  }
+}
