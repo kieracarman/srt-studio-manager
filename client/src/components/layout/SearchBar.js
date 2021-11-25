@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Button from '../controls/Button';
+
 const SearchBar = () => (
   <div className='search-bar'>
     <form>
@@ -8,8 +10,9 @@ const SearchBar = () => (
         placeholder='Search'
       />
       <div className='search-bar-controls'>
-        <div>Filter</div>
-        <div>Export</div>
+        <Button type='btn-outline'>Filter</Button>
+        <Button type='btn-outline'>Export</Button>
+        <Button>Create Asset</Button>
       </div>
     </form>
   </div>

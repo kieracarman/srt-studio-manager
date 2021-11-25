@@ -23,7 +23,6 @@ export default class AssetList extends Component {
 
         // Set assets state to list
         this.setState({assets: list});
-        console.log(this.state.assets);
       })
       .catch(function (error) {
         console.log(error);
@@ -38,6 +37,7 @@ export default class AssetList extends Component {
           tagNumber={asset.tagNumber}
           make={asset.make}
           model={asset.model}
+          description={asset.description}
           status={asset.status}
         />
       );
@@ -53,6 +53,8 @@ export default class AssetList extends Component {
               <th><a href='#'>Tag #<ChevronDown /></a></th>
               <th><a href='#'>Make<ChevronDown /></a></th>
               <th><a href='#'>Model<ChevronDown /></a></th>
+              <th><a href='#'>Description<ChevronDown /></a></th>
+              <th><a href='#'>Location<ChevronDown /></a></th>
               <th><a href='#'>Status<ChevronDown /></a></th>
             </tr>
           </thead>

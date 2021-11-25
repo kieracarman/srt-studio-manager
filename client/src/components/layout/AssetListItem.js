@@ -1,14 +1,16 @@
-import { React, Component } from 'react';
+import React from 'react';
 
-export default class AssetListItem extends Component {
-  render () {
-    return(
-      <tr className='asset-list-item'>
-        <td>{this.props.tagNumber}</td>
-        <td>{this.props.make}</td>
-        <td>{this.props.model}</td>
-        <td>{this.props.status}</td>
-      </tr>
-    )
-  }
-}
+const AssetListItem = ({ ...props }) => {
+  return (
+    <tr className='asset-list-item'>
+      <td>{props.tagNumber}</td>
+      <td>{props.make}</td>
+      <td>{props.model}</td>
+      <td>{props.description}</td>
+      <td>{props.location}</td>
+      <td>{props.status}</td>
+    </tr>
+  );
+};
+
+export default AssetListItem;
