@@ -2,7 +2,7 @@ import React from 'react';
 
 import Button from '../atoms/Button';
 
-const SearchBar = ({ item }) => (
+const SearchBar = ({ item, createNew }) => (
   <div className='search-bar'>
     <form>
       <input
@@ -12,7 +12,7 @@ const SearchBar = ({ item }) => (
       <div className='search-bar-controls'>
         <Button type='btn-outline'>Filter</Button>
         <Button type='btn-outline'>Export</Button>
-        <Button>Create {item}</Button>
+        <Button onClick={createNew}>Create {item}</Button>
       </div>
     </form>
   </div>

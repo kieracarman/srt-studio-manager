@@ -335,3 +335,35 @@ p {
   color: #000;
   cursor: pointer;
 }
+
+/* MODAL */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  overflow: hidden;
+}
+
+.modal-header {
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  width: calc(100% - 32px);
+  padding: 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-header-nav {
+  display: inline-block;
+  float: right;
+}
+
+.modal-body {
+  margin-top: 66px;
+  padding: 32px 15%;
+}

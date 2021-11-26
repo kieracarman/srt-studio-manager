@@ -5,6 +5,7 @@ const Button = ({ children, onClick, type, ...props }) => {
     <button 
       className={type || 'btn'}
       onClick={onClick}
+      type='button'
     >
       {children || 'label'}
     </button>
