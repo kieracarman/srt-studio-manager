@@ -5,7 +5,6 @@ const UserListItem = ({ ...props }) => {
     <tr className='list-item'>
       <td>{props.username}</td>
       <td>{props.role}</td>
-      <td>{props.accessLevel}</td>
     </tr>
   );
 };

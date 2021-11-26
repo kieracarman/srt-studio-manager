@@ -37,7 +37,6 @@ export default class UserList extends Component {
           key={user._id}
           username={user.username}
           role={user.role}
-          accessLevel={user.accessLevel}
         />
       );
     })
