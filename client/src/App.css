@@ -56,6 +56,28 @@ p {
   cursor: pointer;
 }
 
+/* STATUS TAGS */
+
+.status-tag {
+  padding: 4px 16px;
+  border-radius: 12px;
+}
+
+.pending {
+  color: rgb(155, 55, 55);
+  background-color: rgb(255, 204, 204);
+}
+
+.in-progress {
+  color: rgb(117, 111, 38);
+  background-color: rgb(255, 249, 159);
+}
+
+.complete {
+  color: rgb(79, 151, 79);
+  background-color: rgb(215, 243, 215);
+}
+
 /* NAVBAR PROPERTIES */
 
 .topbar {

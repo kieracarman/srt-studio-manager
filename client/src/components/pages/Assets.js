@@ -7,7 +7,7 @@ const Assets = () => (
   <div>
     <h1>Assets</h1>
     <div className='list-container'>
-      <SearchBar />
+      <SearchBar item='Asset' />
       <AssetList />
     </div>
 

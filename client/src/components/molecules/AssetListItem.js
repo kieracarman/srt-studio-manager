@@ -8,7 +8,12 @@ const AssetListItem = ({ ...props }) => {
       <td>{props.model}</td>
       <td>{props.description}</td>
       <td>{props.location}</td>
-      <td>{props.status}</td>
+      <td><span className={`status-tag ${
+        (props.status === 'in') ? 'complete'
+        : (props.status === 'out') ? 'in-progress'
+        : (props.status === 'lost') ? 'pending'
+        : ''
+      }`}>{props.status}</span></td>
     </tr>
   );
 };
