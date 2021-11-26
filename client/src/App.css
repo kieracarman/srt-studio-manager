@@ -254,35 +254,35 @@ p {
   float: right;
 }
 
-.asset-list table {
+.list table {
   border-spacing: 0;
   width: 100%;
 }
 
-.asset-list-header {
+.list-header {
   text-align: left;
 }
 
-.asset-list-header tr {
+.list-header tr {
   padding: 0px 16px;
 }
 
-.asset-list-header th {
+.list-header th {
   padding: 12px 0px;
   border-bottom: 1px solid #aaa;
 }
 
-.asset-list-header a {
+.list-header a {
   text-decoration: none;
   color: #000;
 }
 
-.asset-list-header a:hover {
+.list-header a:hover {
   cursor: pointer;
   color: #444;
 }
 
-.asset-list-header svg {
+.list-header svg {
   height: 12px;
   width: 12px;
   visibility: hidden;

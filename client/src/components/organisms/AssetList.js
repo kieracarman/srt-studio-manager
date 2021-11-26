@@ -47,9 +47,9 @@ export default class AssetList extends Component {
 
   render() {
     return (
-      <div className='asset-list'>
+      <div className='list'>
         <table>
-          <thead className='asset-list-header'>
+          <thead className='list-header'>
             <tr>
               <th><a href='#'>Tag #<ChevronDown /></a></th>
               <th><a href='#'>Make<ChevronDown /></a></th>

@@ -37,6 +37,7 @@ export default class UserList extends Component {
           key={user._id}
           username={user.username}
           role={user.role}
+          accessLevel={user.accessLevel}
         />
       );
     })
@@ -44,16 +45,16 @@ export default class UserList extends Component {
 
   render() {
     return (
-      <div className='user-list'>
+      <div className='list'>
         <table>
-          <thead className='user-list-header'>
+          <thead className='list-header'>
             <tr>
-              <th><a href='#'>ID<ChevronDown /></a></th>
-              <th><a href='#'>Name<ChevronDown /></a></th>
+              <th><a href='#'>Username<ChevronDown /></a></th>
               <th><a href='#'>Role<ChevronDown /></a></th>
+              <th><a href='#'>Access Level<ChevronDown /></a></th>
             </tr>
           </thead>
-          <tbody className='user-list-items'>
+          <tbody>
             {this.listUsers()}
           </tbody>
         </table>
