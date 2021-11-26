@@ -11,7 +11,7 @@ import store from './store';
 import PrivateRoute from './components/private-route/PrivateRoute';
 import Topbar from './components/organisms/Topbar';
 import Navbar from './components/organisms/Navbar';
-import Login from './components/auth/Login';
+import Login from './components/pages/Login';
 import Dashboard from './components/pages/Dashboard';
 import Assets from './components/pages/Assets';
 import Bookings from './components/pages/Bookings';

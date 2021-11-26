@@ -20,7 +20,6 @@ export default class UserList extends Component {
       .then(response => {
         // Create a holder array for data
         const list = response.data.slice()
-        console.log(list);
 
         // Set users state to list
         this.setState({users: list});
