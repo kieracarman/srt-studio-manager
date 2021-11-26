@@ -35,9 +35,9 @@ export default class AssetList extends Component {
         <AssetListItem
           key={asset._id}
           tagNumber={asset.tagNumber}
+          description={asset.description}
           make={asset.make}
           model={asset.model}
-          description={asset.description}
           location={asset.location}
           status={asset.status}
         />
@@ -52,9 +52,9 @@ export default class AssetList extends Component {
           <thead className='list-header'>
             <tr>
               <th><a href='#'>Tag #<ChevronDown /></a></th>
+              <th><a href='#'>Description<ChevronDown /></a></th>
               <th><a href='#'>Make<ChevronDown /></a></th>
               <th><a href='#'>Model<ChevronDown /></a></th>
-              <th><a href='#'>Description<ChevronDown /></a></th>
               <th><a href='#'>Location<ChevronDown /></a></th>
               <th><a href='#'>Status<ChevronDown /></a></th>
             </tr>

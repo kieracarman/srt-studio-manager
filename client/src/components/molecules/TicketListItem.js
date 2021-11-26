@@ -4,7 +4,7 @@ const TicketListItem = ({ ...props }) => {
   return (
     <tr className='list-item'>
       <td>{props.createdAt}</td>
-      <td>{props.title}</td>
+      <td className='bold'>{props.title}</td>
       <td>{props.author}</td>
       <td><span className={`status-tag ${
         (props.status === 'pending') ? 'pending'

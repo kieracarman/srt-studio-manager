@@ -21,6 +21,10 @@ p {
   text-align: right;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 /* CONTROLS AND BUTTONS */
 
 .btn {

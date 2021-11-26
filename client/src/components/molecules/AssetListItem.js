@@ -4,9 +4,9 @@ const AssetListItem = ({ ...props }) => {
   return (
     <tr className='list-item'>
       <td>{props.tagNumber}</td>
+      <td className='bold'>{props.description}</td>
       <td>{props.make}</td>
       <td>{props.model}</td>
-      <td>{props.description}</td>
       <td>{props.location}</td>
       <td><span className={`status-tag ${
         (props.status === 'in') ? 'complete'
