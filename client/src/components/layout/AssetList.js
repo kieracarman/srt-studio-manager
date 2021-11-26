@@ -38,6 +38,7 @@ export default class AssetList extends Component {
           make={asset.make}
           model={asset.model}
           description={asset.description}
+          location={asset.location}
           status={asset.status}
         />
       );
