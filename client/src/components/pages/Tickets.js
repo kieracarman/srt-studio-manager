@@ -1,11 +1,11 @@
 import React from 'react';
 
+import TicketList from '../organisms/TicketList';
+
 const Tickets = () => (
   <div>
     <h1>Tickets</h1>
-    <p>
-      This is where support tickets go, and where they can be submitted.
-    </p>
+    <TicketList />
   </div>
 );
 
