@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ChevronDown } from 'react-feather';
 import axios from 'axios';
 
-import AssetListItem from './AssetListItem';
+import AssetListItem from '../molecules/AssetListItem';
 
 export default class AssetList extends Component {
   constructor(props) {

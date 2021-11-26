@@ -288,25 +288,24 @@ p {
   visibility: hidden;
 }
 
-.asset-list-item {
+.list-item {
   color: #555;
 }
 
-.asset-list-item a {
+.list-item a {
   color: #555;
 }
 
-.asset-list-item a:hover {
+.list-item a:hover {
   color: #000;
 }
 
-.asset-list-item td {
+.list-item td {
   padding: 16px 0px;
   border-bottom: 1px solid #eee;
 }
 
-.asset-list-item:hover {
+.list-item:hover {
   color: #000;
-  border-radius: 4px;
   cursor: pointer;
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Button from '../controls/Button';
+import Button from '../atoms/Button';
 
 const SearchBar = () => (
   <div className='search-bar'>

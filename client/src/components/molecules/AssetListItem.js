@@ -2,7 +2,7 @@ import React from 'react';
 
 const AssetListItem = ({ ...props }) => {
   return (
-    <tr className='asset-list-item'>
+    <tr className='list-item'>
       <td>{props.tagNumber}</td>
       <td>{props.make}</td>
       <td>{props.model}</td>

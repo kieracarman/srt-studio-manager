@@ -64,3 +64,15 @@ exports.login = (req, res) => {
     });
   });
 };
+
+// Handle incoming GET requests to view all possible users
+exports.getAll = (req, res, next) => {
+  Users.find()
+    .then((users) => {
+      res.json(users);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err });
+      next(err);
+    });
+};

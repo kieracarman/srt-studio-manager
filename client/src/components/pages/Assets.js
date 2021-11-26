@@ -1,7 +1,7 @@
 import React from 'react';
 
-import SearchBar from '../layout/SearchBar';
-import AssetList from '../layout/AssetList';
+import SearchBar from '../molecules/SearchBar';
+import AssetList from '../organisms/AssetList';
 
 const Assets = () => (
   <div>

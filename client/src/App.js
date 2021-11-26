@@ -9,14 +9,14 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import PrivateRoute from './components/private-route/PrivateRoute';
-import Topbar from './components/layout/Topbar';
-import Navbar from './components/layout/Navbar';
+import Topbar from './components/organisms/Topbar';
+import Navbar from './components/organisms/Navbar';
 import Login from './components/auth/Login';
-import Dashboard from './components/views/Dashboard';
-import Assets from './components/views/Assets';
-import Bookings from './components/views/Bookings';
-import Tickets from './components/views/Tickets';
-import Users from './components/views/Users';
+import Dashboard from './components/pages/Dashboard';
+import Assets from './components/pages/Assets';
+import Bookings from './components/pages/Bookings';
+import Tickets from './components/pages/Tickets';
+import Users from './components/pages/Users';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
