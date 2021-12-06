@@ -8,15 +8,13 @@ const Assets = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div>
+    <div className='view'>
       <h1>Assets</h1>
-      <div className='list-container'>
-        <SearchBar item='Asset' createNew={() => setIsOpen(true)} />
-        <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-          <h1>This is my modal.</h1>
-        </Modal>
-        <AssetList />
-      </div>
+      <SearchBar item='Asset' createNew={() => setIsOpen(true)} />
+      <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+        <h1>This is my modal.</h1>
+      </Modal>
+      <AssetList />
 
     </div>
   );

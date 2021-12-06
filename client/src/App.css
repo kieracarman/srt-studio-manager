@@ -171,6 +171,10 @@ p {
   padding: 24px;
 }
 
+.view {
+  height: 100%;
+}
+
 @media screen and (min-width: 1200px) {
   
   .middle {
@@ -212,6 +216,7 @@ p {
   .content {
     margin-left: 240px;
     padding: 24px 32px;
+    height: calc(100vh - 109px);
   }
 
 }
@@ -278,6 +283,11 @@ p {
 
 .search-bar-controls {
   float: right;
+}
+
+.list {
+  overflow: scroll;
+  height: calc(100% - 109px);
 }
 
 .list table {
