@@ -1,36 +1,13 @@
 import React, { Component } from 'react';
 import { ChevronDown } from 'react-feather';
-import axios from 'axios';
 
 import AssetListItem from '../molecules/AssetListItem';
 
 export default class AssetList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      assets: [],
-      errors: {}
-    }
-  }
-
-  // Starting lifecycle and calling for data from the database
-  componentDidMount() {
-    axios.get('/api/assets/')
-      .then(response => {
-        // Create a holder array for data
-        const list = response.data.slice()
-
-        // Set assets state to list
-        this.setState({assets: list});
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-  }
-
   listAssets() {
-    return this.state.assets.map((asset) => {
+    const assets = this.props.assetList;
+
+    return assets.map((asset) => {
       return(
         <AssetListItem
           key={asset._id}
@@ -65,7 +42,6 @@ export default class AssetList extends Component {
           </tbody>
         </table>
       </div>
-    )
-  }
-
+    );
+  };
 };
