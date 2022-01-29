@@ -36,6 +36,7 @@ p {
   border: none;
   margin-left: 8px;
   display: inline-block;
+  text-decoration: none;
 }
 
 .btn:hover {
@@ -52,6 +53,7 @@ p {
   border-radius: 4px;
   margin-left: 8px;
   display: inline-block;
+  text-decoration: none;
 }
 
 .btn-outline:hover {
@@ -326,6 +328,8 @@ p {
 
 .list-item {
   color: #555;
+  display: table-row;
+  text-decoration: none;
 }
 
 .list-item a {

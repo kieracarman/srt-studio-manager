@@ -34,6 +34,7 @@ export default class AssetList extends Component {
       return(
         <AssetListItem
           key={asset._id}
+          id={asset._id}
           tagNumber={asset.tagNumber}
           description={asset.description}
           make={asset.make}

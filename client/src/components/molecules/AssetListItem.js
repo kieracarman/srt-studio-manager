@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const AssetListItem = ({ ...props }) => {
   return (
-    <tr className='list-item'>
+    <Link to={`/assets/${props.id}`} className='list-item'>
       <td>{props.tagNumber}</td>
       <td className='bold'>{props.description}</td>
       <td>{props.make}</td>
@@ -14,7 +15,7 @@ const AssetListItem = ({ ...props }) => {
         : (props.status === 'lost') ? 'pending'
         : ''
       }`}>{props.status}</span></td>
-    </tr>
+    </Link>
   );
 };
 

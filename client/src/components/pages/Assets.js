@@ -1,20 +1,40 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
 import SearchBar from '../molecules/SearchBar';
 import AssetList from '../organisms/AssetList';
 import Modal from './Modal';
+import EditAsset from '../organisms/EditAsset';
 
 const Assets = () => {
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className='view'>
       <h1>Assets</h1>
-      <SearchBar item='Asset' createNew={() => setIsOpen(true)} />
-      <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-        <h1>This is my modal.</h1>
-      </Modal>
+      <SearchBar item='Asset' newItemPath='/assets/new' />
       <AssetList />
+
+      <Switch>
+        <Route 
+          path='/assets/:id'
+          children={({match}) => {
+            return (
+              <Modal onClose='/assets'>
+                <EditAsset id={match.params.id} />
+              </Modal>
+            )
+          }}
+        />
+
+        <Route 
+          path='/assets/new'
+          children={({match}) => (
+            <Modal onClose='/assets'>
+              <EditAsset />
+            </Modal>
+          )}
+        />
+      </Switch>
 
     </div>
   );
