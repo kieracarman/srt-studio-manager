@@ -1,7 +1,7 @@
 import React from 'react';
 
-import SearchBar from '../molecules/SearchBar';
-import UserList from '../organisms/UserList';
+import SearchBar from '../components/SearchBar';
+import UserList from '../components/Users/UserList';
 
 const Users = () => (
   <div>

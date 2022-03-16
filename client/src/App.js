@@ -1,22 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import jwt_decode from 'jwt-decode';
+
+import store from './store';
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
 import './App.css';
 
-import { Provider } from 'react-redux';
-import store from './store';
-
-import PrivateRoute from './components/private-route/PrivateRoute';
-import Topbar from './components/organisms/Topbar';
-import Navbar from './components/organisms/Navbar';
-import Login from './components/pages/Login';
-import Dashboard from './components/pages/Dashboard';
-import Assets from './components/pages/Assets';
-import Bookings from './components/pages/Bookings';
-import Tickets from './components/pages/Tickets';
-import Users from './components/pages/Users';
+import { Dashboard, Assets, Users, Login } from './containers';
+import { PrivateRoute, Topbar, Navbar } from './components';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -41,29 +34,25 @@ if (localStorage.jwtToken) {
   }
 }
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Router>
-          <div className='App'>
-            <Route path='/login' component={Login} />
-            <PrivateRoute path='/' component={Topbar} />
-            <div className='middle'>
-              <PrivateRoute path='/' component={Navbar} />
-              <div className='content'>
-                <PrivateRoute path='/' exact component={Dashboard} />
-                <PrivateRoute path='/assets' component={Assets} />
-                <PrivateRoute path='/bookings' component={Bookings} />
-                <PrivateRoute path='/tickets' component={Tickets} />
-                <PrivateRoute path='/users' component={Users} />
-              </div>
+const App = () => {
+  return (
+    <Provider store={store}>
+      <Router>
+        <div className='App'>
+          <Route path='/login' component={Login} />
+          <PrivateRoute path='/' component={Topbar} />
+          <div className='middle'>
+            <PrivateRoute path='/' component={Navbar} />
+            <div className='content'>
+              <PrivateRoute path='/' exact component={Dashboard} />
+              <PrivateRoute path='/assets' component={Assets} />
+              <PrivateRoute path='/users' component={Users} />
             </div>
           </div>
-        </Router>
-      </Provider>
-    );
-  }
-}
+        </div>
+      </Router>
+    </Provider>
+  );
+};
 
 export default App;

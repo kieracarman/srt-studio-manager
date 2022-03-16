@@ -1,6 +1,6 @@
 import React from 'react';
 
-const UserListItem = ({ ...props }) => {
+const UserListItem = (props) => {
   return (
     <tr className='list-item'>
       <td className='bold'>{props.username}</td>

@@ -2,43 +2,41 @@ import React, { Component } from 'react';
 import { ChevronDown } from 'react-feather';
 import axios from 'axios';
 
-import TicketListItem from '../molecules/TicketListItem';
+import UserListItem from './UserListItem';
 
-export default class TicketList extends Component {
+export default class UserList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      tickets: [],
+      users: [],
       errors: {}
     }
   }
 
   // Starting lifecycle and calling for data from the database
   componentDidMount() {
-    axios.get('/api/tickets/')
+    axios.get('/api/auth/')
       .then(response => {
         // Create a holder array for data
         const list = response.data.slice()
-        console.log(list);
 
         // Set users state to list
-        this.setState({tickets: list});
+        this.setState({users: list});
       })
       .catch(function (error) {
         console.log(error);
       })
   }
 
-  listTickets() {
-    return this.state.tickets.map((ticket) => {
+  listUsers() {
+    return this.state.users.map((user) => {
       return(
-        <TicketListItem
-          key={ticket._id}
-          createdAt={ticket.createdAt}
-          title={ticket.title}
-          author={ticket.author}
-          status={ticket.status}
+        <UserListItem
+          key={user._id}
+          username={user.username}
+          role={user.role}
+          accessLevel={user.accessLevel}
         />
       );
     })
@@ -50,14 +48,13 @@ export default class TicketList extends Component {
         <table>
           <thead className='list-header'>
             <tr>
-              <th><a href='#'>Date<ChevronDown /></a></th>
-              <th><a href='#'>Ticket<ChevronDown /></a></th>
-              <th><a href='#'>Submitted by<ChevronDown /></a></th>
-              <th><a href='#'>Status<ChevronDown /></a></th>
+              <th><a href='#'>Username<ChevronDown /></a></th>
+              <th><a href='#'>Role<ChevronDown /></a></th>
+              <th><a href='#'>Access Level<ChevronDown /></a></th>
             </tr>
           </thead>
           <tbody>
-            {this.listTickets()}
+            {this.listUsers()}
           </tbody>
         </table>
       </div>

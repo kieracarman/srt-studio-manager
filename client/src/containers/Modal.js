@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Button from '../atoms/Button';
+import Button from '../components/Button';
 
 const Modal = ({ children, onClose }) => {
   return ReactDOM.createPortal(
