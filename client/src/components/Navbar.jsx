@@ -12,10 +12,10 @@ const items = [
   { path: 'users', name: 'Users', icon: <Users className='navbar-link-icon' /> }
 ]
 
-const Navbar = () => {
+const Navbar = (props) => {
   const onLogoutClick = (e) => {
     e.preventDefault();
-    logoutUser();
+    props.logoutUser();
   };
 
   return (
