@@ -36,6 +36,7 @@ p {
   border: none;
   margin-left: 8px;
   display: inline-block;
+  text-decoration: none;
 }
 
 .btn:hover {
@@ -52,6 +53,7 @@ p {
   border-radius: 4px;
   margin-left: 8px;
   display: inline-block;
+  text-decoration: none;
 }
 
 .btn-outline:hover {
@@ -171,6 +173,10 @@ p {
   padding: 24px;
 }
 
+.view {
+  height: 100%;
+}
+
 @media screen and (min-width: 1200px) {
   
   .middle {
@@ -212,6 +218,7 @@ p {
   .content {
     margin-left: 240px;
     padding: 24px 32px;
+    height: calc(100vh - 109px);
   }
 
 }
@@ -280,6 +287,11 @@ p {
   float: right;
 }
 
+.list {
+  overflow: scroll;
+  height: calc(100% - 109px);
+}
+
 .list table {
   border-spacing: 0;
   width: 100%;
@@ -316,6 +328,8 @@ p {
 
 .list-item {
   color: #555;
+  display: table-row;
+  text-decoration: none;
 }
 
 .list-item a {

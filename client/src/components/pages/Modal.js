@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom';
 
 import Button from '../atoms/Button';
 
-const Modal = ({ open, children, onClose }) => {
-  if (!open) return null;
+const Modal = ({ children, onClose }) => {
   return ReactDOM.createPortal(
     <div className='modal'>
       <div className='modal-header'>
         <div className='modal-header-nav'>
-          <Button type='btn-outline' onClick={onClose}>Close</Button>
+          <Button to={onClose} type='btn-outline'>Close</Button>
         </div>
       </div>
       <div className='modal-body'>
