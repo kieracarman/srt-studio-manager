@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const AssetListItem = ({ ...props }) => {
+const AssetListItem = (props) => {
   return (
     <Link to={`/assets/${props.id}`} className='list-item'>
       <td>{props.tagNumber}</td>

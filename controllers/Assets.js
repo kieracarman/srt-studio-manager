@@ -57,18 +57,14 @@ exports.updateOne = (req, res, next) => {
 };
 
 // Handle incoming POST requests to create items
-exports.create = (req, res, next) => {
+exports.create = async (req, res) => {
   const newItem = new Assets(req.body);
-  newItem.save()
+  await newItem.save()
     .then((item) => {
       res.status(201).json({
         message: 'Item added to assets.',
         id: item._id,
       });
-    })
-    .catch((err) => {
-      res.status(500).json({ error: err });
-      next(err);
     });
 };
 

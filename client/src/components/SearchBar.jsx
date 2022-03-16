@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '../atoms/Button';
+import Button from './Button';
 
 const SearchBar = ({ item, newItemPath }) => (
   <div className='search-bar'>
