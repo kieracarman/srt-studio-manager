@@ -28,12 +28,12 @@ const AssetList = (props) => {
       <table>
         <thead className='list-header'>
           <tr>
-            <th><a href='#'>Tag #<ChevronDown /></a></th>
-            <th><a href='#'>Description<ChevronDown /></a></th>
-            <th><a href='#'>Make<ChevronDown /></a></th>
-            <th><a href='#'>Model<ChevronDown /></a></th>
-            <th><a href='#'>Location<ChevronDown /></a></th>
-            <th><a href='#'>Status<ChevronDown /></a></th>
+            <th><div>Tag #<ChevronDown /></div></th>
+            <th><div>Description<ChevronDown /></div></th>
+            <th><div>Make<ChevronDown /></div></th>
+            <th><div>Model<ChevronDown /></div></th>
+            <th><div>Location<ChevronDown /></div></th>
+            <th><div>Status<ChevronDown /></div></th>
           </tr>
         </thead>
         <tbody className='asset-list-items'>

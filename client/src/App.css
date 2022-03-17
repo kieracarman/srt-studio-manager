@@ -310,12 +310,12 @@ p {
   border-bottom: 1px solid #aaa;
 }
 
-.list-header a {
+.list-header tr th div {
   text-decoration: none;
   color: #000;
 }
 
-.list-header a:hover {
+.list-header tr th div:hover {
   cursor: pointer;
   color: #444;
 }
@@ -380,4 +380,16 @@ p {
 .modal-body {
   margin-top: 66px;
   padding: 32px 15%;
+}
+
+/* EDIT FORM */
+
+.edit-form {
+  max-width: 900px;
+}
+
+.edit-form form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }

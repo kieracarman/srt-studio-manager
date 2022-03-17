@@ -9,7 +9,6 @@ import EditAsset from '../components/Assets/EditAsset';
 
 const Assets = (props) => {
   const [assets, setAssets] = useState([]);
-  const [updateAsset, setUpdateAsset] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -26,23 +25,17 @@ const Assets = (props) => {
       });
   }, []);
 
-  const handleEdit = (id) => {
+  const pullAsset = (id) => {
     if (id === 'new') {
-      const newAsset = {
+      return {
         description: ''
       };
-      setUpdateAsset(newAsset);
     } else {
-        const holderObject = assets.find(obj => { return obj._id === id; });
-        setUpdateAsset(holderObject);
+        return assets.find(obj => { return obj._id === id; });
     };
   };
 
-  const handleChange = (asset) => {
-    setUpdateAsset(asset);
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = (updateAsset) => {
     // Start loading
     setIsLoading(true);
 
@@ -73,9 +66,6 @@ const Assets = (props) => {
     // Update list in state
     setAssets(holderArray);
 
-    // Reset updateAsset object
-    setUpdateAsset({});
-
     // Done loading
     setIsLoading(false);
     
@@ -96,10 +86,8 @@ const Assets = (props) => {
             return (
               <Modal onClose='/assets'>
                 <EditAsset
-                  asset={updateAsset}
                   id={match.params.id}
-                  onEdit={handleEdit}
-                  onChange={handleChange}
+                  asset={() => pullAsset(match.params.id)}
                   onSubmit={handleSubmit}
                   isLoading={isLoading}
                 />

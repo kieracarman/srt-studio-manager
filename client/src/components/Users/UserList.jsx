@@ -40,9 +40,9 @@ const UserList = (props) => {
       <table>
         <thead className='list-header'>
           <tr>
-            <th><a href='#'>Username<ChevronDown /></a></th>
-            <th><a href='#'>Role<ChevronDown /></a></th>
-            <th><a href='#'>Access Level<ChevronDown /></a></th>
+            <th><div>Username<ChevronDown /></div></th>
+            <th><div>Role<ChevronDown /></div></th>
+            <th><div>Access Level<ChevronDown /></div></th>
           </tr>
         </thead>
         <tbody>
