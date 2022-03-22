@@ -25,6 +25,14 @@ p {
   font-weight: bold;
 }
 
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
 /* CONTROLS AND BUTTONS */
 
 .btn {
@@ -33,7 +41,7 @@ p {
   font-weight: bold;
   background-color: #000;
   border-radius: 4px;
-  border: none;
+  border: 1px solid black;
   margin-left: 8px;
   display: inline-block;
   text-decoration: none;
@@ -59,6 +67,23 @@ p {
 .btn-outline:hover {
   border: 1px solid #555;
   color: #000;
+  cursor: pointer;
+}
+
+.btn-alert {
+  padding: 8px 16px;
+  color: lightcoral;
+  font-weight: bold;
+  background-color: #fff;
+  border: 1px solid lightcoral;
+  border-radius: 4px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.btn-alert:hover {
+  border: 1px solid red;
+  color: red;
   cursor: pointer;
 }
 
@@ -422,8 +447,4 @@ p {
   padding: 12px 16px;
   flex: 1;
   border: none;
-}
-
-.edit-form button {
-  width: 100px;
 }

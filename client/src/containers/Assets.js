@@ -29,6 +29,7 @@ const Assets = (props) => {
   const pullAsset = (id) => {
     if (id === 'new') {
       return {
+        _id: 'new',
         description: ''
       };
     } else {
@@ -41,11 +42,12 @@ const Assets = (props) => {
     setIsLoading(true);
 
     let holderArray = assets.slice();
-    const data = updateAsset;
+    let data = updateAsset;
     
     if (!data._id) {
       axios.post('/api/assets', data)
         .then(res => {
+          data['_id'] = res.data.id;
           return console.log(res.data.message);
         })
         .catch(err => {
@@ -74,6 +76,34 @@ const Assets = (props) => {
     props.history.push('/assets');
   };
 
+  const handleDelete = (id) => {
+    setIsLoading(true);
+
+    let holderArray = assets.slice();
+    const index = assets.findIndex(obj => { return obj._id === id });
+
+    axios.delete('/api/assets/' + id)
+    .then(res => {
+      return console.log(res.data.message);
+    })
+    .catch(err => {
+      return console.log(err);
+    });
+
+    if (index > -1) {
+      holderArray.splice(index, 1)
+    }
+
+    // Set assets array to updated array
+    setAssets(holderArray);
+
+    // Set loading to false
+    setIsLoading(false);
+
+    // Redirect back to list page
+    props.history.push('/assets');
+  }
+
   const filterAssets = (list, query) => {
     if (!query) {
       return list;
@@ -85,8 +115,6 @@ const Assets = (props) => {
     })
   }
 
-  const filteredAssets = filterAssets(assets, searchQuery);
-
   return (
     <div className='view'>
       <h1>Assets</h1>
@@ -96,7 +124,7 @@ const Assets = (props) => {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-      <AssetList assetList={filteredAssets} />
+      <AssetList assetList={filterAssets(assets, searchQuery)} />
 
       <Switch>
         <Route 
@@ -108,6 +136,7 @@ const Assets = (props) => {
                   id={match.params.id}
                   asset={() => pullAsset(match.params.id)}
                   onSubmit={handleSubmit}
+                  onDelete={handleDelete}
                   isLoading={isLoading}
                 />
               </Modal>

@@ -9,7 +9,18 @@ const EditAsset = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.onSubmit(updateAsset);
+    if (updateAsset._id === 'new') {
+      const newAsset = updateAsset;
+      delete newAsset._id;
+      return props.onSubmit(newAsset);
+    }
+    console.log(updateAsset);
+    return props.onSubmit(updateAsset);
+  }
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    props.onDelete(updateAsset._id);
   }
 
   return (
@@ -49,7 +60,10 @@ const EditAsset = (props) => {
                 <option value='staff'>staff</option>
               </select></div>
             </div>
-            <button type='submit' className='btn'>Save</button>
+            <div className='form-field'>
+              {updateAsset._id !== 'new' ? <button onClick={handleDelete} className='btn-alert left'>Delete Asset</button> : <span></span>}
+              <button type='submit' className='btn right'>Save</button>  
+            </div>
           </form>
 
         </div>)
