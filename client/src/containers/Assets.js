@@ -10,6 +10,7 @@ import EditAsset from '../components/Assets/EditAsset';
 const Assets = (props) => {
   const [assets, setAssets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     axios.get('/api/assets')
@@ -73,11 +74,29 @@ const Assets = (props) => {
     props.history.push('/assets');
   };
 
+  const filterAssets = (list, query) => {
+    if (!query) {
+      return list;
+    }
+
+    return list.filter((asset) => {
+      const assetDesc = asset.description.toLowerCase();
+      return assetDesc.includes(query);
+    })
+  }
+
+  const filteredAssets = filterAssets(assets, searchQuery);
+
   return (
     <div className='view'>
       <h1>Assets</h1>
-      <SearchBar item='Asset' newItemPath='/assets/new' />
-      <AssetList assetList={assets} />
+      <SearchBar
+        item='Asset'
+        newItemPath='/assets/new'
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
+      <AssetList assetList={filteredAssets} />
 
       <Switch>
         <Route 

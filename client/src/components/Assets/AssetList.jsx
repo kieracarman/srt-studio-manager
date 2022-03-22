@@ -5,9 +5,7 @@ import AssetListItem from './AssetListItem';
 
 const AssetList = (props) => {
   const listAssets = () => {
-    const assets = props.assetList;
-
-    return assets.map((asset) => {
+    return props.assetList.map((asset) => {
       return(
         <AssetListItem
           key={asset._id}
