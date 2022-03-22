@@ -1,12 +1,81 @@
 Essentially a library where users can check out gear
 
 User university SSO???
+* need Active Directory or LDAP server info to use that as our PassportJS strategy
 
-Current:
 Users
+  date created
+  username
+  password
+  firstName
+  lastName
+  role
+    basic
+    supervisor
+    admin
+  access level
+    sophomore
+    junior
+    senior
+    faculty
+
 Assets
+  date created
+  make
+  model
+  serial #
+  tag #
+  type
+  date in service
+  date out service
+  type of acquisition
+  minimum access level
+  location
+  status
+    in
+    out
+    lost
+  maintenanceStatus
+    active
+    inactive
+    pending evaluation
+  maintenance history
+    date created
+    user
+    notes    
+
 Bookings
+  date created
+  approved date
+  booking date
+  user
+  room
+  assets
+    asset 1
+    asset 2
+    asset 3
+  contacts
+    name
+    id
+  modifications
+    date modified
+    user
+    notes
+
 Tickets
+  date created
+  user
+  notes
+  asset (if applicable)
+  status
+    pending
+    in progress
+    complete
+  role
+  comments
+    date
+    user
+    comment
 
 Future:
 Student assignments?

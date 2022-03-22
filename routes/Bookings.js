@@ -9,7 +9,7 @@ const Bookings = require('../controllers/Bookings');
 
 router.get('/', auth, Bookings.getAll);
 router.get('/:id', auth, Bookings.getOne);
-router.patch('/:id', auth, Bookings.updateOne);
+router.put('/:id', auth, Bookings.updateOne);
 router.post('/', auth, Bookings.create);
 router.delete('/:id', auth, Bookings.delete);
 
