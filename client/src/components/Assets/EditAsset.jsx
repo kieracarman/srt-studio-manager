@@ -14,7 +14,6 @@ const EditAsset = (props) => {
       delete newAsset._id;
       return props.onSubmit(newAsset);
     }
-    console.log(updateAsset);
     return props.onSubmit(updateAsset);
   }
 
@@ -61,7 +60,7 @@ const EditAsset = (props) => {
               </select></div>
             </div>
             <div className='form-field'>
-              {updateAsset._id !== 'new' ? <button onClick={handleDelete} className='btn-alert left'>Delete Asset</button> : <span></span>}
+              {updateAsset._id !== 'new' ? <button type='button' onClick={handleDelete} className='btn-alert left'>Delete Asset</button> : <span></span>}
               <button type='submit' className='btn right'>Save</button>  
             </div>
           </form>
