@@ -1,13 +1,15 @@
-const { Router } = require('express');
-const passport = require('passport');
+import { Router } from 'express';
+import passport from 'passport';
+
+import {
+  login,
+  getAllUsers
+} from '../controllers/Users.js';
 
 const router = Router();
-
 const auth = passport.authenticate('jwt', { session: false });
 
-const Users = require('../controllers/Users');
+router.post('/login', login);
+router.get('/', auth, getAllUsers);
 
-router.post('/login', Users.login);
-router.get('/', auth, Users.getAll);
-
-module.exports = router;
+export default router;
