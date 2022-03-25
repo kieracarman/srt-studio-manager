@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+/*import React, { useState, useEffect } from 'react';
+import { Routes, Route, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import Modal from './Modal';
@@ -126,7 +126,7 @@ const Assets = (props) => {
       />
       <AssetList assetList={filterAssets(assets, searchQuery)} />
 
-      <Switch>
+      <Routes>
         <Route 
           path='/assets/:id'
           children={({match}) => {
@@ -152,9 +152,9 @@ const Assets = (props) => {
             </Modal>
           )}
         />
-      </Switch>
+      </Routes>
     </div>
   );
 };
 
-export default withRouter(Assets);
+export default withRouter(Assets);*/
