@@ -1,32 +1,32 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import jwt_decode from 'jwt-decode';
 
 import store from './store';
+import { LOGIN, LOGOUT } from './constants/actionTypes';
 import './App.css';
 
-import { Dashboard, Login } from './containers';
-import { PrivateRoute, Topbar, Navbar } from './components';
+import { Dashboard, Login, Assets, Users, Modal } from './containers';
+import { Layout, PrivateRoute } from './components';
+import EditAsset from './components/Assets/EditAsset';
 
-/*
-// Check for token to keep user logged in
 if (localStorage.jwtToken) {
-  // Decode token and get user info and exp
+  // Decode token to get user and exp
   const decoded = jwt_decode(localStorage.jwtToken);
 
-  // Set user and isAuthenticated
-  store.dispatch(setCurrentUser(decoded));
+  // Authenticate with token
+  store.dispatch({ type: LOGIN, user: decoded });
 
   // Check for expired token
-  const currentTime = Date.now() / 1000; // to get in milliseconds
+  const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
-    // Logout user
-    store.dispatch(logoutUser());
+    store.dispatch({ type: LOGOUT });
 
-    // redirect to login
+    // Redirect to login page
     window.location.href = '/login';
   }
-}*/
+}
 
 const App = () => {
   return (
@@ -34,16 +34,17 @@ const App = () => {
       <BrowserRouter>
         <div className='App'>
           <Routes>
-            <Route path='/login' element={<Login />} />
-            {/*<PrivateRoute path='/' element={<Topbar />} />
-            <div className='middle'>
-              <PrivateRoute path='/*' element={<Navbar />} />
-              <div className='content'>
-                <PrivateRoute path='/' element={<Dashboard />} />
-                <PrivateRoute path='assets/*' element={<Assets />} />
-                <PrivateRoute path='users/*' element={<Users />} />
-              </div>
-            </div>*/}
+            <Route path='/login' element={localStorage.jwtToken ? <Navigate to='/' replace /> : <Login />} />
+            <Route path='/' element={<PrivateRoute />}>
+              <Route path='/' element={<Layout />}>
+                <Route path='/' element={<Dashboard />} />
+                <Route path='assets/*' element={<Assets />}>
+                  <Route path=':id' element={<Modal children={<EditAsset />} onClose='/assets'/>} />
+                  <Route path='new' element={<Modal children={<EditAsset />} onClose='/assets'/>} />
+                </Route>
+                <Route path='users/*' element={<Users />} />
+              </Route>
+            </Route>
           </Routes>
         </div>
       </BrowserRouter>

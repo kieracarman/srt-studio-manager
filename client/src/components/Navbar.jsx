@@ -25,7 +25,7 @@ const Navbar = (props) => {
       <ul className='navbar-list'>
         {items.map((item) => (
           <li className='navbar-item' key={item.name}>
-            <NavLink exact to={`/${item.path}`} className='navbar-link' activeClassName='navbar-link-active'>
+            <NavLink end to={`/${item.path}`} className={({ isActive }) => 'navbar-link' + (isActive ? ' navbar-link-active' : '')}>
               {item.icon}
               <div className='navbar-link-text'>{item.name}</div>
             </NavLink>

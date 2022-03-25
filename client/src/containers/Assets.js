@@ -1,11 +1,8 @@
-/*import React, { useState, useEffect } from 'react';
-import { Routes, Route, withRouter } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import Modal from './Modal';
 import SearchBar from '../components/SearchBar';
 import AssetList from '../components/Assets/AssetList';
-import EditAsset from '../components/Assets/EditAsset';
 
 const Assets = (props) => {
   const [assets, setAssets] = useState([]);
@@ -125,36 +122,8 @@ const Assets = (props) => {
         setSearchQuery={setSearchQuery}
       />
       <AssetList assetList={filterAssets(assets, searchQuery)} />
-
-      <Routes>
-        <Route 
-          path='/assets/:id'
-          children={({match}) => {
-            return (
-              <Modal onClose='/assets'>
-                <EditAsset
-                  id={match.params.id}
-                  asset={() => pullAsset(match.params.id)}
-                  onSubmit={handleSubmit}
-                  onDelete={handleDelete}
-                  isLoading={isLoading}
-                />
-              </Modal>
-            )
-          }}
-        />
-
-        <Route 
-          path='/assets/new'
-          children={() => (
-            <Modal onClose='/assets'>
-              <EditAsset />
-            </Modal>
-          )}
-        />
-      </Routes>
     </div>
   );
 };
 
-export default withRouter(Assets);*/
+export default Assets;

@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 axios.interceptors.request.use((req) => {
-  if (localStorage.getItem('profile')) {
-    req.headers.Authorization = localStorage.getItem('jwtToken');
+  if (localStorage.jwtToken) {
+    req.headers.Authorization = localStorage.jwtToken;
   }
 
   return req;

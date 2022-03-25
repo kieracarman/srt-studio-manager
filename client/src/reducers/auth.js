@@ -1,5 +1,4 @@
 import isEmpty from 'is-empty';
-import jwt_decode from 'jwt-decode';
 
 import * as actionType from '../constants/actionTypes';
 
@@ -12,15 +11,10 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionType.LOGIN:
-      localStorage.setItem('jwtToken', action.token);
-
-      // Decode token to get user data
-      const decoded = jwt_decode(action.token);
-
       return {
         ...state,
-        isAuthenticated: !isEmpty(action.token),
-        user: decoded,
+        isAuthenticated: !isEmpty(action.user),
+        user: action.user,
         loading: false
       };
     case actionType.LOGOUT:

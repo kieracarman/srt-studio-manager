@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const EditAsset = (props) => {
-  const [updateAsset, setUpdateAsset] = useState(props.asset);
+  let { id } = useParams();
+
+  const [updateAsset, setUpdateAsset] = useState(props.asset(id));
 
   const handleChange = (e) => {
     setUpdateAsset({...updateAsset, [e.target.id]: e.target.value});
