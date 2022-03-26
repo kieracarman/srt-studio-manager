@@ -1,10 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Activity, List, Users, LogOut } from 'react-feather';
-import PropTypes from 'prop-types';
 
-import { logoutUser } from '../actions/authActions';
+import * as actionType from '../constants/actionTypes';
 
 const items = [
   { path: '', name: 'Dashboard', icon: <Activity className='navbar-link-icon' /> },
@@ -13,9 +12,12 @@ const items = [
 ]
 
 const Navbar = (props) => {
-  const onLogoutClick = (e) => {
+  const dispatch = useDispatch();
+
+  const logout = (e) => {
     e.preventDefault();
-    props.logoutUser();
+    
+    dispatch({ type: actionType.LOGOUT });
   };
 
   return (
@@ -23,7 +25,7 @@ const Navbar = (props) => {
       <ul className='navbar-list'>
         {items.map((item) => (
           <li className='navbar-item' key={item.name}>
-            <NavLink exact to={`/${item.path}`} className='navbar-link' activeClassName='navbar-link-active'>
+            <NavLink end to={`/${item.path}`} className={({ isActive }) => 'navbar-link' + (isActive ? ' navbar-link-active' : '')}>
               {item.icon}
               <div className='navbar-link-text'>{item.name}</div>
             </NavLink>
@@ -33,7 +35,7 @@ const Navbar = (props) => {
 
       <ul className='navbar-footer'>
         <li className='navbar-item'>
-          <NavLink to='/logout' className='navbar-link' onClick={onLogoutClick}>
+          <NavLink to='/logout' className='navbar-link' onClick={logout}>
             <LogOut className='navbar-link-icon'/>
             <div className='navbar-link-text'>Logout</div>
           </NavLink>
@@ -43,14 +45,4 @@ const Navbar = (props) => {
   );
 };
 
-Navbar.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({ auth: state.auth });
-
-export default connect(
-  mapStateToProps,
-  { logoutUser }
-)(Navbar);
+export default Navbar;

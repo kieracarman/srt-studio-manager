@@ -1,35 +1,29 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import jwt_decode from 'jwt-decode';
 
 import store from './store';
-import setAuthToken from './utils/setAuthToken';
-import { setCurrentUser, logoutUser } from './actions/authActions';
+import { LOGIN, LOGOUT } from './constants/actionTypes';
 import './App.css';
 
-import { Dashboard, Assets, Users, Login } from './containers';
-import { PrivateRoute, Topbar, Navbar } from './components';
+import { Dashboard, Login, Assets, Users, Modal } from './containers';
+import { Layout, PrivateRoute } from './components';
+import EditAsset from './components/Assets/EditAsset';
 
-// Check for token to keep user logged in
 if (localStorage.jwtToken) {
-  // Set auth token header auth
-  const token = localStorage.jwtToken;
-  setAuthToken(token);
+  // Decode token to get user and exp
+  const decoded = jwt_decode(localStorage.jwtToken);
 
-  // Decode token and get user info and exp
-  const decoded = jwt_decode(token);
-
-  // Set user and isAuthenticated
-  store.dispatch(setCurrentUser(decoded));
+  // Authenticate with token
+  store.dispatch({ type: LOGIN, user: decoded });
 
   // Check for expired token
-  const currentTime = Date.now() / 1000; // to get in milliseconds
+  const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
-    // Logout user
-    store.dispatch(logoutUser());
+    store.dispatch({ type: LOGOUT });
 
-    // redirect to login
+    // Redirect to login page
     window.location.href = '/login';
   }
 }
@@ -37,20 +31,22 @@ if (localStorage.jwtToken) {
 const App = () => {
   return (
     <Provider store={store}>
-      <Router>
+      <BrowserRouter>
         <div className='App'>
-          <Route path='/login' component={Login} />
-          <PrivateRoute path='/' component={Topbar} />
-          <div className='middle'>
-            <PrivateRoute path='/' component={Navbar} />
-            <div className='content'>
-              <PrivateRoute path='/' exact component={Dashboard} />
-              <PrivateRoute path='/assets' component={Assets} />
-              <PrivateRoute path='/users' component={Users} />
-            </div>
-          </div>
+          <Routes>
+            <Route path='login' element={localStorage.jwtToken ? <Navigate to='/' replace /> : <Login />} />
+            <Route path='/' element={<PrivateRoute />}>
+              <Route path='/' element={<Layout />}>
+                <Route path='/' element={<Dashboard />} />
+                <Route path='assets/:id' element={<Modal onClose='/assets'><EditAsset /></Modal>} />
+                <Route path='assets' element={<Assets />}>
+                </Route>
+                <Route path='users' element={<Users />} />
+              </Route>
+            </Route>
+          </Routes>
         </div>
-      </Router>
+      </BrowserRouter>
     </Provider>
   );
 };

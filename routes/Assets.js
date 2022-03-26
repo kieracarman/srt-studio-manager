@@ -1,16 +1,21 @@
-const { Router } = require('express');
-const passport = require('passport');
+import { Router } from 'express';
+import passport from 'passport';
+
+import {
+  getAllAssets,
+  createAsset,
+  getOneAsset,
+  updateAsset,
+  deleteAsset
+} from '../controllers/Assets.js';
 
 const router = Router();
-
 const auth = passport.authenticate('jwt', { session: false });
 
-const Assets = require('../controllers/Assets');
+router.get('/', auth, getAllAssets);
+router.post('/', auth, createAsset);
+router.get('/:id', auth, getOneAsset);
+router.put('/:id', auth, updateAsset);
+router.delete('/:id', auth, deleteAsset);
 
-router.get('/', auth, Assets.getAll);
-router.get('/:id', auth, Assets.getOne);
-router.put('/:id', auth, Assets.updateOne);
-router.post('/', auth, Assets.create);
-router.delete('/:id', auth, Assets.delete);
-
-module.exports = router;
+export default router;

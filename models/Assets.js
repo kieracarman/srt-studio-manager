@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const assetsSchema = mongoose.Schema({
   createdAt: {
@@ -74,4 +74,6 @@ const assetsSchema = mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.model('assets', assetsSchema);
+const Assets = mongoose.model('assets', assetsSchema);
+
+export default Assets;
