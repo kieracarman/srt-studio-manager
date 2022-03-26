@@ -34,15 +34,14 @@ const App = () => {
       <BrowserRouter>
         <div className='App'>
           <Routes>
-            <Route path='/login' element={localStorage.jwtToken ? <Navigate to='/' replace /> : <Login />} />
+            <Route path='login' element={localStorage.jwtToken ? <Navigate to='/' replace /> : <Login />} />
             <Route path='/' element={<PrivateRoute />}>
               <Route path='/' element={<Layout />}>
                 <Route path='/' element={<Dashboard />} />
-                <Route path='assets/*' element={<Assets />}>
-                  <Route path=':id' element={<Modal children={<EditAsset />} onClose='/assets'/>} />
-                  <Route path='new' element={<Modal children={<EditAsset />} onClose='/assets'/>} />
+                <Route path='assets/:id' element={<Modal onClose='/assets'><EditAsset /></Modal>} />
+                <Route path='assets' element={<Assets />}>
                 </Route>
-                <Route path='users/*' element={<Users />} />
+                <Route path='users' element={<Users />} />
               </Route>
             </Route>
           </Routes>

@@ -50,7 +50,7 @@ export const updateAsset = async (req, res) => {
 
   await Assets.findByIdAndUpdate(id, updatedAsset, { new: true });
 
-  res.json(updatedPost);
+  res.json(updatedAsset);
 };
 
 // Handle incoming DELETE requests to delete items
