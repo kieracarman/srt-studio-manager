@@ -3,12 +3,14 @@ import mongoose from 'mongoose';
 import cors from 'cors'
 import morgan from 'morgan';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import passport from 'passport';
 
 import 'dotenv/config';
 import userRoutes from './routes/Users.js';
 import assetRoutes from './routes/Assets.js';
 import passportConfig from './config/passport.js';
+import {fileURLToPath} from 'url';
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -33,6 +35,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 
   // Serve static files
+  const __dirname = dirname(fileURLToPath(import.meta.url));
   app.use(express.static(path.join(__dirname, 'client/build')));
   app.get(/^\/(?!api).*/, (req, res) => {
     res.sendFile('index.html', { root: path.join(__dirname, 'client/build') });
