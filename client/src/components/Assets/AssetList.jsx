@@ -1,11 +1,26 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { ChevronDown } from 'react-feather';
 
 import AssetListItem from './AssetListItem';
 
 const AssetList = (props) => {
+  const { assets, isLoading } = useSelector((state) => state.assets);
+  
+
+  const filterArray = (array) => {
+    if (!props.query) {
+      return array;
+    }
+
+    return array.filter((item) => {
+      const itemDesc = item.description.toLowerCase();
+      return itemDesc.includes(props.query);
+    })
+  }
+
   const listAssets = () => {
-    return props.assetList.map((asset) => {
+    return filterArray(assets).map((asset) => {
       return(
         <AssetListItem
           key={asset._id}
@@ -35,7 +50,7 @@ const AssetList = (props) => {
           </tr>
         </thead>
         <tbody className='asset-list-items'>
-          {listAssets()}
+          {isLoading ? <h3>Loading...</h3> : listAssets()}
         </tbody>
       </table>
     </div>

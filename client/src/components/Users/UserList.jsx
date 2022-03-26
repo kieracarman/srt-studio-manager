@@ -20,7 +20,7 @@ const UserList = (props) => {
       .catch(function (error) {
         console.log(error);
       })
-    });
+  }, []);
 
   const listUsers = () => (
     users.map((user) => {
