@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 import cors from 'cors'
 import morgan from 'morgan';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import passport from 'passport';
 
 import 'dotenv/config';
@@ -35,7 +34,8 @@ if (process.env.NODE_ENV === 'production') {
   });
 
   // Serve static files
-  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const __dirname = new URL('.', import.meta.url).pathname;
+  console.log(__dirname);
   app.use(express.static(path.join(__dirname, 'client/build')));
   app.get(/^\/(?!api).*/, (req, res) => {
     res.sendFile('index.html', { root: path.join(__dirname, 'client/build') });
