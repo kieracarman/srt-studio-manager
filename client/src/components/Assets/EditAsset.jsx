@@ -13,11 +13,13 @@ const EditAsset = (props) => {
   
   useEffect(() => {
     if (id !== 'new') dispatch(getAsset(id));
-  }, [dispatch, id]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (id !== 'new') setModifiedAsset(asset);
-  }, [id, asset])
+  }, [asset]);
   
   const handleChange = (e) => {
     setModifiedAsset({...modifiedAsset, [e.target.id]: e.target.value});
