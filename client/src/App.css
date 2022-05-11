@@ -314,7 +314,7 @@ p {
 }
 
 .list {
-  overflow: scroll;
+  overflow: auto;
   height: calc(100% - 109px);
 }
 
@@ -334,6 +334,9 @@ p {
 .list-header th {
   padding: 12px 0px;
   border-bottom: 1px solid #aaa;
+  background-color: white;
+  position: sticky;
+  top: 0;
 }
 
 .list-header tr th div {
