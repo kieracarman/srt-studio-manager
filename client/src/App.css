@@ -314,7 +314,7 @@ p {
 }
 
 .list {
-  overflow: scroll;
+  overflow: auto;
   height: calc(100% - 109px);
 }
 
@@ -334,9 +334,14 @@ p {
 .list-header th {
   padding: 12px 0px;
   border-bottom: 1px solid #aaa;
+  background-color: white;
+  position: sticky;
+  top: 0;
 }
 
 .list-header tr th div {
+  display: flex;
+  align-items: center;
   text-decoration: none;
   color: #000;
 }
@@ -347,9 +352,8 @@ p {
 }
 
 .list-header svg {
-  height: 12px;
-  width: 12px;
-  visibility: hidden;
+  height: 16px;
+  width: 16px;
 }
 
 .list-item {

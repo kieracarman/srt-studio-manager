@@ -39,8 +39,7 @@ const App = () => {
               <Route path='/' element={<Layout />}>
                 <Route path='/' element={<Dashboard />} />
                 <Route path='assets/:id' element={<Modal onClose='/assets'><EditAsset /></Modal>} />
-                <Route path='assets' element={<Assets />}>
-                </Route>
+                <Route path='assets' element={<Assets />} />
                 <Route path='users' element={<Users />} />
               </Route>
             </Route>

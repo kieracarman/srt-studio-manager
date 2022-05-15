@@ -10,6 +10,7 @@ const EditAsset = (props) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [modifiedAsset, setModifiedAsset] = useState({ description: '' });
+  const [deleteText, setDeleteText] = useState('Delete Asset');
   
   useEffect(() => {
     if (id !== 'new') dispatch(getAsset(id));
@@ -35,7 +36,8 @@ const EditAsset = (props) => {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    dispatch(deleteAsset(id, navigate));
+
+    deleteText === 'Delete Asset' ? setDeleteText('Are you sure?') : dispatch(deleteAsset(id, navigate));
   }
 
   return (
@@ -76,7 +78,7 @@ const EditAsset = (props) => {
               </select></div>
             </div>
             <div className='form-field'>
-              {id !== 'new' ? <button type='button' onClick={handleDelete} className='btn-alert left'>Delete Asset</button> : <span></span>}
+              {id !== 'new' ? <button type='button' onClick={handleDelete} className='btn-alert left'>{deleteText}</button> : <span></span>}
               <button type='submit' className='btn right'>Save</button>  
             </div>
           </form>
