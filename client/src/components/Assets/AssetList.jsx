@@ -42,14 +42,19 @@ const AssetList = (props) => {
   }
 
   const filterArray = (array) => {
-    if (!props.query) {
-      return array;
-    }
-
-    return array.filter((item) => {
-      const itemDesc = item.description.toLowerCase();
-      return itemDesc.includes(props.query);
-    })
+    return array.filter(item => {
+      return props.query !== '' ? (
+        [
+          item.description,
+          item.tagNumber,
+          item.make,
+          item.model,
+        ].join(' ')
+          .toString()
+          .toLowerCase()
+          .indexOf(props.query.toLowerCase()) > -1
+      ) : true;
+    });
   }
 
   const listAssets = () => {
