@@ -1,13 +1,15 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { Topbar, Navbar } from './';
+
+import styles from './Layout.module.css';
+import { Topbar, Navbar } from '../';
 
 const Layout = () => (
   <>
     <Topbar />
-    <div className='middle'>
+    <div className={styles.middle}>
       <Navbar />
-      <div className='content'>
+      <div className={styles.content}>
         <Outlet />
       </div>
     </div>

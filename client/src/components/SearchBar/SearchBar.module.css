@@ -1,0 +1,16 @@
+.searchBar {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.searchBarInput {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 50%;
+}
+
+.searchBarControls {
+  float: right;
+}

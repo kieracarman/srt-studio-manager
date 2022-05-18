@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getAsset, createAsset, updateAsset, deleteAsset } from '../../actions/assets';
+import styles from './EditAsset.module.css';
+import { getAsset, createAsset, updateAsset, deleteAsset } from '../../../actions/assets';
 
 const EditAsset = (props) => {
   const { asset, isLoading } = useSelector((state) => state.assets);
@@ -43,33 +44,33 @@ const EditAsset = (props) => {
   return (
     <>
       {isLoading ? <h3>Loading...</h3> : (
-        <div className='edit-form'>
+        <div className={styles.editForm}>
           <form onSubmit={handleSubmit}>
-            <div className='form-group'>
-              <div className='form-field'><label>Description</label><input onChange={handleChange} value={modifiedAsset.description} id='description' /></div>
-              <div className='form-field'><label>Tag #</label><input onChange={handleChange} value={modifiedAsset.tagNumber} id='tagNumber' /></div>
-              <div className='form-field'><label>Make</label><input onChange={handleChange} value={modifiedAsset.make} id='make' /></div>
-              <div className='form-field'><label>Model</label><input onChange={handleChange} value={modifiedAsset.model} id='model' /></div>
-              <div className='form-field'><label>Serial #</label><input onChange={handleChange} value={modifiedAsset.serialNumber} id='serialNumber' /></div>
-              <div className='form-field'><label>Location</label><input onChange={handleChange} value={modifiedAsset.location} id='location' /></div>
-              <div className='form-field'><label>Acquisition Date</label><input onChange={handleChange} value={modifiedAsset.acquisitionDate} id='acquisitionDate' /></div>
-              <div className='form-field'><label>Acquisition Amount</label><input onChange={handleChange} value={modifiedAsset.transactionAmount} id='transactionAmount' /></div>
-              <div className='form-field'><label>Status</label><select onChange={handleChange} value={modifiedAsset.status} id='status'>
+            <div className={styles.formGroup}>
+              <div><label>Description</label><input onChange={handleChange} value={modifiedAsset.description} id='description' /></div>
+              <div><label>Tag #</label><input onChange={handleChange} value={modifiedAsset.tagNumber} id='tagNumber' /></div>
+              <div><label>Make</label><input onChange={handleChange} value={modifiedAsset.make} id='make' /></div>
+              <div><label>Model</label><input onChange={handleChange} value={modifiedAsset.model} id='model' /></div>
+              <div><label>Serial #</label><input onChange={handleChange} value={modifiedAsset.serialNumber} id='serialNumber' /></div>
+              <div><label>Location</label><input onChange={handleChange} value={modifiedAsset.location} id='location' /></div>
+              <div><label>Acquisition Date</label><input onChange={handleChange} value={modifiedAsset.acquisitionDate} id='acquisitionDate' /></div>
+              <div><label>Acquisition Amount</label><input onChange={handleChange} value={modifiedAsset.transactionAmount} id='transactionAmount' /></div>
+              <div><label>Status</label><select onChange={handleChange} value={modifiedAsset.status} id='status'>
                 <option value='' disabled selected hidden>Select...</option>
                 <option value='in'>in</option>
                 <option value='out'>out</option>
               </select></div>
-              <div className='form-field'><label>Asset Type</label><select onChange={handleChange} value={modifiedAsset.assetType} id='assetType'>
+              <div><label>Asset Type</label><select onChange={handleChange} value={modifiedAsset.assetType} id='assetType'>
                 <option value='' disabled selected hidden>Select...</option>
                 <option value='hardware'>hardware</option>
                 <option value='software'>software</option>
               </select></div>
-              <div className='form-field'><label>Maintenance Status</label><select onChange={handleChange} value={modifiedAsset.maintenanceStatus} id='maintenanceStatus'>
+              <div><label>Maintenance Status</label><select onChange={handleChange} value={modifiedAsset.maintenanceStatus} id='maintenanceStatus'>
                 <option value='' disabled selected hidden>Select...</option>
                 <option value='active'>active</option>
                 <option value='inactive'>inactive</option>
               </select></div>
-              <div className='form-field'><label>Minimum Access Level</label><select onChange={handleChange} value={modifiedAsset.minimumAccessLevel} id='minimumAccessLevel'>
+              <div><label>Minimum Access Level</label><select onChange={handleChange} value={modifiedAsset.minimumAccessLevel} id='minimumAccessLevel'>
                 <option value='' disabled selected hidden>Select...</option>
                 <option value='sophomore'>sophomore</option>
                 <option value='junior'>junior</option>
@@ -77,9 +78,9 @@ const EditAsset = (props) => {
                 <option value='staff'>staff</option>
               </select></div>
             </div>
-            <div className='form-field'>
-              {id !== 'new' ? <button type='button' onClick={handleDelete} className='btn-alert left'>{deleteText}</button> : <span></span>}
-              <button type='submit' className='btn right'>Save</button>  
+            <div>
+              {id !== 'new' ? <button type='button' onClick={handleDelete} className='alert left'>Delete Asset</button> : <span></span>}
+              <button type='submit' className='right'>Save</button>  
             </div>
           </form>
         </div>)}
