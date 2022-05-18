@@ -1,0 +1,23 @@
+.middle {
+  margin-top: 30px;
+}
+
+.content {
+  margin-left: 72px;
+  padding: 24px;
+  height: 100%;
+}
+
+@media screen and (min-width: 1200px) {
+  
+  .middle {
+    margin-top: 61px;
+  }
+
+  .content {
+    margin-left: 240px;
+    padding: 24px 32px;
+    height: calc(100vh - 109px);
+  }
+
+}

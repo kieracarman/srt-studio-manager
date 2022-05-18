@@ -1,0 +1,41 @@
+.list {
+  overflow: auto;
+  height: calc(100% - 109px);
+}
+
+.list table {
+  border-spacing: 0;
+  width: 100%;
+}
+
+.listHeader {
+  text-align: left;
+}
+
+.listHeader tr {
+  padding: 0px 16px;
+}
+
+.listHeader th {
+  padding: 12px 0px;
+  border-bottom: 1px solid #aaa;
+  background-color: white;
+  position: sticky;
+  top: 0;
+}
+
+.listHeader tr th div {
+  text-decoration: none;
+  color: #000;
+}
+
+.listHeader tr th div:hover {
+  cursor: pointer;
+  color: #444;
+}
+
+.listHeader svg {
+  height: 12px;
+  width: 12px;
+  visibility: hidden;
+}

@@ -1,0 +1,27 @@
+.topbar {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #FFF;
+}
+
+.navbarBrand {
+  padding: 8px;
+  font-size: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.navbarBrand a {
+  color: #000;
+  text-decoration: none;
+}
+
+@media screen and (min-width: 1200px) {
+  
+  .navbarBrand {
+    padding: 16px 24px;
+    font-size: 1.5rem;
+  }
+}

@@ -9,7 +9,7 @@ import './App.css';
 
 import { Dashboard, Login, Assets, Users, Modal } from './containers';
 import { Layout, PrivateRoute } from './components';
-import EditAsset from './components/Assets/EditAsset';
+import { EditAsset } from './components/Assets';
 
 if (localStorage.jwtToken) {
   // Decode token to get user and exp

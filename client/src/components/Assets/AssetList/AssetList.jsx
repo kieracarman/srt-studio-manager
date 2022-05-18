@@ -2,7 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { ChevronDown, ChevronUp } from 'react-feather';
 
-import AssetListItem from './AssetListItem';
+import styles from './AssetList.module.css';
+import { AssetListItem } from '../';
 
 const AssetList = (props) => {
   const { assets, isLoading } = useSelector((state) => state.assets);
@@ -75,9 +76,9 @@ const AssetList = (props) => {
   }
 
   return (
-    <div className='list'>
+    <div className={styles.list}>
       <table>
-        <thead className='list-header'>
+        <thead className={styles.listHeader}>
           <tr>
             <th onClick={() => requestSort('tagNumber')}><div>Tag #{sortArrow('tagNumber')}</div></th>
             <th onClick={() => requestSort('description')}><div>Description{sortArrow('description')}</div></th>
@@ -87,7 +88,7 @@ const AssetList = (props) => {
             <th onClick={() => requestSort('status')}><div>Status{sortArrow('status')}</div></th>
           </tr>
         </thead>
-        <tbody className='asset-list-items'>
+        <tbody>
           {isLoading ? <h3>Loading...</h3> : listAssets()}
         </tbody>
       </table>
