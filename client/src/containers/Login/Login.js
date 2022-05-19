@@ -37,35 +37,33 @@ const Login = () => {
 
   return (
     <div className={styles.loginBg}>
-      <div className={styles.loginBox}>
-        <section>
-          <span ref={errRef} aria-live='assertive'>{error}</span>
-          <h2>SRT Studio Manager</h2>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor='username' aria-label='username'></label>
-            <input
-              type='text'
-              id='username'
-              ref={userRef}
-              autoComplete='off'
-              onChange={(e) => setUser(e.target.value)}
-              value={user}
-              placeholder='Username'
-              required
-            />
-            <label htmlFor='password' aria-label='password'></label>
-            <input
-              type='password'
-              id='password'
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              placeholder='Password'
-              required
-            />
-            <button>Sign In</button>
-          </form>
-        </section>
-      </div>
+      <section className={styles.loginBox}>
+        <span ref={errRef} aria-live='assertive'>{error}</span>
+        <h2>SRT Studio Manager</h2>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor='username' aria-label='username'></label>
+          <input
+            type='text'
+            id='username'
+            ref={userRef}
+            autoComplete='off'
+            onChange={(e) => setUser(e.target.value)}
+            value={user}
+            placeholder='Username'
+            required
+          />
+          <label htmlFor='password' aria-label='password'></label>
+          <input
+            type='password'
+            id='password'
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            placeholder='Password'
+            required
+          />
+          <button>Sign In</button>
+        </form>
+      </section>
     </div>
   );
 };

@@ -1,22 +1,19 @@
 .loginBg {
-  text-align: center;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
-  display: flex;
+  display: grid;
+  place-items: center;
 }
 
 .loginBox {
   padding: 24px;
   border: 1px solid #000;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
-.formGroup {
+.loginBox input {
   margin-bottom: 1rem;
-}
-
-.formControl {
   display: block;
   padding: .375rem .75rem;
   font-size: 24px;
@@ -24,20 +21,13 @@
   border-radius: 10px;
 }
 
-.formError {
-  text-align: left;
-  color: #f00;
-  margin: 8px 8px;
-}
-
-.loginButton {
-  border: none;
+.loginBox button {
   padding: 8px 24px;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
   background-color: #000;
   color: #fff;
-  border-radius: 10px;
-  display: inline-block;
-  font-size: 20px;
   float: right;
   cursor: pointer;
 }
