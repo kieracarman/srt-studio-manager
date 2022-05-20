@@ -1,8 +1,14 @@
-.navbarBrand {
-  padding: 8px;
-  font-size: 0.75rem;
-  text-align: left;
+.topbar {
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   border-bottom: 1px solid #ddd;
+}
+
+.navbarBrand {
+  padding: 0 8px;
+  font-size: 0.75rem;
 }
 
 .navbarBrand a {
@@ -13,7 +19,7 @@
 @media screen and (min-width: 1200px) {
   
   .navbarBrand {
-    padding: 16px 24px;
+    padding: 0 24px;
     font-size: 1.5rem;
   }
 }
