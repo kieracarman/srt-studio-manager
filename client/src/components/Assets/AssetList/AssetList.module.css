@@ -1,6 +1,6 @@
 .list {
   overflow: auto;
-  height: calc(100% - 109px);
+  height: calc(100% - 120px);
 }
 
 .list table {
@@ -37,5 +37,4 @@
 .listHeader svg {
   height: 12px;
   width: 12px;
-  visibility: hidden;
 }
