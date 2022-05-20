@@ -5,15 +5,11 @@ import styles from './Layout.module.css';
 import { Topbar, Navbar } from '../';
 
 const Layout = () => (
-  <>
-    <Topbar />
-    <div className={styles.middle}>
-      <Navbar />
-      <div className={styles.content}>
-        <Outlet />
-      </div>
-    </div>
-  </>
+  <div className={styles.container}>
+    <header className={styles.topbar}><Topbar /></header>
+    <nav className={styles.navbar}><Navbar /></nav>
+    <main className={styles.content}><Outlet /></main>
+  </div>
 );
 
 export default Layout;
