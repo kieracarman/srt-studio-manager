@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronDown } from 'react-feather';
 import axios from 'axios';
 
+import styles from './UserList.module.css';
 import UserListItem from './UserListItem';
 
 const UserList = (props) => {
@@ -36,9 +37,9 @@ const UserList = (props) => {
   );
 
   return (
-    <div className='list'>
+    <div className={styles.list}>
       <table>
-        <thead className='list-header'>
+        <thead className={styles.listHeader}>
           <tr>
             <th><div>Username<ChevronDown /></div></th>
             <th><div>Role<ChevronDown /></div></th>
