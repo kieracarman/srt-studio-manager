@@ -7,25 +7,20 @@
   height: 100%;
   background: #fff;
   overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
 
-.modalHeader {
-  position: fixed;
+.modal header {
+  position: sticky;
   overflow: hidden;
   top: 0;
-  width: calc(100% - 32px);
-  padding: 16px;
+  padding: 8px;
+  display: grid;
+  justify-content: right;
   border-bottom: 1px solid #ddd;
 }
 
-.modalHeaderNav {
-  display: inline-block;
-  float: right;
-}
-
-.modalBody {
-  margin-top: 66px;
-  padding: 32px 15%;
-  height: 80vh;
-  overflow-y: auto;
+.modal > section {
+  overflow: auto;
 }

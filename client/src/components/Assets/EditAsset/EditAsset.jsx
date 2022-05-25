@@ -42,49 +42,45 @@ const EditAsset = (props) => {
   }
 
   return (
-    <>
+    <div className={styles.editForm}>
       {isLoading ? <h3>Loading...</h3> : (
-        <div className={styles.editForm}>
-          <form onSubmit={handleSubmit}>
-            <div className={styles.formGroup}>
-              <div><label>Description</label><input onChange={handleChange} value={modifiedAsset.description} id='description' /></div>
-              <div><label>Tag #</label><input onChange={handleChange} value={modifiedAsset.tagNumber} id='tagNumber' /></div>
-              <div><label>Make</label><input onChange={handleChange} value={modifiedAsset.make} id='make' /></div>
-              <div><label>Model</label><input onChange={handleChange} value={modifiedAsset.model} id='model' /></div>
-              <div><label>Serial #</label><input onChange={handleChange} value={modifiedAsset.serialNumber} id='serialNumber' /></div>
-              <div><label>Location</label><input onChange={handleChange} value={modifiedAsset.location} id='location' /></div>
-              <div><label>Acquisition Date</label><input onChange={handleChange} value={modifiedAsset.acquisitionDate} id='acquisitionDate' /></div>
-              <div><label>Acquisition Amount</label><input onChange={handleChange} value={modifiedAsset.transactionAmount} id='transactionAmount' /></div>
-              <div><label>Status</label><select onChange={handleChange} value={modifiedAsset.status} id='status'>
-                <option value='' disabled selected hidden>Select...</option>
-                <option value='in'>in</option>
-                <option value='out'>out</option>
-              </select></div>
-              <div><label>Asset Type</label><select onChange={handleChange} value={modifiedAsset.assetType} id='assetType'>
-                <option value='' disabled selected hidden>Select...</option>
-                <option value='hardware'>hardware</option>
-                <option value='software'>software</option>
-              </select></div>
-              <div><label>Maintenance Status</label><select onChange={handleChange} value={modifiedAsset.maintenanceStatus} id='maintenanceStatus'>
-                <option value='' disabled selected hidden>Select...</option>
-                <option value='active'>active</option>
-                <option value='inactive'>inactive</option>
-              </select></div>
-              <div><label>Minimum Access Level</label><select onChange={handleChange} value={modifiedAsset.minimumAccessLevel} id='minimumAccessLevel'>
-                <option value='' disabled selected hidden>Select...</option>
-                <option value='sophomore'>sophomore</option>
-                <option value='junior'>junior</option>
-                <option value='senior'>senior</option>
-                <option value='staff'>staff</option>
-              </select></div>
-            </div>
-            <div>
-              {id !== 'new' ? <button type='button' onClick={handleDelete} className='alert left'>Delete Asset</button> : <span></span>}
-              <button type='submit' className='right'>Save</button>  
-            </div>
-          </form>
-        </div>)}
-    </>
+        <form onSubmit={handleSubmit}>
+          <label>Description</label><input onChange={handleChange} value={modifiedAsset.description} id='description' />
+          <label>Tag #</label><input onChange={handleChange} value={modifiedAsset.tagNumber} id='tagNumber' />
+          <label>Make</label><input onChange={handleChange} value={modifiedAsset.make} id='make' />
+          <label>Model</label><input onChange={handleChange} value={modifiedAsset.model} id='model' />
+          <label>Serial #</label><input onChange={handleChange} value={modifiedAsset.serialNumber} id='serialNumber' />
+          <label>Location</label><input onChange={handleChange} value={modifiedAsset.location} id='location' />
+          <label>Acquisition Date</label><input onChange={handleChange} value={modifiedAsset.acquisitionDate} id='acquisitionDate' />
+          <label>Acquisition Amount</label><input onChange={handleChange} value={modifiedAsset.transactionAmount} id='transactionAmount' />
+          <label>Status</label><select onChange={handleChange} value={modifiedAsset.status} id='status'>
+            <option value='' disabled selected hidden>Select...</option>
+            <option value='in'>in</option>
+            <option value='out'>out</option>
+          </select>
+          <label>Asset Type</label><select onChange={handleChange} value={modifiedAsset.assetType} id='assetType'>
+            <option value='' disabled selected hidden>Select...</option>
+            <option value='hardware'>hardware</option>
+            <option value='software'>software</option>
+          </select>
+          <label>Maintenance Status</label><select onChange={handleChange} value={modifiedAsset.maintenanceStatus} id='maintenanceStatus'>
+            <option value='' disabled selected hidden>Select...</option>
+            <option value='active'>active</option>
+            <option value='inactive'>inactive</option>
+          </select>
+          <label>Minimum Access Level</label><select onChange={handleChange} value={modifiedAsset.minimumAccessLevel} id='minimumAccessLevel'>
+            <option value='' disabled selected hidden>Select...</option>
+            <option value='sophomore'>sophomore</option>
+            <option value='junior'>junior</option>
+            <option value='senior'>senior</option>
+            <option value='staff'>staff</option>
+          </select>
+          <div>
+            {id !== 'new' ? <button type='button' onClick={handleDelete} className='alert'>Delete Asset</button> : <span></span>}
+            <button type='submit'>Save</button>  
+          </div>
+        </form>)}
+    </div>
   );
 };
 

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { getAssets } from '../actions/assets';
-import { SearchBar } from '../components';
-import { AssetList } from '../components/Assets';
+import styles from './Assets.module.css';
+import { getAssets } from '../../actions/assets';
+import { SearchBar } from '../../components';
+import { AssetList } from '../../components/Assets';
 
 const Assets = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -16,8 +17,7 @@ const Assets = () => {
   }, []);
 
   return (
-    <>
-      <h1>Assets</h1>
+    <section className={styles.assets}>
       <SearchBar
         item='Asset'
         newItemPath='/assets/new'
@@ -25,7 +25,7 @@ const Assets = () => {
         setSearchQuery={setSearchQuery}
       />
       <AssetList query={searchQuery} />
-    </>
+    </section>
   );
 };
 

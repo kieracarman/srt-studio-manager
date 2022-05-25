@@ -1,16 +1,44 @@
 .searchBar {
-  width: 100%;
-  margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: 1fr auto;
 }
 
 .searchBarInput {
-  padding: 8px 12px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 50%;
+  padding: 8px;
+  font-size: 1.25rem;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  transition: all 0.2s ease;
 }
 
-.searchBarControls {
-  float: right;
+.searchBarInput:focus {
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.searchBar > button {
+  border-radius: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .searchBar {
+    padding: 16px;
+  }
+
+  .searchBarInput {
+    width: 50%;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .searchBarInput:focus {
+    border: 1px solid black;
+  }
+
+  .searchBar > button {
+    border-radius: 4px;
+  }
 }

@@ -7,21 +7,17 @@ const SearchBar = ({ item, newItemPath, searchQuery, setSearchQuery }) => {
   const navigate = useNavigate();
 
   return (
-    <div className={styles.searchBar}>
-      <form>
-        <input
-          className={styles.searchBarInput}
-          placeholder='Search'
-          value={searchQuery}
-          onInput={e => setSearchQuery(e.target.value.toLowerCase())}
-        />
-        <div className={styles.searchBarControls}>
-          {/*<button className='btn-outline'>Filter</button>
-          <button className='btn-outline'>Export</button>*/}
-          <button onClick={() => navigate(newItemPath)}>Create {item}</button>
-        </div>
-      </form>
-    </div>
+    <section className={styles.searchBar}>
+      <input
+        className={styles.searchBarInput}
+        placeholder='Search'
+        value={searchQuery}
+        onInput={e => setSearchQuery(e.target.value.toLowerCase())}
+      />
+      {/*<button className='btn-outline'>Filter</button>
+      <button className='btn-outline'>Export</button>*/}
+      <button onClick={() => navigate(newItemPath)}>Create {item}</button>
+    </section>
   );
 };
 
