@@ -1,28 +1,24 @@
 .navbar {
-  height: 100%;
-  border-right: 1px solid #ddd;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.navbarList {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  place-items: center;
   padding: 0;
   margin: 0;
   list-style: none;
   text-align: center;
-}
-
-.navbarItem a {
-  color: #000;
-  text-decoration: none;
+  border-top: 1px solid #ddd;
 }
 
 .navbarLink {
+  width: 100%;
+  padding: 0.5rem 0;
+  color: #000;
+  text-decoration: none;
   opacity: 0.75;
   font-size: 0.65rem;
-  display: block;
-  padding: 12px 0;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
 }
 
 .navbarLink:hover {
@@ -31,54 +27,44 @@
 }
 
 .navbarLinkActive {
-  border-right: 3px solid #000;
+  border-top: 3px solid #000;
   background-color: #f5f5f5;
   opacity: 1;
 }
 
-.navbarLinkIcon {
-  vertical-align: middle;
-  margin: 0px 0px 8px 0px;
-}
+@media screen and (min-width: 768px) {
+  .navbar {
+    height: 100%;
+    grid-template: auto auto auto 1fr auto / auto;
+    border: none;
+    border-right: 1px solid #ddd;
+  }
 
-.navbarLinkText {
-  vertical-align: middle;
-  color: #000;
-}
+  .navbarLink {
+    padding: 0.5rem;
+  }
 
-.navbarFooter {
-  padding: 0px 0px 8px 0px;
-  margin: 0;
-  width: 100%;
-  list-style: none;
-  text-align: center;
+  .navbarLink:last-child {
+    grid-row: 5 / 6;
+  }
+
+  .navbarLinkActive {
+    border: none;
+    border-right: 3px solid #000;
+  }
 }
 
 @media screen and (min-width: 1200px) {
-
   .navbar {
     width: 240px;
   }
 
-  .navbarList {
-    text-align: left;
-  }
-
   .navbarLink {
     font-size: 1.25rem;
-    padding: 12px 24px;
-  }
-
-  .navbarLinkIcon {
-    margin: 0px 16px 0px 0px;
-  }
-
-  .navbarLinkText {
-    display: inline;
-  }
-
-  .navbarFooter {
-    text-align: left;
-    padding-bottom: 9px;
+    padding: 14px 24px;
+    grid-template-columns: auto 1fr;
+    justify-items: left;
+    align-items: center;
+    gap: 16px;
   }
 }

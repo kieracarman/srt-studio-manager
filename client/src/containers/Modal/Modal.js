@@ -9,14 +9,12 @@ const Modal = ({ children, onClose }) => {
 
   return ReactDOM.createPortal(
     <div className={styles.modal}>
-      <div className={styles.modalHeader}>
-        <div className={styles.modalHeaderNav}>
-          <button onClick={() => navigate(onClose)} className='outline'>Close</button>
-        </div>
-      </div>
-      <div className={styles.modalBody}>
+      <header>
+        <button onClick={() => navigate(onClose)} className='outline'>Close</button>
+      </header>
+      <section>
         {children}
-      </div>
+      </section>
     </div>,
     document.getElementById('portal')
   );

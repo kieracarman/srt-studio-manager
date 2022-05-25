@@ -1,11 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './AssetListItem.module.css';
 
 const AssetListItem = (props) => {
+  const navigate = useNavigate();
+
   return (
-    <Link to={`/assets/${props.id}`} className={styles.listItem}>
+    <tr className={styles.listItem} onClick={() => navigate(`/assets/${props.id}`)}>
       <td>{props.tagNumber}</td>
       <td className='bold'>{props.description}</td>
       <td>{props.make}</td>
@@ -17,7 +19,7 @@ const AssetListItem = (props) => {
         : (props.status === 'lost') ? styles.pending
         : ''
       }`}>{props.status}</span></td>
-    </Link>
+    </tr>
   );
 };
 

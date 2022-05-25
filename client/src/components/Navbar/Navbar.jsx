@@ -7,9 +7,9 @@ import styles from './Navbar.module.css';
 import * as actionType from '../../constants/actionTypes';
 
 const items = [
-  { path: '', name: 'Dashboard', icon: <Activity className={styles.navbarLinkIcon} /> },
-  { path: 'assets', name: 'Assets', icon: <List className={styles.navbarLinkIcon} /> },
-  { path: 'users', name: 'Users', icon: <Users className={styles.navbarLinkIcon} /> }
+  { path: '', name: 'Dashboard', icon: <Activity /> },
+  { path: 'assets', name: 'Assets', icon: <List /> },
+  { path: 'users', name: 'Users', icon: <Users /> }
 ]
 
 const Navbar = (props) => {
@@ -22,27 +22,25 @@ const Navbar = (props) => {
   };
 
   return (
-    <div className={styles.navbar}>
-      <ul className={styles.navbarList}>
-        {items.map((item) => (
-          <li className={styles.navbarItem} key={item.name}>
-            <NavLink end to={`/${item.path}`} className={({ isActive }) => styles.navbarLink + (isActive ? ` ${styles.navbarLinkActive}` : '')}>
-              {item.icon}
-              <div className={styles.navbarLinkText}>{item.name}</div>
-            </NavLink>
-          </li>
-        ))}
-      </ul>
-
-      <ul className={styles.navbarFooter}>
-        <li className={styles.navbarItem}>
-          <NavLink to='/logout' className={styles.navbarLink} onClick={logout}>
-            <LogOut className={styles.navbarLinkIcon}/>
-            <div className={styles.navbarLinkText}>Logout</div>
-          </NavLink>
-        </li>
-      </ul>
-    </div>
+    <section className={styles.navbar}>
+      {items.map((item) => (
+        <NavLink
+          key={item.name}
+          end
+          to={`/${item.path}`}
+          className={({ isActive }) => (
+            styles.navbarLink + (isActive ? ` ${styles.navbarLinkActive}` : '')
+          )}
+        >
+          {item.icon}
+          {item.name}
+        </NavLink>
+      ))}
+      <NavLink to='/logout' className={styles.navbarLink} onClick={logout}>
+        <LogOut />
+        Logout
+      </NavLink>
+    </section>
   );
 };
 

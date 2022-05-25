@@ -7,8 +7,8 @@ import { Topbar, Navbar } from '../';
 const Layout = () => (
   <div className={styles.container}>
     <header className={styles.topbar}><Topbar /></header>
-    <nav className={styles.navbar}><Navbar /></nav>
     <main className={styles.content}><Outlet /></main>
+    <nav className={styles.navbar}><Navbar /></nav>
   </div>
 );
 

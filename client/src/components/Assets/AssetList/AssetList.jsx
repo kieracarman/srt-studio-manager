@@ -76,23 +76,21 @@ const AssetList = (props) => {
   }
 
   return (
-    <div className={styles.list}>
-      <table>
-        <thead className={styles.listHeader}>
-          <tr>
-            <th onClick={() => requestSort('tagNumber')}><div>Tag #{sortArrow('tagNumber')}</div></th>
-            <th onClick={() => requestSort('description')}><div>Description{sortArrow('description')}</div></th>
-            <th onClick={() => requestSort('make')}><div>Make{sortArrow('make')}</div></th>
-            <th onClick={() => requestSort('model')}><div>Model{sortArrow('model')}</div></th>
-            <th onClick={() => requestSort('location')}><div>Location{sortArrow('location')}</div></th>
-            <th onClick={() => requestSort('status')}><div>Status{sortArrow('status')}</div></th>
-          </tr>
-        </thead>
-        <tbody>
-          {isLoading ? <h3>Loading...</h3> : listAssets()}
-        </tbody>
-      </table>
-    </div>
+    <table className={styles.list}>
+      <thead>
+        <tr>
+          <th onClick={() => requestSort('tagNumber')}>Tag #{sortArrow('tagNumber')}</th>
+          <th onClick={() => requestSort('description')}>Description{sortArrow('description')}</th>
+          <th onClick={() => requestSort('make')}>Make{sortArrow('make')}</th>
+          <th onClick={() => requestSort('model')}>Model{sortArrow('model')}</th>
+          <th onClick={() => requestSort('location')}>Location{sortArrow('location')}</th>
+          <th onClick={() => requestSort('status')}>Status{sortArrow('status')}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {isLoading ? <h3>Loading...</h3> : listAssets()}
+      </tbody>
+    </table>
   );
 };
 

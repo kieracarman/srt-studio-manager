@@ -17,20 +17,8 @@ p {
   color: #555;
 }
 
-.right {
-  text-align: right;
-}
-
 .bold {
   font-weight: bold;
-}
-
-.right {
-  float: right;
-}
-
-.left {
-  float: left;
 }
 
 button {
@@ -40,7 +28,6 @@ button {
   background-color: #000;
   border-radius: 4px;
   border: 1px solid black;
-  margin-left: 8px;
   display: inline-block;
   text-decoration: none;
 }
@@ -57,7 +44,6 @@ button.outline {
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-left: 8px;
   display: inline-block;
   text-decoration: none;
 }

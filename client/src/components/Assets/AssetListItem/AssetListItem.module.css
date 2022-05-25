@@ -1,6 +1,5 @@
 .listItem {
   color: #555;
-  display: table-row;
   text-decoration: none;
 }
 
@@ -10,11 +9,6 @@
 
 .listItem a:hover {
   color: #000;
-}
-
-.listItem td {
-  padding: 16px 0px;
-  border-bottom: 1px solid #eee;
 }
 
 .listItem:hover {

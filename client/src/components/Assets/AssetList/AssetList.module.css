@@ -1,40 +1,77 @@
 .list {
-  overflow: auto;
-  height: calc(100% - 120px);
-}
-
-.list table {
-  border-spacing: 0;
   width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: grid;
+  grid-template-columns: 1fr minmax(80px, auto);
 }
 
-.listHeader {
-  text-align: left;
+thead,
+tbody,
+tr {
+  display: contents;
 }
 
-.listHeader tr {
-  padding: 0px 16px;
+th,
+td {
+  padding: 12px 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.listHeader th {
-  padding: 12px 0px;
+th {
   border-bottom: 1px solid #aaa;
   background-color: white;
   position: sticky;
   top: 0;
+  text-align: left;
 }
 
-.listHeader tr th div {
-  text-decoration: none;
-  color: #000;
-}
-
-.listHeader tr th div:hover {
-  cursor: pointer;
-  color: #444;
-}
-
-.listHeader svg {
+th svg {
   height: 12px;
   width: 12px;
+}
+
+td {
+  border-bottom: 1px solid #eee;
+}
+
+th:nth-child(1),
+th:nth-child(3),
+th:nth-child(4),
+th:nth-child(5),
+td:nth-child(1),
+td:nth-child(3),
+td:nth-child(4),
+td:nth-child(5) {
+  display: none;
+}
+
+tr:last-child td {
+  border: none;
+}
+
+@media screen and (min-width: 768px) {
+  .list {
+    width: 100%;
+    grid-template-columns:
+      minmax(130px, 1fr)
+      minmax(100px, 3fr)
+      minmax(100px, 0.75fr)
+      minmax(100px, 0.75fr)
+      minmax(100px, 0.75fr)
+      minmax(100px, 0.5fr);
+  }
+
+  .list th,
+  .list td {
+    display: table-cell;
+    padding: 16px;
+  }
+
+  tr:hover {
+    cursor: pointer;
+    color: #444;
+  }
 }
