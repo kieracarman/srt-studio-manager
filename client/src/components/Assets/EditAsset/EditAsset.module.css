@@ -1,4 +1,4 @@
-.editForm > form {
+.editForm form {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
@@ -6,7 +6,7 @@
   margin: 0 auto 0;
 }
 
-label {
+.editForm label {
   padding: 12px 12px;
   font-weight: 600;
   border-right: 1px solid #d9d9d9;
@@ -14,8 +14,8 @@ label {
   background-color: #f2f2f2;
 }
 
-input,
-select {
+.editForm input,
+.editForm select {
   margin: 0;
   padding: 14px 16px;
   border: none;
@@ -23,12 +23,12 @@ select {
   border-radius: 0;
 }
 
-select {
+.editForm select {
   padding: 13px 16px;
 }
 
-input:focus,
-select:focus {
+.editForm input:focus,
+.editForm select:focus {
   outline: none;
   border: 1px solid black;
 }
@@ -41,21 +41,21 @@ select:focus {
 }
 
 @media screen and (min-width: 768px) {
-  .editForm > form {
+  .editForm form {
     margin: 32px auto 0;
   }
 
-  .editForm > form > label:first-of-type,
-  .editForm > form > input:first-of-type {
+  .editForm form label:first-of-type,
+  .editForm form input:first-of-type {
     border-top: 1px solid #d9d9d9;
   }
 
-  label {
+  .editForm label {
     border-left: 1px solid #d9d9d9;
   }
 
-  input,
-  select {
+  .editForm input,
+  .editForm select {
     border-right: 1px solid #d9d9d9;
   }
 }
