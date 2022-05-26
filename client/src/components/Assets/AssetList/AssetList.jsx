@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { ChevronDown, ChevronUp } from 'react-feather';
 
@@ -35,17 +35,18 @@ const AssetList = (props) => {
     setSort({ key, direction });
   };
 
-  const sortArrow = (key) => {
+  const sortArrow = key => {
     if (key === sort.key) {
       return sort.direction === 'ascending' ? <ChevronDown /> :
         sort.direction === 'descending' ? <ChevronUp /> : '';
-    }
-  }
+    };
+  };
 
   const filterArray = (array) => {
     return array.filter(item => {
       return props.query !== '' ? (
         [
+          item._id,
           item.description,
           item.tagNumber,
           item.make,
@@ -72,8 +73,8 @@ const AssetList = (props) => {
           status={asset.status}
         />
       );
-    })
-  }
+    });
+  };
 
   return (
     <table className={styles.list}>
@@ -88,7 +89,7 @@ const AssetList = (props) => {
         </tr>
       </thead>
       <tbody>
-        {isLoading ? <h3>Loading...</h3> : listAssets()}
+        {isLoading ? <tr><td></td><td>Loading...</td></tr> : listAssets()}
       </tbody>
     </table>
   );

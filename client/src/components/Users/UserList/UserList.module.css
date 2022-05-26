@@ -3,7 +3,7 @@
   border-collapse: collapse;
   border-spacing: 0;
   display: grid;
-  grid-template-columns: 1fr minmax(80px, auto);
+  grid-template-columns: 2fr 1fr minmax(110px, auto);
 }
 
 .list thead,
@@ -37,17 +37,6 @@
   border-bottom: 1px solid #eee;
 }
 
-.list th:nth-child(3),
-.list th:nth-child(1),
-.list th:nth-child(4),
-.list th:nth-child(5),
-.list td:nth-child(1),
-.list td:nth-child(3),
-.list td:nth-child(4),
-.list td:nth-child(5) {
-  display: none;
-}
-
 .list tr:last-child td {
   border: none;
 }
@@ -56,17 +45,14 @@
   .list {
     width: 100%;
     grid-template-columns:
-      minmax(130px, 1fr)
-      minmax(100px, 3fr)
-      minmax(100px, 0.75fr)
-      minmax(100px, 0.75fr)
-      minmax(100px, 0.75fr)
-      minmax(100px, 0.5fr);
+      minmax(130px, 2fr)
+      minmax(100px, 1fr)
+      minmax(100px, 1fr);
   }
 
   .list th,
   .list td {
-    display: table-cell !important;
+    display: table-cell;
     padding: 16px;
   }
 

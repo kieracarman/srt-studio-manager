@@ -5,11 +5,18 @@ import * as actionType from '../constants/actionTypes';
 const initialState = {
   isAuthenticated: false,
   user: {},
-  loading: false
+  users: [],
+  isLoading: false
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionType.START_LOADING:
+      return { ...state, isLoading: true };
+    case actionType.END_LOADING:
+      return { ...state, isLoading: false };
+    case actionType.FETCH_ALL:
+      return { ...state, users: action.payload };
     case actionType.LOGIN:
       return {
         ...state,
@@ -26,11 +33,6 @@ const authReducer = (state = initialState, action) => {
         user: {},
         loading: false
       }
-    case actionType.USER_LOADING:
-      return {
-        ...state,
-        loading: true
-      };
     default:
       return state;
   }
