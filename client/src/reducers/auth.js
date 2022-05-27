@@ -1,38 +1,29 @@
 import isEmpty from 'is-empty';
 
-import * as actionType from '../constants/actionTypes';
+import {
+  START_LOADING_AUTH,
+  END_LOADING_AUTH,
+  LOGIN,
+  LOGOUT
+} from '../constants/actionTypes';
 
 const initialState = {
   isAuthenticated: false,
-  user: {},
-  users: [],
-  isLoading: false
+  isLoading: false,
+  token: {}
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionType.START_LOADING:
+    case START_LOADING_AUTH:
       return { ...state, isLoading: true };
-    case actionType.END_LOADING:
+    case END_LOADING_AUTH:
       return { ...state, isLoading: false };
-    case actionType.FETCH_ALL:
-      return { ...state, users: action.payload };
-    case actionType.LOGIN:
-      return {
-        ...state,
-        isAuthenticated: !isEmpty(action.user),
-        user: action.user,
-        loading: false
-      };
-    case actionType.LOGOUT:
+    case LOGIN:
+      return { ...state, isAuthenticated: !isEmpty(action.token), token: action.token };
+    case LOGOUT:
       localStorage.removeItem('jwtToken');
-
-      return {
-        ...state,
-        isAuthenticated: false,
-        user: {},
-        loading: false
-      }
+      return { ...state, isAuthenticated: false, token: {} };
     default:
       return state;
   }

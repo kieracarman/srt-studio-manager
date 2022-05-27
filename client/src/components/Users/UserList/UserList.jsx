@@ -6,7 +6,7 @@ import styles from './UserList.module.css';
 import { UserListItem } from '../';
 
 const UserList = (props) => {
-  const { users, isLoading } = useSelector((state) => state.auth);
+  const { users, isLoading } = useSelector(state => state.users);
   const [ sort, setSort ] = useState({});
 
   const sortedUsers = useMemo(() => {
@@ -61,6 +61,7 @@ const UserList = (props) => {
       return(
         <UserListItem
           key={user._id}
+          id={user._id}
           username={user.username}
           role={user.role}
           accessLevel={user.accessLevel}

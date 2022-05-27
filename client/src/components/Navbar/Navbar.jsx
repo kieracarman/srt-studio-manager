@@ -1,10 +1,10 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Activity, List, Users, LogOut } from 'react-feather';
 
 import styles from './Navbar.module.css';
-import * as actionType from '../../constants/actionTypes';
+import { logOut } from '../../actions/auth';
 
 const items = [
   { path: '', name: 'Dashboard', icon: <Activity /> },
@@ -12,13 +12,14 @@ const items = [
   { path: 'users', name: 'Users', icon: <Users /> }
 ]
 
-const Navbar = (props) => {
+const Navbar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const logout = (e) => {
+  const handleLogOut = (e) => {
     e.preventDefault();
     
-    dispatch({ type: actionType.LOGOUT });
+    dispatch(logOut(navigate));
   };
 
   return (
@@ -36,7 +37,7 @@ const Navbar = (props) => {
           {item.name}
         </NavLink>
       ))}
-      <NavLink to='/logout' className={styles.navbarLink} onClick={logout}>
+      <NavLink to='/logout' className={styles.navbarLink} onClick={handleLogOut}>
         <LogOut />
         Logout
       </NavLink>

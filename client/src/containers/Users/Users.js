@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import styles from './Users.module.css';
-import { getUsers } from '../../actions/auth';
+import { getUsers } from '../../actions/users';
 import { SearchBar } from '../../components';
 import { UserList } from '../../components/Users';
 
