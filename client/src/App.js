@@ -10,13 +10,14 @@ import './App.css';
 import { Dashboard, Login, Assets, Users, Modal } from './containers';
 import { Layout, PrivateRoute } from './components';
 import { EditAsset } from './components/Assets';
+import { EditUser } from './components/Users';
 
 if (localStorage.jwtToken) {
   // Decode token to get user and exp
   const decoded = jwt_decode(localStorage.jwtToken);
 
   // Authenticate with token
-  store.dispatch({ type: LOGIN, user: decoded });
+  store.dispatch({ type: LOGIN, token: decoded });
 
   // Check for expired token
   const currentTime = Date.now() / 1000;
@@ -40,6 +41,7 @@ const App = () => {
                 <Route path='/' element={<Dashboard />} />
                 <Route path='assets/:id' element={<Modal onClose='/assets'><EditAsset /></Modal>} />
                 <Route path='assets' element={<Assets />} />
+                <Route path='users/:id' element={<Modal onClose='/users'><EditUser /></Modal>} />
                 <Route path='users' element={<Users />} />
               </Route>
             </Route>

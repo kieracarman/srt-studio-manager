@@ -9,7 +9,12 @@ axios.interceptors.request.use((req) => {
 });
 
 export const logIn = (formData) => axios.post('/api/auth/login', formData);
-export const fetchUsers = () => axios.get('/api/auth');
+
+export const fetchUsers = () => axios.get('/api/users');
+export const createUser = (newUser) => axios.post('/api/users', newUser);
+export const fetchUser = (id) => axios.get(`/api/users/${id}`);
+export const updateUser = (id, updatedUser) => axios.put(`/api/users/${id}`, updatedUser);
+export const deleteUser = (id) => axios.delete(`/api/users/${id}`);
 
 export const fetchAssets = () => axios.get('/api/assets');
 export const createAsset = (newAsset) => axios.post('/api/assets', newAsset);
