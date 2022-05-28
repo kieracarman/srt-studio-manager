@@ -2,11 +2,11 @@ import { useSelector } from 'react-redux';
 
 import styles from './UserList.module.css';
 import { UserListItem } from '../';
-import { useSortableData } from '../../../hooks';
+import { useTableData } from '../../../hooks';
 
 const UserList = (props) => {
   const { users, isLoading } = useSelector(state => state.users);
-  const { sortedData, requestSort, sortArrow } = useSortableData(users);
+  const { tableData, requestSort, sortArrow } = useTableData(users);
 
   const filterArray = array => {
     return array.filter(item => {
@@ -23,7 +23,7 @@ const UserList = (props) => {
   };
 
   const listUsers = () => {
-    return filterArray(sortedData).map((user) => {
+    return filterArray(tableData).map((user) => {
       return(
         <UserListItem
           key={user._id}

@@ -2,13 +2,13 @@ import { useSelector } from 'react-redux';
 
 import styles from './AssetList.module.css';
 import { AssetListItem } from '../';
-import { useSortableData } from '../../../hooks';
+import { useTableData } from '../../../hooks';
 
 const AssetList = (props) => {
   const { assets, isLoading } = useSelector((state) => state.assets);
-  const { sortedData, requestSort, sortArrow } = useSortableData(assets);
-
-  const filterArray = (array) => {
+  const { tableData, requestSort, sortArrow } = useTableData(assets); 
+  
+  const filterArray = array => {
     return array.filter(item => {
       return props.query !== '' ? (
         [
@@ -16,17 +16,17 @@ const AssetList = (props) => {
           item.description,
           item.tagNumber,
           item.make,
-          item.model,
+          item.model
         ].join(' ')
           .toString()
           .toLowerCase()
           .indexOf(props.query.toLowerCase()) > -1
       ) : true;
     });
-  }
+  };
 
   const listAssets = () => {
-    return filterArray(sortedData).map((asset) => {
+    return filterArray(tableData).map((asset) => {
       return(
         <AssetListItem
           key={asset._id}

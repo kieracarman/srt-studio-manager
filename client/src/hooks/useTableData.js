@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { ChevronDown, ChevronUp } from 'react-feather';
 
-const useSortableData = (array, config = {}) => {
+const useSortableData = (array, query, config = {}) => {
   const [sort, setSort] = useState(config);
 
   const sortedData = useMemo(() => {
@@ -27,7 +27,7 @@ const useSortableData = (array, config = {}) => {
     } else if (sort.key === key && sort.direction === 'descending') {
       direction = '';
     }
-    setSort({ key, direction });
+    setSort({ ...sort, key, direction });
   };
 
   const sortArrow = key => {
@@ -36,7 +36,7 @@ const useSortableData = (array, config = {}) => {
         sort.direction === 'descending' ? <ChevronUp /> : '';
     }
   };
-  return { sortedData: sortedData, requestSort, sortArrow, sort };
+  return { tableData: sortedData, requestSort, sortArrow };
 };
 
 export default useSortableData;
