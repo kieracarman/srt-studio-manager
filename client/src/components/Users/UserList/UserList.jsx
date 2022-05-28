@@ -1,46 +1,12 @@
-import { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { ChevronDown, ChevronUp } from 'react-feather';
 
 import styles from './UserList.module.css';
 import { UserListItem } from '../';
+import { useSortableData } from '../../../hooks';
 
 const UserList = (props) => {
   const { users, isLoading } = useSelector(state => state.users);
-  const [ sort, setSort ] = useState({});
-
-  const sortedUsers = useMemo(() => {
-    let sortedUsers = [...users];
-    if (sort.direction !== '') {
-      sortedUsers.sort((a, b) => {
-        if (a[sort.key] < b[sort.key]) {
-          return sort.direction === 'ascending' ? -1 : 1;
-        }
-        if (a[sort.key] > b[sort.key]) {
-          return sort.direction === 'ascending' ? 1 : -1;
-        }
-        return 0;
-      });
-    }
-    return sortedUsers;
-  }, [users, sort]);
-
-  const requestSort = key => {
-    let direction = 'ascending';
-    if (sort.key === key && sort.direction === 'ascending') {
-      direction = 'descending';
-    } else if (sort.key === key && sort.direction === 'descending') {
-      direction = '';
-    }
-    setSort({ key, direction });
-  };
-
-  const sortArrow = key => {
-    if (key === sort.key) {
-      return sort.direction === 'ascending' ? <ChevronDown /> :
-        sort.direction === 'descending' ? <ChevronUp /> : '';
-    };
-  };
+  const { sortedData, requestSort, sortArrow } = useSortableData(users);
 
   const filterArray = array => {
     return array.filter(item => {
@@ -57,7 +23,7 @@ const UserList = (props) => {
   };
 
   const listUsers = () => {
-    return filterArray(sortedUsers).map((user) => {
+    return filterArray(sortedData).map((user) => {
       return(
         <UserListItem
           key={user._id}

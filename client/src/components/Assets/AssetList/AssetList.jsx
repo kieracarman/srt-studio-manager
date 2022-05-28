@@ -1,46 +1,12 @@
-import { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { ChevronDown, ChevronUp } from 'react-feather';
 
 import styles from './AssetList.module.css';
 import { AssetListItem } from '../';
+import { useSortableData } from '../../../hooks';
 
 const AssetList = (props) => {
   const { assets, isLoading } = useSelector((state) => state.assets);
-  const [ sort, setSort ] = useState({});
-
-  const sortedAssets = useMemo(() => {
-    let sortedAssets = [...assets];
-    if (sort.direction !== '') {
-      sortedAssets.sort((a, b) => {
-        if (a[sort.key] < b[sort.key]) {
-          return sort.direction === 'ascending' ? -1 : 1;
-        }
-        if (a[sort.key] > b[sort.key]) {
-          return sort.direction === 'ascending' ? 1 : -1;
-        }
-        return 0;
-      });
-    }
-    return sortedAssets;
-  }, [assets, sort]);
-
-  const requestSort = key => {
-    let direction = 'ascending';
-    if (sort.key === key && sort.direction === 'ascending') {
-      direction = 'descending';
-    } else if (sort.key === key && sort.direction === 'descending') {
-      direction = '';
-    }
-    setSort({ key, direction });
-  };
-
-  const sortArrow = key => {
-    if (key === sort.key) {
-      return sort.direction === 'ascending' ? <ChevronDown /> :
-        sort.direction === 'descending' ? <ChevronUp /> : '';
-    };
-  };
+  const { sortedData, requestSort, sortArrow } = useSortableData(assets);
 
   const filterArray = (array) => {
     return array.filter(item => {
@@ -60,7 +26,7 @@ const AssetList = (props) => {
   }
 
   const listAssets = () => {
-    return filterArray(sortedAssets).map((asset) => {
+    return filterArray(sortedData).map((asset) => {
       return(
         <AssetListItem
           key={asset._id}
