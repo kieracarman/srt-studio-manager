@@ -21,3 +21,9 @@ export const createAsset = (newAsset) => axios.post('/api/assets', newAsset);
 export const fetchAsset = (id) => axios.get(`/api/assets/${id}`);
 export const updateAsset = (id, updatedAsset) => axios.put(`/api/assets/${id}`, updatedAsset);
 export const deleteAsset = (id) => axios.delete(`/api/assets/${id}`);
+
+export const fetchTickets = () => axios.get('/api/tickets');
+export const createTicket = (newTicket) => axios.post('/api/tickets', newTicket);
+export const fetchTicket = (id) => axios.get(`/api/tickets/${id}`);
+export const updateTicket = (id, updatedTicket) => axios.put(`/api/tickets/${id}`, updatedTicket);
+export const deleteTicket = (id) => axios.delete(`/api/tickets/${id}`);

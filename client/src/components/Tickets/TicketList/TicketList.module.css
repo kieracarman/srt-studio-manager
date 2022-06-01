@@ -1,0 +1,63 @@
+.list {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: grid;
+  grid-template-columns: 2fr 1fr minmax(110px, auto);
+}
+
+.list thead,
+.list tbody,
+.list tr {
+  display: contents;
+}
+
+.list th,
+.list td {
+  padding: 12px 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list th {
+  border-bottom: 1px solid #aaa;
+  background-color: white;
+  position: sticky;
+  top: 0;
+  text-align: left;
+}
+
+.list th svg {
+  height: 12px;
+  width: 12px;
+}
+
+.list td {
+  border-bottom: 1px solid #eee;
+}
+
+.list tr:last-child td {
+  border: none;
+}
+
+@media screen and (min-width: 768px) {
+  .list {
+    width: 100%;
+    grid-template-columns:
+      minmax(130px, 2fr)
+      minmax(100px, 1fr)
+      minmax(100px, 1fr);
+  }
+
+  .list th,
+  .list td {
+    display: table-cell;
+    padding: 16px;
+  }
+
+  .list tr:hover {
+    cursor: pointer;
+    color: #444;
+  }
+}

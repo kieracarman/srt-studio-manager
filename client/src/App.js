@@ -2,10 +2,11 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import './App.css';
 
-import { Dashboard, Login, Assets, Users, Modal } from './containers';
+import { Dashboard, Login, Assets, Users, Tickets, Modal } from './containers';
 import { Layout, PrivateRoute } from './components';
 import { EditAsset } from './components/Assets';
 import { EditUser } from './components/Users';
+import { EditTicket } from './components/Tickets';
 
 const App = () => {
   return (
@@ -24,6 +25,10 @@ const App = () => {
           {/* User routes */}
           <Route path='users/:id' element={<Modal onClose='/users'><EditUser /></Modal>} />
           <Route path='users' element={<Users />} />
+
+          {/* Ticket routes */}
+          <Route path='tickets/:id' element={<Modal onClose='/tickets'><EditTicket /></Modal>} />
+          <Route path='tickets' element={<Tickets />} />
         </Route>
       </Route>
     </Routes>

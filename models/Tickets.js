@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const ticketsSchema = mongoose.Schema({
   createdAt: {
@@ -42,4 +42,6 @@ const ticketsSchema = mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.model('tickets', ticketsSchema);
+const Tickets = mongoose.model('tickets', ticketsSchema);
+
+export default Tickets;

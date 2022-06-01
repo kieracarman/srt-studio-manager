@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Activity, List, Users, LogOut } from 'react-feather';
+import { Activity, List, Users, AlertCircle, LogOut } from 'react-feather';
 
 import styles from './Navbar.module.css';
 import { logOut } from '../../actions/auth';
@@ -9,7 +9,8 @@ import { logOut } from '../../actions/auth';
 const items = [
   { path: '', name: 'Dashboard', icon: <Activity /> },
   { path: 'assets', name: 'Assets', icon: <List /> },
-  { path: 'users', name: 'Users', icon: <Users /> }
+  { path: 'users', name: 'Users', icon: <Users /> },
+  { path: 'tickets', name: 'Tickets', icon: <AlertCircle />}
 ]
 
 const Navbar = () => {
