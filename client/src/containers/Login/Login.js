@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './Login.module.css';
@@ -11,7 +11,7 @@ const Login = () => {
 
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const {message} = useSelector((state) => state.errors);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,26 +20,18 @@ const Login = () => {
     userRef.current.focus();
   }, []);
 
-  useEffect(() => {
-    setError('');
-  }, [user, password]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      dispatch(logIn({ username: user, password: password}, navigate));
-      setUser('');
-      setPassword('');
-    } catch (error) {
-      setError(error);
-    }
+    dispatch(logIn({ username: user, password: password}, navigate));
+    setUser('');
+    setPassword('');
   };
 
   return (
     <div className={styles.loginBg}>
       <section className={styles.loginBox}>
         <form onSubmit={handleSubmit}>
-          <span ref={errRef} aria-live='assertive'>{error}</span>
+          {message && <span className={styles.error} ref={errRef} aria-live='assertive'>{message}</span>}
           <h2>SRT Studio Manager</h2>
           <label htmlFor='username' aria-label='username'>Username</label>
           <input
