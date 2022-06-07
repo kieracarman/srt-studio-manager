@@ -7,7 +7,7 @@ import validateLoginInput from '../validation/Login.js';
 export const login = async (req, res) => {
   // Form validation
   const { errors, isValid } = validateLoginInput(req.body);
-  if (!isValid) return res.status(400).json(errors);
+  if (!isValid) return res.status(400).send(errors);
 
   const { username, password } = req.body;
 
@@ -17,7 +17,7 @@ export const login = async (req, res) => {
 
     // If user doesn't exist, return 404
     if (!user) {
-      return res.status(404).json({ message: 'User does not exist.' });
+      return res.status(404).send({ message: 'User does not exist.' });
     };
 
     // Check user password
@@ -25,7 +25,7 @@ export const login = async (req, res) => {
 
     // If password is incorrect, return 400
     if (!isPasswordCorrect) {
-      return res.status(400).json({ message: 'Incorrect username or password.' });
+      return res.status(400).send({ message: 'Incorrect username or password.' });
     };
     
     // Sign JWT token

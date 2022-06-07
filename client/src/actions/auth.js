@@ -29,7 +29,7 @@ export const logIn = (formData, router) => async (dispatch) => {
 
     dispatch({ type: END_LOADING_AUTH });
   } catch (error) {
-    dispatch({ type: GET_ERRORS, payload: error });
+    dispatch({ type: GET_ERRORS, payload: error.response.data });
   }
 };
 

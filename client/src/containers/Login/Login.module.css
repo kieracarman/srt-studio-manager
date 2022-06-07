@@ -1,43 +1,51 @@
 .loginBg {
-  text-align: center;
-  align-items: center;
-  justify-content: center;
   height: 100vh;
-  display: flex;
+  max-height: -webkit-fill-available;
+  display: grid;
+  place-items: center;
 }
 
-.loginBox {
-  padding: 24px;
+.loginBox form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 1rem;
   border: 1px solid #000;
   border-radius: 10px;
 }
 
-.formGroup {
-  margin-bottom: 1rem;
+.error {
+  grid-column: 1/-1;
+  padding: 8px;
+  margin-bottom: 8px;
+  background-color: lightpink;
+  border-radius: 4px;
+  border: 2px solid darkred;
 }
 
-.formControl {
-  display: block;
+.loginBox h2 {
+  grid-column: 1/-1;
+}
+
+.loginBox label {
+  grid-column: 1/2;
+  margin-bottom: 0.25rem;
+  margin-left: 0.5rem;
+  font-weight: 500;
+}
+
+.loginBox input {
+  grid-column: 1/-1;
+  margin-bottom: 1rem;
   padding: .375rem .75rem;
   font-size: 24px;
   border: 1px solid #000;
   border-radius: 10px;
 }
 
-.formError {
-  text-align: left;
-  color: #f00;
-  margin: 8px 8px;
-}
-
-.loginButton {
-  border: none;
-  padding: 8px 24px;
-  background-color: #000;
-  color: #fff;
+.loginBox button {
+  grid-column: 2/3;
+  margin: 0;
+  font-size: 1rem;
   border-radius: 10px;
-  display: inline-block;
-  font-size: 20px;
-  float: right;
   cursor: pointer;
 }
