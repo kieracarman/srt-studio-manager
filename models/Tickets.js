@@ -5,7 +5,13 @@ const ticketsSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  author: mongoose.Schema.Types.ObjectId,
+  author: {
+    id: mongoose.Schema.Types.ObjectId,
+    username: {
+      type: String,
+      required: true,
+    }
+  },
   title: {
     type: String,
     required: true,

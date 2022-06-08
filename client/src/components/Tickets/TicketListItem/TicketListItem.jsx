@@ -8,6 +8,7 @@ const TicketListItem = (props) => {
   return (
     <tr className={styles.listItem} onClick={() => navigate(`/tickets/${props.id}`)}>
       <td className='bold'>{props.title}</td>
+      <td>{props.createdBy}</td>
       <td>{props.assignedRole}</td>
       <td><span className={`${styles.statusTag} ${
         (props.status === 'pending') ? styles.pending

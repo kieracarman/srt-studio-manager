@@ -29,6 +29,7 @@ const TicketList = (props) => {
         <TicketListItem
           key={ticket._id}
           id={ticket._id}
+          createdBy={ticket.author.username}
           title={ticket.title}
           assignedRole={ticket.assignedRole}
           status={ticket.status}
@@ -42,6 +43,7 @@ const TicketList = (props) => {
       <thead>
         <tr>
           <th onClick={() => requestSort('title')}>Title{sortArrow('title')}</th>
+          <th onClick={() => requestSort('createdBy')}>Created By{sortArrow('createdBy')}</th>
           <th onClick={() => requestSort('assignedRole')}>Assigned Role{sortArrow('assignedRole')}</th>
           <th onClick={() => requestSort('status')}>Status{sortArrow('status')}</th>
         </tr>

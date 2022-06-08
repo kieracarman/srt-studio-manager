@@ -7,10 +7,17 @@ import { getTicket, createTicket, updateTicket, deleteTicket } from '../../../ac
 
 const EditTicket = () => {
   const { ticket, isLoading } = useSelector(state => state.tickets);
+  const { token } = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const [modifiedTicket, setModifiedTicket] = useState({ title: '' });
+  const [modifiedTicket, setModifiedTicket] = useState({
+    author: {
+      id: token.id,
+      username: token.username
+    },
+    title: ''
+  });
   const [deleteText, setDeleteText] = useState('Delete Ticket');
 
   useEffect(() => {
