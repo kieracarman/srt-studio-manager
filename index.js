@@ -6,10 +6,11 @@ import path from 'path';
 import passport from 'passport';
 
 import 'dotenv/config';
+import authRoutes from './routes/Auth.js';
 import userRoutes from './routes/Users.js';
 import assetRoutes from './routes/Assets.js';
+import ticketRoutes from './routes/Tickets.js';
 import passportConfig from './config/passport.js';
-import {fileURLToPath} from 'url';
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -43,8 +44,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Routes that should handle requests
-app.use('/api/auth', userRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/assets', assetRoutes);
+app.use('/api/tickets', ticketRoutes);
 
 // Initialize connection once and create connection pool
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })

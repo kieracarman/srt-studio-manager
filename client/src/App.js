@@ -1,52 +1,37 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import jwt_decode from 'jwt-decode';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
-import store from './store';
-import { LOGIN, LOGOUT } from './constants/actionTypes';
 import './App.css';
 
-import { Dashboard, Login, Assets, Users, Modal } from './containers';
+import { Dashboard, Login, Assets, Users, Tickets, Modal } from './containers';
 import { Layout, PrivateRoute } from './components';
-import EditAsset from './components/Assets/EditAsset';
-
-if (localStorage.jwtToken) {
-  // Decode token to get user and exp
-  const decoded = jwt_decode(localStorage.jwtToken);
-
-  // Authenticate with token
-  store.dispatch({ type: LOGIN, user: decoded });
-
-  // Check for expired token
-  const currentTime = Date.now() / 1000;
-  if (decoded.exp < currentTime) {
-    store.dispatch({ type: LOGOUT });
-
-    // Redirect to login page
-    window.location.href = '/login';
-  }
-}
+import { EditAsset } from './components/Assets';
+import { EditUser } from './components/Users';
+import { EditTicket } from './components/Tickets';
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <div className='App'>
-          <Routes>
-            <Route path='login' element={localStorage.jwtToken ? <Navigate to='/' replace /> : <Login />} />
-            <Route path='/' element={<PrivateRoute />}>
-              <Route path='/' element={<Layout />}>
-                <Route path='/' element={<Dashboard />} />
-                <Route path='assets/:id' element={<Modal onClose='/assets'><EditAsset /></Modal>} />
-                <Route path='assets' element={<Assets />} />
-                <Route path='users' element={<Users />} />
-              </Route>
-            </Route>
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </Provider>
+    <Routes>
+      <Route path='login' element={localStorage.jwtToken ? <Navigate to='/' replace /> : <Login />} />
+
+      {/* Protected routes */}
+      <Route path='/' element={<PrivateRoute />}>
+        <Route path='/' element={<Layout />}>
+          <Route path='/' element={<Dashboard />} />
+          
+          {/* Asset routes */}
+          <Route path='assets/:id' element={<Modal onClose='/assets'><EditAsset /></Modal>} />
+          <Route path='assets' element={<Assets />} />
+
+          {/* User routes */}
+          <Route path='users/:id' element={<Modal onClose='/users'><EditUser /></Modal>} />
+          <Route path='users' element={<Users />} />
+
+          {/* Ticket routes */}
+          <Route path='tickets/:id' element={<Modal onClose='/tickets'><EditTicket /></Modal>} />
+          <Route path='tickets' element={<Tickets />} />
+        </Route>
+      </Route>
+    </Routes>
   );
 };
 

@@ -1,11 +1,17 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const ticketsSchema = mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
   },
-  author: mongoose.Schema.Types.ObjectId,
+  author: {
+    id: mongoose.Schema.Types.ObjectId,
+    username: {
+      type: String,
+      required: true,
+    }
+  },
   title: {
     type: String,
     required: true,
@@ -42,4 +48,6 @@ const ticketsSchema = mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.model('tickets', ticketsSchema);
+const Tickets = mongoose.model('tickets', ticketsSchema);
+
+export default Tickets;
