@@ -8,10 +8,17 @@
 
 .editForm label {
   padding: 12px 12px;
+  height: 100%;
   font-weight: 600;
   border-right: 1px solid #d9d9d9;
   border-bottom: 1px solid #d9d9d9;
   background-color: #f2f2f2;
+}
+
+.editForm input,
+.editForm select,
+.editForm textarea {
+  transition: all 0.2s ease;
 }
 
 .editForm input,
@@ -23,6 +30,23 @@
   border-radius: 0;
 }
 
+.editForm textarea {
+  margin: 0;
+  padding: 14px 16px;
+  width: 100%;
+  height: 200px;
+  resize: none;
+  border: none;
+  border-right: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+  border-radius: 0;
+}
+
+.editForm textarea:focus {
+  outline: none;
+  border-bottom: 1px solid black;
+}
+
 .editForm select {
   padding: 13px 16px;
 }
@@ -30,7 +54,7 @@
 .editForm input:focus,
 .editForm select:focus {
   outline: none;
-  border: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
 .editForm > form > div {

@@ -56,15 +56,14 @@ const EditTicket = () => {
       {isLoading ? <h3>Loading...</h3> : (
         <form onSubmit={handleSubmit}>
           <label>Title</label><input onChange={handleChange} value={modifiedTicket.title} id='title' />
-          <label>Description</label><input onChange={handleChange} value={modifiedTicket.description} id='description' />
+          <label>Description</label><textarea onChange={handleChange} value={modifiedTicket.description} id='description' />
           <label>Assigned Role</label><select onChange={handleChange} value={modifiedTicket.assignedRole} id='assignedRole'>
             <option value='' disabled selected hidden>Select...</option>
             <option value='supervisor'>supervisor</option>
             <option value='admin'>admin</option>
           </select>
           <label>Status</label><select onChange={handleChange} value={modifiedTicket.status} id='status'>
-            <option value='' disabled selected hidden>Select...</option>
-            <option value='pending'>pending</option>
+            <option selected value='pending'>pending</option>
             <option value='in progress'>in progress</option>
             <option value='complete'>complete</option>
           </select>
