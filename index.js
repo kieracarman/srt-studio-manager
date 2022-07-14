@@ -10,6 +10,7 @@ import authRoutes from './routes/Auth.js';
 import userRoutes from './routes/Users.js';
 import assetRoutes from './routes/Assets.js';
 import ticketRoutes from './routes/Tickets.js';
+import bookingRoutes from './routes/Bookings.js';
 import passportConfig from './config/passport.js';
 
 const app = express();
@@ -48,6 +49,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/assets', assetRoutes);
 app.use('/api/tickets', ticketRoutes);
+app.use('/api/bookings', bookingRoutes);
 
 // Initialize connection once and create connection pool
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
