@@ -4,6 +4,7 @@ import auth from './auth';
 import users from './users';
 import assets from './assets';
 import tickets from './tickets';
+import bookings from './bookings';
 import errors from './errors';
 
-export const reducers = combineReducers({ auth, users, assets, tickets, errors });
+export const reducers = combineReducers({ auth, users, assets, tickets, bookings, errors });

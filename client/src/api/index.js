@@ -27,3 +27,9 @@ export const createTicket = (newTicket) => axios.post('/api/tickets', newTicket)
 export const fetchTicket = (id) => axios.get(`/api/tickets/${id}`);
 export const updateTicket = (id, updatedTicket) => axios.put(`/api/tickets/${id}`, updatedTicket);
 export const deleteTicket = (id) => axios.delete(`/api/tickets/${id}`);
+
+export const fetchBookings = () => axios.get('/api/bookings');
+export const createBooking = (newBooking) => axios.post('/api/bookings', newBooking);
+export const fetchBooking = (id) => axios.get(`/api/bookings/${id}`);
+export const updateBooking = (id, updatedBooking) => axios.put(`/api/bookings/${id}`, updatedBooking);
+export const deleteBooking = (id) => axios.delete(`/api/bookings/${id}`);
