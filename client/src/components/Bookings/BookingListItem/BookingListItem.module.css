@@ -1,0 +1,37 @@
+.listItem {
+  color: #555;
+  text-decoration: none;
+}
+
+.listItem a {
+  color: #555;
+}
+
+.listItem a:hover {
+  color: #000;
+}
+
+.listItem:hover {
+  color: #000;
+  cursor: pointer;
+}
+
+.statusTag {
+  padding: 4px 16px;
+  border-radius: 12px;
+}
+
+.pending {
+  color: rgb(155, 55, 55);
+  background-color: rgb(255, 204, 204);
+}
+
+.inProgress {
+  color: rgb(117, 111, 38);
+  background-color: rgb(255, 249, 159);
+}
+
+.complete {
+  color: rgb(79, 151, 79);
+  background-color: rgb(215, 243, 215);
+}
