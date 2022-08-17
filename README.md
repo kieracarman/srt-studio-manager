@@ -1,12 +1,5 @@
 # SRT Studio Management Platform
 
-## Table of Contents
-
-- [Overview](#overview)
-- [Built with](#built-with)
-- [Features](#features)
-- [Contact](#contact)
-
 ## Overview
 
 This project is a web app management platform for a university sound recording technology department.
