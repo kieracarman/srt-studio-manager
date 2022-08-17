@@ -1,4 +1,6 @@
-# SRT Studio Management Platform
+# [SRT Studio Manager](https://github.com/kieracarman/srt-studio-manager)
+
+by [Kiera Carman](https://kieracarman.com)
 
 ## Overview
 
