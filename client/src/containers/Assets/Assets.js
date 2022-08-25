@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
-import styles from './Assets.module.css';
-import { getAssets } from '../../actions/assets';
-import { SearchBar } from '../../components';
-import { AssetList } from '../../components/Assets';
+import styles from './Assets.module.css'
+import { getAssets } from '../../actions/assets'
+import { SearchBar } from '../../components'
+import { AssetList } from '../../components/Assets'
 
 const Assets = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState('')
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getAssets());
+    dispatch(getAssets())
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   return (
     <section className={styles.assets}>
@@ -26,7 +26,7 @@ const Assets = () => {
       />
       <AssetList query={searchQuery} />
     </section>
-  );
-};
+  )
+}
 
-export default Assets;
+export default Assets

@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import passport from 'passport';
+import { Router } from 'express'
+import passport from 'passport'
 
 import {
   getAllBookings,
@@ -7,15 +7,15 @@ import {
   getOneBooking,
   updateBooking,
   deleteBooking
-} from '../controllers/Bookings.js';
+} from '../controllers/Bookings.js'
 
-const router = Router();
-const auth = passport.authenticate('jwt', { session: false });
+const router = Router()
+const auth = passport.authenticate('jwt', { session: false })
 
-router.get('/', auth, getAllBookings);
-router.post('/', auth, createBooking);
-router.get('/:id', auth, getOneBooking);
-router.put('/:id', auth, updateBooking);
-router.delete('/:id', auth, deleteBooking);
+router.get('/', auth, getAllBookings)
+router.post('/', auth, createBooking)
+router.get('/:id', auth, getOneBooking)
+router.put('/:id', auth, updateBooking)
+router.delete('/:id', auth, deleteBooking)
 
-export default router;
+export default router

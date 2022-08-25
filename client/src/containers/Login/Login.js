@@ -1,39 +1,45 @@
-import { useRef, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useRef, useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import styles from './Login.module.css';
-import { logIn } from '../../actions/auth';
+import styles from './Login.module.css'
+import { logIn } from '../../actions/auth'
 
 const Login = () => {
-  const userRef = useRef();
-  const errRef = useRef();
+  const userRef = useRef()
+  const errRef = useRef()
 
-  const [user, setUser] = useState('');
-  const [password, setPassword] = useState('');
-  const {message} = useSelector((state) => state.errors);
+  const [user, setUser] = useState('')
+  const [password, setPassword] = useState('')
+  const { message } = useSelector((state) => state.errors)
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    userRef.current.focus();
-  }, []);
+    userRef.current.focus()
+  }, [])
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    dispatch(logIn({ username: user, password: password}, navigate));
-    setUser('');
-    setPassword('');
-  };
+    e.preventDefault()
+    dispatch(logIn({ username: user, password: password }, navigate))
+    setUser('')
+    setPassword('')
+  }
 
   return (
     <div className={styles.loginBg}>
       <section className={styles.loginBox}>
         <form onSubmit={handleSubmit}>
-          {message && <span className={styles.error} ref={errRef} aria-live='assertive'>{message}</span>}
+          {message && (
+            <span className={styles.error} ref={errRef} aria-live='assertive'>
+              {message}
+            </span>
+          )}
           <h2>SRT Studio Manager</h2>
-          <label htmlFor='username' aria-label='username'>Username</label>
+          <label htmlFor='username' aria-label='username'>
+            Username
+          </label>
           <input
             type='text'
             id='username'
@@ -43,7 +49,9 @@ const Login = () => {
             value={user}
             required
           />
-          <label htmlFor='password' aria-label='password'>Password</label>
+          <label htmlFor='password' aria-label='password'>
+            Password
+          </label>
           <input
             type='password'
             id='password'
@@ -55,10 +63,10 @@ const Login = () => {
         </form>
       </section>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
 
 // OLD LOGIN CODE
 //

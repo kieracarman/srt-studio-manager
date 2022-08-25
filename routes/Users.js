@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import passport from 'passport';
+import { Router } from 'express'
+import passport from 'passport'
 
 import {
   getAllUsers,
@@ -7,15 +7,15 @@ import {
   getOneUser,
   updateUser,
   deleteUser
-} from '../controllers/Users.js';
+} from '../controllers/Users.js'
 
-const router = Router();
-const auth = passport.authenticate('jwt', { session: false });
+const router = Router()
+const auth = passport.authenticate('jwt', { session: false })
 
-router.get('/', auth, getAllUsers);
-router.post('/', auth, createUser);
-router.get('/:id', auth, getOneUser);
-router.put('/:id', auth, updateUser);
-router.delete('/:id', auth, deleteUser);
+router.get('/', auth, getAllUsers)
+router.post('/', auth, createUser)
+router.get('/:id', auth, getOneUser)
+router.put('/:id', auth, updateUser)
+router.delete('/:id', auth, deleteUser)
 
-export default router;
+export default router

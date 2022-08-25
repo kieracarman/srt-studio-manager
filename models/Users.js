@@ -1,40 +1,40 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
 const userSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
   username: {
     type: String,
-    required: true,
+    required: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   firstName: {
     type: String,
-    required: true,
+    required: true
   },
   lastName: {
     type: String,
-    required: true,
+    required: true
   },
   role: {
     type: String,
     required: true,
     enum: ['basic', 'supervisor', 'admin'],
-    default: 'basic',
+    default: 'basic'
   },
   accessLevel: {
     type: String,
     required: true,
     enum: ['sophomore', 'junior', 'senior', 'staff'],
-    default: 'sophomore',
-  },
-});
+    default: 'sophomore'
+  }
+})
 
-const Users = mongoose.model('users', userSchema);
+const Users = mongoose.model('users', userSchema)
 
-export default Users;
+export default Users

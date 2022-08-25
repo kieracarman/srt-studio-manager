@@ -1,54 +1,54 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
 const bookingsSchema = mongoose.Schema({
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
   title: {
     type: String,
-    required: true,
+    required: true
   },
   bookingDate: {
     type: Date,
-    required: true,
+    required: true
   },
   approvedDate: {
-    type: Date,
+    type: Date
   },
   author: mongoose.Schema.Types.ObjectId,
   room: {
     type: String,
     required: true,
-    enum: ['114', '212', '213'],
+    enum: ['114', '212', '213']
   },
   assetsUsed: [mongoose.Schema.Types.ObjectId],
   contacts: [
     {
       name: {
         type: String,
-        required: true,
+        required: true
       },
       phone: {
-        type: String,
-      },
-    },
+        type: String
+      }
+    }
   ],
   updates: [
     {
       createdAt: {
         type: Date,
-        default: Date.now,
+        default: Date.now
       },
       author: mongoose.Schema.Types.ObjectId,
       notes: {
         type: String,
-        required: true,
-      },
-    },
-  ],
-});
+        required: true
+      }
+    }
+  ]
+})
 
-const Bookings = mongoose.model('bookings', bookingsSchema);
+const Bookings = mongoose.model('bookings', bookingsSchema)
 
-export default Bookings;
+export default Bookings

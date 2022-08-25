@@ -1,10 +1,10 @@
-import { Strategy, ExtractJwt } from 'passport-jwt';
+import { Strategy, ExtractJwt } from 'passport-jwt'
 
-import Users from '../models/Users.js';
+import Users from '../models/Users.js'
 
-const opts = {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = process.env.SECRET_OR_KEY;
+const opts = {}
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
+opts.secretOrKey = process.env.SECRET_OR_KEY
 
 const passportConfig = (passport) => {
   passport.use(
@@ -12,13 +12,13 @@ const passportConfig = (passport) => {
       Users.findById(jwtPayload.id)
         .then((user) => {
           if (user) {
-            return done(null, user);
+            return done(null, user)
           }
-          return done(null, false);
+          return done(null, false)
         })
-        .catch((err) => console.log(err));
-    }),
-  );
-};
+        .catch((err) => console.log(err))
+    })
+  )
+}
 
-export default passportConfig;
+export default passportConfig

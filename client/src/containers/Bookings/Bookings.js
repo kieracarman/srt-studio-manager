@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
-import styles from './Bookings.module.css';
-import { getBookings } from '../../actions/bookings';
-import { SearchBar } from '../../components';
-import { BookingList } from '../../components/Bookings';
+import styles from './Bookings.module.css'
+import { getBookings } from '../../actions/bookings'
+import { SearchBar } from '../../components'
+import { BookingList } from '../../components/Bookings'
 
 const Bookings = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState('')
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getBookings());
+    dispatch(getBookings())
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   return (
     <section className={styles.bookings}>
@@ -26,7 +26,7 @@ const Bookings = () => {
       />
       <BookingList query={searchQuery} />
     </section>
-  );
-};
+  )
+}
 
-export default Bookings;
+export default Bookings

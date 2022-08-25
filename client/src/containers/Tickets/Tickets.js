@@ -1,18 +1,18 @@
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
-import styles from './Tickets.module.css';
-import { getTickets } from '../../actions/tickets';
-import { SearchBar } from '../../components';
-import { TicketList } from '../../components/Tickets';
+import styles from './Tickets.module.css'
+import { getTickets } from '../../actions/tickets'
+import { SearchBar } from '../../components'
+import { TicketList } from '../../components/Tickets'
 
 const Tickets = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState('')
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getTickets());
-  }, []);
+    dispatch(getTickets())
+  }, [])
 
   return (
     <section className={styles.tickets}>
@@ -24,7 +24,7 @@ const Tickets = () => {
       />
       <TicketList query={searchQuery} />
     </section>
-  );
-};
+  )
+}
 
-export default Tickets;
+export default Tickets

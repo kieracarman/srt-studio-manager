@@ -1,10 +1,17 @@
-import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { Activity, List, Users, AlertCircle, Calendar, LogOut } from 'react-feather';
+import React from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import {
+  Activity,
+  List,
+  Users,
+  AlertCircle,
+  Calendar,
+  LogOut
+} from 'react-feather'
 
-import styles from './Navbar.module.css';
-import { logOut } from '../../actions/auth';
+import styles from './Navbar.module.css'
+import { logOut } from '../../actions/auth'
 
 const items = [
   { path: '', name: 'Dashboard', icon: <Activity /> },
@@ -15,14 +22,14 @@ const items = [
 ]
 
 const Navbar = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleLogOut = (e) => {
-    e.preventDefault();
-    
-    dispatch(logOut(navigate));
-  };
+    e.preventDefault()
+
+    dispatch(logOut(navigate))
+  }
 
   return (
     <section className={styles.navbar}>
@@ -31,20 +38,24 @@ const Navbar = () => {
           key={item.name}
           end
           to={`/${item.path}`}
-          className={({ isActive }) => (
+          className={({ isActive }) =>
             styles.navbarLink + (isActive ? ` ${styles.navbarLinkActive}` : '')
-          )}
+          }
         >
           {item.icon}
           {item.name}
         </NavLink>
       ))}
-      <NavLink to='/logout' className={styles.navbarLink} onClick={handleLogOut}>
+      <NavLink
+        to='/logout'
+        className={styles.navbarLink}
+        onClick={handleLogOut}
+      >
         <LogOut />
         Logout
       </NavLink>
     </section>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

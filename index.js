@@ -1,72 +1,76 @@
-import express from 'express';
-import mongoose from 'mongoose';
+import express from 'express'
+import mongoose from 'mongoose'
 import cors from 'cors'
-import morgan from 'morgan';
-import path from 'path';
-import passport from 'passport';
+import morgan from 'morgan'
+import path from 'path'
+import passport from 'passport'
 
-import 'dotenv/config';
-import authRoutes from './routes/Auth.js';
-import userRoutes from './routes/Users.js';
-import assetRoutes from './routes/Assets.js';
-import ticketRoutes from './routes/Tickets.js';
-import bookingRoutes from './routes/Bookings.js';
-import passportConfig from './config/passport.js';
+import 'dotenv/config'
+import authRoutes from './routes/Auth.js'
+import userRoutes from './routes/Users.js'
+import assetRoutes from './routes/Assets.js'
+import ticketRoutes from './routes/Tickets.js'
+import bookingRoutes from './routes/Bookings.js'
+import passportConfig from './config/passport.js'
 
-const app = express();
-const port = process.env.PORT || 4000;
+const app = express()
+const port = process.env.PORT || 4000
 
 // Middlewares
-app.use(express.json({ limit: '30mb', extended: true }));
-app.use(express.urlencoded({ limit: '30mb', extended: true }));
-app.use(morgan('tiny'));
-app.use(cors());
-app.use(passport.initialize());
-passportConfig(passport);
+app.use(express.json({ limit: '30mb', extended: true }))
+app.use(express.urlencoded({ limit: '30mb', extended: true }))
+app.use(morgan('tiny'))
+app.use(cors())
+app.use(passport.initialize())
+passportConfig(passport)
 
 // If we're on production, force TLS and serve static files
 if (process.env.NODE_ENV === 'production') {
   // Force TLS/HTTPS
   app.use((req, res, next) => {
     if (req.header('x-forwarded-proto') !== 'https') {
-      res.redirect(`https://${req.header('host')}${req.url}`);
+      res.redirect(`https://${req.header('host')}${req.url}`)
     } else {
-      next();
+      next()
     }
-  });
+  })
 
   // Serve static files
-  const __dirname = new URL('.', import.meta.url).pathname;
-  console.log(__dirname);
-  app.use(express.static(path.join(__dirname, 'client/build')));
+  const __dirname = new URL('.', import.meta.url).pathname
+  console.log(__dirname)
+  app.use(express.static(path.join(__dirname, 'client/build')))
   app.get(/^\/(?!api).*/, (req, res) => {
-    res.sendFile('index.html', { root: path.join(__dirname, 'client/build') });
-  });
+    res.sendFile('index.html', { root: path.join(__dirname, 'client/build') })
+  })
 }
 
 // Routes that should handle requests
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/assets', assetRoutes);
-app.use('/api/tickets', ticketRoutes);
-app.use('/api/bookings', bookingRoutes);
+app.use('/api/auth', authRoutes)
+app.use('/api/users', userRoutes)
+app.use('/api/assets', assetRoutes)
+app.use('/api/tickets', ticketRoutes)
+app.use('/api/bookings', bookingRoutes)
 
 // Initialize connection once and create connection pool
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
   .then(() => console.log('Database Connected'))
-  .catch((err) => console.log(err));
+  .catch((err) => console.log(err))
 
 // Pass direct errors
 app.use((error, req, res, next) => {
-  res.status(error.status || 500);
+  res.status(error.status || 500)
   res.json({
     error: {
-      message: error.message,
-    },
-  });
-  next(error);
-});
+      message: error.message
+    }
+  })
+  next(error)
+})
 
 app.listen(port, () => {
-  console.log(`Server is running on Port: ${port}`);
-});
+  console.log(`Server is running on Port: ${port}`)
+})

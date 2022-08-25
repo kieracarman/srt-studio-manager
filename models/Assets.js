@@ -1,79 +1,79 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
 const assetsSchema = mongoose.Schema({
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
   make: {
-    type: String,
+    type: String
   },
   model: {
-    type: String,
+    type: String
   },
   description: {
-    type: String,
+    type: String
   },
   serialNumber: {
-    type: String,
+    type: String
   },
   tagNumber: {
-    type: String,
+    type: String
   },
   assetType: {
     type: String,
     required: true,
-    enum: ['hardware', 'software'],
+    enum: ['hardware', 'software']
   },
   acquisitionDate: {
-    type: Date,
+    type: Date
   },
   acquisitionType: {
-    type: String,
+    type: String
   },
   transactionAmount: {
-    type: Number,
+    type: Number
   },
   minimumAccessLevel: {
     type: String,
     required: true,
     enum: ['sophomore', 'junior', 'senior', 'staff'],
-    default: 'staff',
+    default: 'staff'
   },
   location: {
     type: String,
-    required: true,
+    required: true
   },
   status: {
     type: String,
     required: true,
     enum: ['in', 'out', 'lost'],
-    default: 'in',
+    default: 'in'
   },
   maintenanceStatus: {
     type: String,
     required: true,
     enum: ['active', 'inactive', 'pending triage', 'triaged', 'servicing'],
-    default: 'active',
+    default: 'active'
   },
   maintenanceLog: [
     {
       createdAt: {
         type: Date,
-        default: Date.now,
+        default: Date.now
       },
       author: {
         type: String,
-        required: true,
+        required: true
       },
       notes: {
         type: String,
-        required: true,
-      },
-    },
-  ],
-});
+        required: true
+      }
+    }
+  ]
+})
 
-const Assets = mongoose.model('assets', assetsSchema);
+const Assets = mongoose.model('assets', assetsSchema)
 
-export default Assets;
+export default Assets

@@ -1,1 +1,1 @@
-export { default as useTableData } from './useTableData';
+export { default as useTableData } from './useTableData'
