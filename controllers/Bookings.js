@@ -2,6 +2,9 @@ import mongoose from 'mongoose'
 
 import Bookings from '../models/Bookings.js'
 
+// @desc Get all bookings
+// @route GET /bookings
+// @access Private
 export const getAllBookings = async (req, res) => {
   try {
     const bookings = await Bookings.find()
@@ -11,6 +14,9 @@ export const getAllBookings = async (req, res) => {
   }
 }
 
+// @desc Create a new booking
+// @route POST /bookings
+// @access Private
 export const createBooking = async (req, res) => {
   const newBooking = new Bookings(req.body)
 
@@ -22,6 +28,9 @@ export const createBooking = async (req, res) => {
   }
 }
 
+// @desc Get one booking
+// @route GET /bookings/:id
+// @access Private
 export const getOneBooking = async (req, res) => {
   const { id } = req.params
 
@@ -33,6 +42,9 @@ export const getOneBooking = async (req, res) => {
   }
 }
 
+// @desc Update a booking
+// @route PUT /bookings/:id
+// @access Private
 export const updateBooking = async (req, res) => {
   const { id } = req.params
 
@@ -49,6 +61,9 @@ export const updateBooking = async (req, res) => {
   res.json(updatedBooking)
 }
 
+// @desc Delete a booking
+// @route DELETE /bookings/:id
+// @access Private
 export const deleteBooking = async (req, res) => {
   const { id } = req.params
 

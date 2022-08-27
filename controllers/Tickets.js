@@ -2,6 +2,9 @@ import mongoose from 'mongoose'
 
 import Tickets from '../models/Tickets.js'
 
+// @desc Get all tickets
+// @route GET /tickets
+// @access Private
 export const getAllTickets = async (req, res) => {
   try {
     const tickets = await Tickets.find()
@@ -11,6 +14,9 @@ export const getAllTickets = async (req, res) => {
   }
 }
 
+// @desc Create a new ticket
+// @route POST /tickets
+// @access Private
 export const createTicket = async (req, res) => {
   const newTicket = new Tickets(req.body)
 
@@ -22,6 +28,9 @@ export const createTicket = async (req, res) => {
   }
 }
 
+// @desc Get one ticket
+// @route GET /tickets/:id
+// @access Private
 export const getOneTicket = async (req, res) => {
   const { id } = req.params
 
@@ -33,6 +42,9 @@ export const getOneTicket = async (req, res) => {
   }
 }
 
+// @desc Update a ticket
+// @route PUT /tickets/:id
+// @access Private
 export const updateTicket = async (req, res) => {
   const { id } = req.params
 
@@ -49,6 +61,9 @@ export const updateTicket = async (req, res) => {
   res.json(updatedTicket)
 }
 
+// @desc Delete a ticket
+// @route DELETE /tickets/:id
+// @access Private
 export const deleteTicket = async (req, res) => {
   const { id } = req.params
 

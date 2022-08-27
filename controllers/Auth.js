@@ -4,6 +4,9 @@ import jwt from 'jsonwebtoken'
 import Users from '../models/Users.js'
 import validateLoginInput from '../validation/Login.js'
 
+// @desc Login
+// @route POST /auth/login
+// @access Public
 export const login = async (req, res) => {
   // Form validation
   const { errors, isValid } = validateLoginInput(req.body)

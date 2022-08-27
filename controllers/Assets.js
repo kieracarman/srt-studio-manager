@@ -2,7 +2,9 @@ import mongoose from 'mongoose'
 
 import Assets from '../models/Assets.js'
 
-// Handle incoming GET requests to view all possible items
+// @desc Get all assets
+// @route GET /assets
+// @access Private
 export const getAllAssets = async (req, res) => {
   try {
     const assets = await Assets.find()
@@ -12,7 +14,9 @@ export const getAllAssets = async (req, res) => {
   }
 }
 
-// Handle incoming POST requests to create items
+// @desc Create a new asset
+// @route POST /assets
+// @access Private
 export const createAsset = async (req, res) => {
   const newAsset = new Assets(req.body)
 
@@ -24,7 +28,9 @@ export const createAsset = async (req, res) => {
   }
 }
 
-// Handle incoming specified GET requests to view single item
+// @desc Get one asset
+// @route GET /assets/:id
+// @access Private
 export const getOneAsset = async (req, res) => {
   const { id } = req.params
 
@@ -36,7 +42,9 @@ export const getOneAsset = async (req, res) => {
   }
 }
 
-// Handle incoming PUT requests to modify item
+// @desc Update an asset
+// @route PUT /assets/:id
+// @access Private
 export const updateAsset = async (req, res) => {
   const { id } = req.params
 
@@ -55,7 +63,9 @@ export const updateAsset = async (req, res) => {
   res.json(updatedAsset)
 }
 
-// Handle incoming DELETE requests to delete items
+// @desc Delete an asset
+// @route DELETE /assets/:id
+// @access Private
 export const deleteAsset = async (req, res) => {
   const { id } = req.params
 

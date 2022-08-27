@@ -3,7 +3,9 @@ import mongoose from 'mongoose'
 
 import Users from '../models/Users.js'
 
-// Handle incoming GET requests to view all possible users
+// @desc Get all users
+// @route GET /users
+// @access Private
 export const getAllUsers = async (req, res) => {
   try {
     const users = await Users.find().lean()
@@ -14,7 +16,9 @@ export const getAllUsers = async (req, res) => {
   }
 }
 
-// Handle incoming POST requests to create new item
+// @desc Create a new user
+// @route POST /users
+// @access Private
 export const createUser = async (req, res) => {
   // Make sure update data is not empty
   if (!req.body) {
@@ -46,7 +50,9 @@ export const createUser = async (req, res) => {
   }
 }
 
-// Handle incoming specified GET requests to view single item
+// @desc Get one user
+// @route GET /users/:id
+// @access Private
 export const getOneUser = async (req, res) => {
   const { id } = req.params
 
@@ -59,7 +65,9 @@ export const getOneUser = async (req, res) => {
   }
 }
 
-// Handle incoming PUT requests to update item
+// @desc Update a user
+// @route PUT /users/:id
+// @access Private
 export const updateUser = async (req, res) => {
   const { id } = req.params
 
@@ -88,7 +96,9 @@ export const updateUser = async (req, res) => {
   res.json(updatedUser)
 }
 
-// Handling incoming DELETE requests to delete item
+// @desc Delete a user
+// @route DELETE /users/:id
+// @access Private
 export const deleteUser = async (req, res) => {
   const { id } = req.params
 
