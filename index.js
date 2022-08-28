@@ -1,28 +1,32 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import cors from 'cors'
 import morgan from 'morgan'
+import cors from 'cors'
+import cookieParser from 'cookie-parser'
 import path from 'path'
-import passport from 'passport'
 
 import 'dotenv/config'
-import authRoutes from './routes/Auth.js'
-import userRoutes from './routes/Users.js'
-import assetRoutes from './routes/Assets.js'
-import ticketRoutes from './routes/Tickets.js'
-import bookingRoutes from './routes/Bookings.js'
-import passportConfig from './config/passport.js'
+import connectDB from './config/connectDB.js'
+import corsOptions from './config/corsOptions.js'
+import errorHandler from './middleware/errorHandler.js'
+import authRoutes from './routes/authRoutes.js'
+import userRoutes from './routes/userRoutes.js'
+import assetRoutes from './routes/assetRoutes.js'
+import ticketRoutes from './routes/ticketRoutes.js'
+import bookingRoutes from './routes/bookingRoutes.js'
 
+// Initialize app and service port
 const app = express()
 const port = process.env.PORT || 4000
 
+// Connect to database
+connectDB()
+
 // Middlewares
-app.use(express.json({ limit: '30mb', extended: true }))
-app.use(express.urlencoded({ limit: '30mb', extended: true }))
 app.use(morgan('tiny'))
-app.use(cors())
-app.use(passport.initialize())
-passportConfig(passport)
+app.use(cors(corsOptions))
+app.use(express.json())
+app.use(cookieParser())
 
 // If we're on production, force TLS and serve static files
 if (process.env.NODE_ENV === 'production') {
@@ -51,26 +55,16 @@ app.use('/api/assets', assetRoutes)
 app.use('/api/tickets', ticketRoutes)
 app.use('/api/bookings', bookingRoutes)
 
-// Initialize connection once and create connection pool
-mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(() => console.log('Database Connected'))
-  .catch((err) => console.log(err))
+// Apply errorHandler middleware
+app.use(errorHandler)
 
-// Pass direct errors
-app.use((error, req, res, next) => {
-  res.status(error.status || 500)
-  res.json({
-    error: {
-      message: error.message
-    }
-  })
-  next(error)
+// Once database is connected, log to console and start listening for requests
+mongoose.connection.once('open', () => {
+  console.log('Database Connected')
+  app.listen(port, () => console.log(`Server is running on port: ${port}`))
 })
 
-app.listen(port, () => {
-  console.log(`Server is running on Port: ${port}`)
+// On mongoose error, log to console
+mongoose.connection.on('error', (err) => {
+  console.log(err)
 })
