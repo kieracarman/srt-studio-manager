@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const assetsSchema = mongoose.Schema({
+const assetSchema = mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
@@ -74,6 +74,6 @@ const assetsSchema = mongoose.Schema({
   ]
 })
 
-const Assets = mongoose.model('assets', assetsSchema)
+const Asset = mongoose.model('assets', assetSchema)
 
-export default Assets
+export default Asset

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const ticketsSchema = mongoose.Schema({
+const ticketSchema = mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
@@ -48,6 +48,6 @@ const ticketsSchema = mongoose.Schema({
   ]
 })
 
-const Tickets = mongoose.model('tickets', ticketsSchema)
+const Ticket = mongoose.model('tickets', ticketSchema)
 
-export default Tickets
+export default Ticket
