@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const bookingsSchema = mongoose.Schema({
+const bookingSchema = mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
@@ -49,6 +49,6 @@ const bookingsSchema = mongoose.Schema({
   ]
 })
 
-const Bookings = mongoose.model('bookings', bookingsSchema)
+const Booking = mongoose.model('bookings', bookingSchema)
 
-export default Bookings
+export default Booking

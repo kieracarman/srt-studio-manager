@@ -1,7 +1,7 @@
 import Validator from 'validator'
 import isEmpty from 'is-empty'
 
-export const validateLoginInput = (data) => {
+const validateLoginInput = (data) => {
   const errors = {}
 
   // Convert empty fields to an empty string so we can use validator functions
