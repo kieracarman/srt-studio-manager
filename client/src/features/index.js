@@ -1,0 +1,6 @@
+export { default as Dashboard } from './dashboard/Dashboard'
+export { default as Assets } from './assets/Assets'
+export { default as Users } from './users/Users'
+export { default as Tickets } from './tickets/Tickets'
+export { default as Bookings } from './bookings/Bookings'
+export { default as Login } from './auth/Login'

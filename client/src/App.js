@@ -1,21 +1,12 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 
 import './App.css'
-
-import {
-  Dashboard,
-  Login,
-  Assets,
-  Users,
-  Tickets,
-  Bookings,
-  Modal
-} from './containers'
-import { Layout, PrivateRoute } from './components'
-import { EditAsset } from './components/Assets'
-import { EditUser } from './components/Users'
-import { EditTicket } from './components/Tickets'
-import { EditBooking } from './components/Bookings'
+import { Dashboard, Login, Assets, Users, Tickets, Bookings } from './features'
+import { Layout, PrivateRoute, Modal } from './components'
+import { EditAsset } from './features/assets/components'
+import { EditUser } from './features/users/components'
+import { EditTicket } from './features/tickets/components'
+import { EditBooking } from './features/bookings/components'
 
 const App = () => {
   return (
