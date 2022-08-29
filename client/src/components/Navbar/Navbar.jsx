@@ -1,5 +1,5 @@
+import { useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import {
   Activity,
   List,
@@ -10,7 +10,7 @@ import {
 } from 'react-feather'
 
 import styles from './Navbar.module.css'
-import { logOut } from '../../actions/auth'
+import { useSendLogoutMutation } from '../../features/auth/authApiSlice'
 
 const items = [
   { path: '', name: 'Dashboard', icon: <Activity /> },
@@ -21,16 +21,21 @@ const items = [
 ]
 
 const Navbar = () => {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const handleLogOut = (e) => {
-    e.preventDefault()
+  const [sendLogout, { isLoading, isSuccess, isError, error }] =
+    useSendLogoutMutation()
 
-    dispatch(logOut(navigate))
-  }
+  useEffect(() => {
+    if (isSuccess) navigate('/')
+  }, [isSuccess, navigate])
 
-  return (
+  const handleLogout = () => sendLogout()
+
+  if (isLoading) return <p>Logging out...</p>
+  if (isError) return <p>Error: {error.data?.message}</p>
+
+  const content = (
     <section className={styles.navbar}>
       {items.map((item) => (
         <NavLink
@@ -45,16 +50,19 @@ const Navbar = () => {
           {item.name}
         </NavLink>
       ))}
-      <NavLink
-        to='/logout'
+
+      <button
         className={styles.navbarLink}
-        onClick={handleLogOut}
+        title='Logout'
+        onClick={handleLogout}
       >
         <LogOut />
         Logout
-      </NavLink>
+      </button>
     </section>
   )
+
+  return content
 }
 
 export default Navbar

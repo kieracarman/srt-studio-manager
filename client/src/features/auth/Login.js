@@ -1,20 +1,23 @@
 import { useRef, useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import styles from './Login.module.css'
-import { logIn } from '../../actions/auth'
+import { setCredentials } from './authSlice'
+import { useLoginMutation } from './authApiSlice'
 
 const Login = () => {
   const userRef = useRef()
   const errRef = useRef()
 
-  const [user, setUser] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const { message } = useSelector((state) => state.errors)
+  const [errMsg, setErrMsg] = useState('')
 
-  const dispatch = useDispatch()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const [login, { isLoading }] = useLoginMutation()
 
   useEffect(() => {
     userRef.current.focus()
@@ -22,21 +25,43 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    dispatch(logIn({ username: user, password: password }, navigate))
-    setUser('')
-    setPassword('')
+    try {
+      const { accessToken } = await login({ username, password }).unwrap()
+      dispatch(setCredentials({ accessToken }))
+      setUsername('')
+      setPassword('')
+      navigate('/')
+    } catch (err) {
+      if (!err.status) {
+        setErrMsg('No server response.')
+      } else if (err.status === 400) {
+        setErrMsg('Missing username or password.')
+      } else if (err.status === 401) {
+        setErrMsg('Unauthorized')
+      } else {
+        setErrMsg(err.data?.message)
+      }
+      errRef.current.focus()
+    }
   }
 
-  return (
+  const handleUserInput = (e) => setUsername(e.target.value)
+  const handlePwdInput = (e) => setPassword(e.target.value)
+
+  const errClass = errMsg ? styles.error : styles.offscreen
+
+  if (isLoading) return <p>Loading...</p>
+
+  const content = (
     <div className={styles.loginBg}>
       <section className={styles.loginBox}>
         <form onSubmit={handleSubmit}>
-          {message && (
-            <span className={styles.error} ref={errRef} aria-live='assertive'>
-              {message}
-            </span>
-          )}
           <h2>SRT Studio Manager</h2>
+
+          <p ref={errRef} classname={errClass} aria-live='assertive'>
+            {errMsg}
+          </p>
+
           <label htmlFor='username' aria-label='username'>
             Username
           </label>
@@ -44,110 +69,30 @@ const Login = () => {
             type='text'
             id='username'
             ref={userRef}
+            value={username}
+            onChange={handleUserInput}
             autoComplete='off'
-            onChange={(e) => setUser(e.target.value)}
-            value={user}
             required
           />
+
           <label htmlFor='password' aria-label='password'>
             Password
           </label>
           <input
             type='password'
             id='password'
-            onChange={(e) => setPassword(e.target.value)}
             value={password}
+            onChange={handlePwdInput}
             required
           />
+
           <button>Sign In</button>
         </form>
       </section>
     </div>
   )
+
+  return content
 }
 
 export default Login
-
-// OLD LOGIN CODE
-//
-// import React, { useState } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
-// import classnames from 'classnames';
-//
-// import { logIn } from '../actions/auth';
-//
-// const initialState = {
-//   username: '',
-//   password: '',
-// }
-//
-// const Login = () => {
-//   const [form, setForm] = useState(initialState);
-//   const [errors, setErrors] = useState({});
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-//
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     dispatch(logIn(form, navigate));
-//   };
-//
-//   const handleChange = (e) => {
-//     setForm({ ...form, [e.target.id]: e.target.value });
-//   };
-//
-//   return (
-//     <div className='login-bg'>
-//       <div className='login-box'>
-//         <form noValidate onSubmit={handleSubmit}>
-//           <div className='form-group'>
-//             <h2>SRT Studio Manager</h2>
-//           </div>
-//           <div className='form-group'>
-//             <input
-//               autoFocus
-//               onChange={handleChange}
-//               value={form.username}
-//               error={errors.username}
-//               id='username'
-//               type='username'
-//               placeholder='Username'
-//               className={classnames('form-control', {
-//                 invalid: errors.username || errors.usernameNotFound
-//               })}
-//             />
-//             <div className='form-error'>
-//               <span>
-//                 {errors.username}
-//                 {errors.usernameNotFound}
-//               </span>
-//             </div>
-//           </div>
-//           <div className='form-group'>
-//             <input
-//               onChange={handleChange}
-//               value={form.password}
-//               error={errors.password}
-//               id='password'
-//               type='password'
-//               placeholder='Password'
-//               className={classnames('form-control', {
-//                 invalid: errors.password || errors.incorrectPassword
-//               })}
-//             />
-//             <div className='form-error'>
-//               <span>
-//                 {errors.password}
-//                 {errors.incorrectPassword}
-//               </span>
-//             </div>
-//           </div>
-//           <button type='submit' className='login-button'>Login</button>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// };
-//
-// export default Login;
