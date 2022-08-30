@@ -1,18 +1,11 @@
-import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useState } from 'react'
 
 import styles from './Users.module.css'
-import { getUsers } from '../../actions/users'
 import { SearchBar } from '../../components'
 import { UserList } from './components'
 
 const Users = () => {
   const [searchQuery, setSearchQuery] = useState('')
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getUsers())
-  }, [])
 
   return (
     <section className={styles.users}>

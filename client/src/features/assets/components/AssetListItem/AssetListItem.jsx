@@ -2,36 +2,45 @@ import { useNavigate } from 'react-router-dom'
 
 import styles from './AssetListItem.module.css'
 
-const AssetListItem = (props) => {
+const AssetListItem = ({
+  id,
+  tagNumber,
+  description,
+  make,
+  model,
+  location,
+  status
+}) => {
   const navigate = useNavigate()
 
-  return (
-    <tr
-      className={styles.listItem}
-      onClick={() => navigate(`/assets/${props.id}`)}
-    >
-      <td>{props.tagNumber}</td>
-      <td className='bold'>{props.description}</td>
-      <td>{props.make}</td>
-      <td>{props.model}</td>
-      <td>{props.location}</td>
+  const handleEdit = (e) => navigate(`/assets/${id}`)
+
+  const content = (
+    <tr className={styles.listItem} onClick={handleEdit}>
+      <td>{tagNumber}</td>
+      <td className='bold'>{description}</td>
+      <td>{make}</td>
+      <td>{model}</td>
+      <td>{location}</td>
       <td>
         <span
           className={`${styles.statusTag} ${
-            props.status === 'in'
+            status === 'in'
               ? styles.complete
-              : props.status === 'out'
+              : status === 'out'
               ? styles.inProgress
-              : props.status === 'lost'
+              : status === 'lost'
               ? styles.pending
               : ''
           }`}
         >
-          {props.status}
+          {status}
         </span>
       </td>
     </tr>
   )
+
+  return content
 }
 
 export default AssetListItem

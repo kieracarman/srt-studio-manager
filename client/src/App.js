@@ -2,13 +2,13 @@ import { Routes, Route } from 'react-router-dom'
 
 import './App.css'
 import { Layout, Modal } from './components'
-import { Dashboard, Assets, Users, Tickets, Bookings } from './features'
+import { Dashboard, Assets } from './features'
 import Login from './features/auth/Login'
 import Prefetch from './features/auth/Prefetch'
-import { EditAsset } from './features/assets/components'
-import { EditUser } from './features/users/components'
-import { EditTicket } from './features/tickets/components'
-import { EditBooking } from './features/bookings/components'
+import { EditAsset, NewAsset } from './features/assets/components'
+// import { EditUser } from './features/users/components'
+// import { EditTicket } from './features/tickets/components'
+// import { EditBooking } from './features/bookings/components'
 
 const App = () => {
   return (
@@ -29,8 +29,16 @@ const App = () => {
                 </Modal>
               }
             />
+            <Route
+              path='new'
+              element={
+                <Modal onClose='/assets'>
+                  <NewAsset />
+                </Modal>
+              }
+            />
           </Route>
-
+          {/*
           <Route path='users'>
             <Route index element={<Users />} />
             <Route
@@ -65,7 +73,7 @@ const App = () => {
                 </Modal>
               }
             />
-          </Route>
+            </Route>*/}
         </Route>
       </Route>
     </Routes>

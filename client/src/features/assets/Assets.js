@@ -1,20 +1,11 @@
-import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useState } from 'react'
 
 import styles from './Assets.module.css'
-import { getAssets } from '../../actions/assets'
 import { SearchBar } from '../../components'
 import { AssetList } from './components'
 
 const Assets = () => {
   const [searchQuery, setSearchQuery] = useState('')
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getAssets())
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <section className={styles.assets}>

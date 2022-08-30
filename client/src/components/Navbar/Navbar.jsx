@@ -27,7 +27,7 @@ const Navbar = () => {
     useSendLogoutMutation()
 
   useEffect(() => {
-    if (isSuccess) navigate('/')
+    if (isSuccess) navigate('/login')
   }, [isSuccess, navigate])
 
   const handleLogout = () => sendLogout()

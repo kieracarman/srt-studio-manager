@@ -58,9 +58,9 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           <h2>SRT Studio Manager</h2>
 
-          <p ref={errRef} classname={errClass} aria-live='assertive'>
+          <span ref={errRef} className={errClass} aria-live='assertive'>
             {errMsg}
-          </p>
+          </span>
 
           <label htmlFor='username' aria-label='username'>
             Username

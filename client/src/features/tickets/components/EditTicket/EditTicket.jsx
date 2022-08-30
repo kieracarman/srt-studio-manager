@@ -3,12 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './EditTicket.module.css'
-import {
-  getTicket,
-  createTicket,
-  updateTicket,
-  deleteTicket
-} from '../../../actions/tickets'
 
 const EditTicket = () => {
   const { ticket, isLoading } = useSelector((state) => state.tickets)
@@ -27,12 +21,6 @@ const EditTicket = () => {
 
   useEffect(() => {
     if (id !== 'new') {
-      dispatch(getTicket(id))
-    }
-  }, [])
-
-  useEffect(() => {
-    if (id !== 'new') {
       setModifiedTicket(ticket)
     }
   }, [ticket])
@@ -44,18 +32,14 @@ const EditTicket = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (id === 'new') {
-      dispatch(createTicket(modifiedTicket, navigate))
     } else {
-      dispatch(updateTicket(id, modifiedTicket, navigate))
     }
   }
 
   const handleDelete = (e) => {
     e.preventDefault()
 
-    deleteText === 'Delete Ticket'
-      ? setDeleteText('Are you sure?')
-      : dispatch(deleteTicket(id, navigate))
+    deleteText === 'Delete Ticket' ?? setDeleteText('Are you sure?')
   }
 
   return (

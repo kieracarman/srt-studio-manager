@@ -3,12 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import styles from './EditUser.module.css'
-import {
-  getUser,
-  createUser,
-  updateUser,
-  deleteUser
-} from '../../../actions/users'
 
 const EditUser = () => {
   const { user, isLoading } = useSelector((state) => state.users)
@@ -17,14 +11,6 @@ const EditUser = () => {
   const { id } = useParams()
   const [modifiedUser, setModifiedUser] = useState({ username: '' })
   const [deleteText, setDeleteText] = useState('Delete User')
-
-  useEffect(() => {
-    if (id !== 'new') {
-      dispatch(getUser(id))
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   useEffect(() => {
     if (id !== 'new') {
@@ -41,17 +27,13 @@ const EditUser = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (id === 'new') {
-      dispatch(createUser(modifiedUser, navigate))
     }
-    dispatch(updateUser(id, modifiedUser, navigate))
   }
 
   const handleDelete = (e) => {
     e.preventDefault()
 
-    deleteText === 'Delete User'
-      ? setDeleteText('Are you sure?')
-      : dispatch(deleteUser(id, navigate))
+    deleteText === 'Delete User' ?? setDeleteText('Are you sure?')
   }
 
   return (

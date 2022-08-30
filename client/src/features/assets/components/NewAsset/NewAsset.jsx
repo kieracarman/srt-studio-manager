@@ -1,50 +1,30 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import styles from './EditAsset.module.css'
-import {
-  selectAssetById,
-  useUpdateAssetMutation,
-  useDeleteAssetMutation
-} from '../../assetsApiSlice'
+import styles from './NewAsset.module.css'
+import { useAddNewAssetMutation } from '../../assetsApiSlice'
 
-const EditAsset = () => {
-  const [updateAsset, { isLoading, isSuccess, isError, error }] =
-    useUpdateAssetMutation()
+const NewAsset = () => {
+  const [addNewAsset, { isLoading, isSuccess, isError, error }] =
+    useAddNewAssetMutation()
 
-  const [
-    deleteAsset,
-    { isSuccess: isDeleteSuccess, isError: isDeleteError, error: deleteError }
-  ] = useDeleteAssetMutation()
-
-  const { id } = useParams()
   const navigate = useNavigate()
 
-  const asset = useSelector((state) => selectAssetById(state, id))
-
-  const [description, setDescription] = useState(asset.description)
-  const [tagNumber, setTagNumber] = useState(asset.tagNumber)
-  const [make, setMake] = useState(asset.make)
-  const [model, setModel] = useState(asset.model)
-  const [serialNumber, setSerialNumber] = useState(asset.serialNumber)
-  const [location, setLocation] = useState(asset.location)
-  const [acquisitionDate, setAcquisitionDate] = useState(asset.acquisitionDate)
-  const [transactionAmount, setTransactionAmount] = useState(
-    asset.transactionAmount
-  )
-  const [status, setStatus] = useState(asset.status)
-  const [assetType, setAssetType] = useState(asset.assetType)
-  const [maintenanceStatus, setMaintenanceStatus] = useState(
-    asset.maintenanceStatus
-  )
-  const [minimumAccessLevel, setMinimumAccessLevel] = useState(
-    asset.minimumAccessLevel
-  )
-  const [deleteText, setDeleteText] = useState('Delete Asset')
+  const [description, setDescription] = useState('')
+  const [tagNumber, setTagNumber] = useState('')
+  const [make, setMake] = useState('')
+  const [model, setModel] = useState('')
+  const [serialNumber, setSerialNumber] = useState('')
+  const [location, setLocation] = useState('')
+  const [acquisitionDate, setAcquisitionDate] = useState('')
+  const [transactionAmount, setTransactionAmount] = useState('')
+  const [status, setStatus] = useState('')
+  const [assetType, setAssetType] = useState('')
+  const [maintenanceStatus, setMaintenanceStatus] = useState('')
+  const [minimumAccessLevel, setMinimumAccessLevel] = useState('')
 
   useEffect(() => {
-    if (isSuccess || isDeleteSuccess) {
+    if (isSuccess) {
       setDescription('')
       setTagNumber('')
       setMake('')
@@ -59,7 +39,7 @@ const EditAsset = () => {
       setMinimumAccessLevel('')
       navigate('/assets')
     }
-  }, [isSuccess, isDeleteSuccess, navigate])
+  }, [isSuccess, navigate])
 
   const onDescriptionChanged = (e) => setDescription(e.target.value)
   const onTagNumberChanged = (e) => setTagNumber(e.target.value)
@@ -91,8 +71,7 @@ const EditAsset = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (canSave) {
-      await updateAsset({
-        id,
+      await addNewAsset({
         description,
         tagNumber,
         make,
@@ -108,17 +87,8 @@ const EditAsset = () => {
       })
     }
   }
-
-  const handleDelete = async (e) => {
-    e.preventDefault()
-
-    deleteText === 'Delete Asset'
-      ? setDeleteText('Are you sure?')
-      : await deleteAsset({ id })
-  }
-
-  const errClass = isError || isDeleteError ? 'errmsg' : 'offscreen'
-  const errContent = (error?.data?.message || deleteError?.data?.message) ?? ''
+  const errClass = isError ? 'errmsg' : 'offscreen'
+  const errContent = error?.data?.message ?? ''
 
   const content = (
     <div className={styles.editForm}>
@@ -199,9 +169,7 @@ const EditAsset = () => {
           <option value='staff'>staff</option>
         </select>
         <div>
-          <button type='button' onClick={handleDelete} className='alert'>
-            Delete Asset
-          </button>
+          <span></span>
           <button type='submit'>Save</button>
         </div>
       </form>
@@ -211,4 +179,4 @@ const EditAsset = () => {
   return content
 }
 
-export default EditAsset
+export default NewAsset
