@@ -1,40 +1,35 @@
-import { useSelector } from 'react-redux'
-
 import styles from './UserList.module.css'
 import { UserListItem } from '../'
 import { useTableData } from '../../../../hooks'
 
-const UserList = (props) => {
-  const { users, isLoading } = useSelector((state) => state.users)
+const UserList = ({ query, users }) => {
   const { tableData, requestSort, sortArrow } = useTableData(users)
 
   const filterArray = (array) => {
     return array.filter((item) => {
-      return props.query !== ''
+      return query !== ''
         ? [item._id, item.username]
             .join(' ')
             .toString()
             .toLowerCase()
-            .indexOf(props.query.toLowerCase()) > -1
+            .indexOf(query.toLowerCase()) > -1
         : true
     })
   }
 
-  const listUsers = () => {
-    return filterArray(tableData).map((user) => {
-      return (
-        <UserListItem
-          key={user._id}
-          id={user._id}
-          username={user.username}
-          role={user.role}
-          accessLevel={user.accessLevel}
-        />
-      )
-    })
-  }
+  const tableContent = filterArray(tableData).map((user) => {
+    return (
+      <UserListItem
+        key={user._id}
+        id={user._id}
+        username={user.username}
+        role={user.role}
+        accessLevel={user.accessLevel}
+      />
+    )
+  })
 
-  return (
+  const content = (
     <table className={styles.list}>
       <thead>
         <tr>
@@ -47,17 +42,11 @@ const UserList = (props) => {
           </th>
         </tr>
       </thead>
-      <tbody>
-        {isLoading ? (
-          <tr>
-            <td>Loading...</td>
-          </tr>
-        ) : (
-          listUsers()
-        )}
-      </tbody>
+      <tbody>{tableContent}</tbody>
     </table>
   )
+
+  return content
 }
 
 export default UserList
