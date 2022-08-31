@@ -15,11 +15,6 @@
 
 .error {
   grid-column: 1/-1;
-  padding: 8px;
-  margin-bottom: 8px;
-  background-color: lightpink;
-  border-radius: 4px;
-  border: 2px solid darkred;
 }
 
 .loginBox h2 {

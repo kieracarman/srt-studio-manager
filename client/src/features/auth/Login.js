@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import PulseLoader from 'react-spinners/PulseLoader'
 
 import styles from './Login.module.css'
 import { setCredentials } from './authSlice'
@@ -37,7 +38,7 @@ const Login = () => {
       } else if (err.status === 400) {
         setErrMsg('Missing username or password.')
       } else if (err.status === 401) {
-        setErrMsg('Unauthorized')
+        setErrMsg('Incorrect username or password.')
       } else {
         setErrMsg(err.data?.message)
       }
@@ -48,9 +49,15 @@ const Login = () => {
   const handleUserInput = (e) => setUsername(e.target.value)
   const handlePwdInput = (e) => setPassword(e.target.value)
 
-  const errClass = errMsg ? styles.error : styles.offscreen
+  const errClass = errMsg ? 'error' : 'offscreen'
 
-  if (isLoading) return <p>Loading...</p>
+  const signInButton = isLoading ? (
+    <button disabled>
+      <PulseLoader color='#ffffff' size={5} />
+    </button>
+  ) : (
+    <button>Sign In</button>
+  )
 
   const content = (
     <div className={styles.loginBg}>
@@ -58,7 +65,11 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           <h2>SRT Studio Manager</h2>
 
-          <span ref={errRef} className={errClass} aria-live='assertive'>
+          <span
+            ref={errRef}
+            className={`${styles.error} ${errClass}`}
+            aria-live='assertive'
+          >
             {errMsg}
           </span>
 
@@ -86,7 +97,7 @@ const Login = () => {
             required
           />
 
-          <button>Sign In</button>
+          {signInButton}
         </form>
       </section>
     </div>
