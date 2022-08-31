@@ -32,7 +32,7 @@ const AssetList = ({ query, assets }) => {
     )
   })
 
-  let content = (
+  const content = (
     <table className={styles.list}>
       <thead>
         <tr>

@@ -20,8 +20,6 @@ const Assets = () => {
     refetchOnMountOrArgChange: true
   })
 
-  let assetsArray
-
   let content
 
   if (isLoading) content = <p>Loading...</p>
@@ -33,7 +31,7 @@ const Assets = () => {
   if (isSuccess) {
     const { ids } = assets
 
-    assetsArray = ids.map((id) => {
+    const assetsArray = ids.map((id) => {
       return assets.entities[id]
     })
 
