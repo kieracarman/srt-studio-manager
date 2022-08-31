@@ -120,6 +120,8 @@ const EditAsset = () => {
   const errClass = isError || isDeleteError ? 'errmsg' : 'offscreen'
   const errContent = (error?.data?.message || deleteError?.data?.message) ?? ''
 
+  const disabledButtonClass = canSave ? '' : 'disabled'
+
   const content = (
     <div className={styles.editForm}>
       <span className={errClass}>{errContent}</span>
@@ -200,9 +202,15 @@ const EditAsset = () => {
         </select>
         <div>
           <button type='button' onClick={handleDelete} className='alert'>
-            Delete Asset
+            {deleteText}
           </button>
-          <button type='submit'>Save</button>
+          <button
+            className={disabledButtonClass}
+            type='submit'
+            disabled={!canSave}
+          >
+            {canSave ? 'Save' : 'Missing Required Fields'}
+          </button>
         </div>
       </form>
     </div>

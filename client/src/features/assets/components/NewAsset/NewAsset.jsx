@@ -90,6 +90,8 @@ const NewAsset = () => {
   const errClass = isError ? 'errmsg' : 'offscreen'
   const errContent = error?.data?.message ?? ''
 
+  const disabledButtonClass = canSave ? '' : 'disabled'
+
   const content = (
     <div className={styles.editForm}>
       <span className={errClass}>{errContent}</span>
@@ -170,7 +172,13 @@ const NewAsset = () => {
         </select>
         <div>
           <span></span>
-          <button type='submit'>Save</button>
+          <button
+            className={disabledButtonClass}
+            type='submit'
+            disabled={!canSave}
+          >
+            {canSave ? 'Save' : 'Missing Required Fields'}
+          </button>
         </div>
       </form>
     </div>
