@@ -2,9 +2,8 @@ import { Routes, Route } from 'react-router-dom'
 
 import './App.css'
 import { Layout, Modal } from './components'
+import { Login, Prefetch, PersistLogin } from './features/auth'
 import { Dashboard, Assets } from './features'
-import Login from './features/auth/Login'
-import Prefetch from './features/auth/Prefetch'
 import { EditAsset, NewAsset } from './features/assets/components'
 // import { EditUser } from './features/users/components'
 // import { EditTicket } from './features/tickets/components'
@@ -15,30 +14,31 @@ const App = () => {
     <Routes>
       <Route path='login' element={<Login />} />
 
-      <Route element={<Prefetch />}>
-        <Route path='/' element={<Layout />}>
-          <Route index element={<Dashboard />} />
+      <Route element={<PersistLogin />}>
+        <Route element={<Prefetch />}>
+          <Route path='/' element={<Layout />}>
+            <Route index element={<Dashboard />} />
 
-          <Route path='assets'>
-            <Route index element={<Assets />} />
-            <Route
-              path=':id'
-              element={
-                <Modal onClose='/assets'>
-                  <EditAsset />
-                </Modal>
-              }
-            />
-            <Route
-              path='new'
-              element={
-                <Modal onClose='/assets'>
-                  <NewAsset />
-                </Modal>
-              }
-            />
-          </Route>
-          {/*
+            <Route path='assets'>
+              <Route index element={<Assets />} />
+              <Route
+                path=':id'
+                element={
+                  <Modal onClose='/assets'>
+                    <EditAsset />
+                  </Modal>
+                }
+              />
+              <Route
+                path='new'
+                element={
+                  <Modal onClose='/assets'>
+                    <NewAsset />
+                  </Modal>
+                }
+              />
+            </Route>
+            {/*
           <Route path='users'>
             <Route index element={<Users />} />
             <Route
@@ -74,6 +74,7 @@ const App = () => {
               }
             />
             </Route>*/}
+          </Route>
         </Route>
       </Route>
     </Routes>
