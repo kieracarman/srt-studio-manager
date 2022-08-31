@@ -2,31 +2,28 @@ import { useNavigate } from 'react-router-dom'
 
 import styles from './BookingListItem.module.css'
 
-const BookingListItem = (props) => {
+const BookingListItem = ({ id, title, author, room, bookingDate, status }) => {
   const navigate = useNavigate()
 
   return (
-    <tr
-      className={styles.listItem}
-      onClick={() => navigate(`/bookings/${props.id}`)}
-    >
-      <td className='bold'>{props.title}</td>
-      <td>{props.author}</td>
-      <td>{props.room}</td>
-      <td>{props.bookingDate}</td>
+    <tr className={styles.listItem} onClick={() => navigate(`/bookings/${id}`)}>
+      <td className='bold'>{title}</td>
+      <td>{author}</td>
+      <td>{room}</td>
+      <td>{bookingDate}</td>
       <td>
         <span
           className={`${styles.statusTag} ${
-            props.status === 'in'
+            status === 'in'
               ? styles.complete
-              : props.status === 'out'
+              : status === 'out'
               ? styles.inProgress
-              : props.status === 'lost'
+              : status === 'lost'
               ? styles.pending
               : ''
           }`}
         >
-          {props.status}
+          {status}
         </span>
       </td>
     </tr>
