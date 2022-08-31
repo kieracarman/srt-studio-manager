@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 
 import { store } from '../../app/store'
 import { assetsApiSlice } from '../assets/assetsApiSlice'
-import { bookingsApiSlice } from '../bookings/bookingsApiAlice'
+import { bookingsApiSlice } from '../bookings/bookingsApiSlice'
 import { ticketsApiSlice } from '../tickets/ticketsApiSlice'
 import { usersApiSlice } from '../users/usersApiSlice'
 
