@@ -1,41 +1,36 @@
-import { useSelector } from 'react-redux'
-
 import styles from './TicketList.module.css'
 import { TicketListItem } from '../'
 import { useTableData } from '../../../../hooks'
 
-const TicketList = (props) => {
-  const { tickets, isLoading } = useSelector((state) => state.tickets)
+const TicketList = ({ query, tickets }) => {
   const { tableData, requestSort, sortArrow } = useTableData(tickets)
 
   const filterArray = (array) => {
     return array.filter((item) => {
-      return props.query !== ''
+      return query !== ''
         ? [item._id, item.title, item.description]
             .join(' ')
             .toString()
             .toLowerCase()
-            .indexOf(props.query.toLowerCase()) > -1
+            .indexOf(query.toLowerCase()) > -1
         : true
     })
   }
 
-  const listTickets = () => {
-    return filterArray(tableData).map((ticket) => {
-      return (
-        <TicketListItem
-          key={ticket._id}
-          id={ticket._id}
-          createdBy={ticket.author.username}
-          title={ticket.title}
-          assignedRole={ticket.assignedRole}
-          status={ticket.status}
-        />
-      )
-    })
-  }
+  const tableContent = filterArray(tableData).map((ticket) => {
+    return (
+      <TicketListItem
+        key={ticket._id}
+        id={ticket._id}
+        createdBy={ticket.author.username}
+        title={ticket.title}
+        assignedRole={ticket.assignedRole}
+        status={ticket.status}
+      />
+    )
+  })
 
-  return (
+  const content = (
     <table className={styles.list}>
       <thead>
         <tr>
@@ -53,17 +48,11 @@ const TicketList = (props) => {
           </th>
         </tr>
       </thead>
-      <tbody>
-        {isLoading ? (
-          <tr>
-            <td>Loading...</td>
-          </tr>
-        ) : (
-          listTickets()
-        )}
-      </tbody>
+      <tbody>{tableContent}</tbody>
     </table>
   )
+
+  return content
 }
 
 export default TicketList
