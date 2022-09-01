@@ -1,7 +1,6 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
 
-import styles from './Topbar.module.css';
+import styles from './Topbar.module.css'
 
 const Topbar = () => (
   <div className={styles.topbar}>
@@ -9,6 +8,6 @@ const Topbar = () => (
       <NavLink to='/'>SRT Studio Manager</NavLink>
     </div>
   </div>
-);
+)
 
-export default Topbar;
+export default Topbar

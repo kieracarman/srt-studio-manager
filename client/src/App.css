@@ -23,7 +23,7 @@ p {
 
 button {
   padding: 8px 16px;
-  color: #FFF;
+  color: #fff;
   font-weight: bold;
   background-color: #000;
   border-radius: 4px;
@@ -69,4 +69,20 @@ button.alert:hover {
   border: 1px solid red;
   color: red;
   cursor: pointer;
+}
+
+button.disabled {
+  background-color: #444;
+}
+
+button.disabled:hover {
+  cursor: not-allowed;
+}
+
+.error {
+  padding: 8px;
+  margin-bottom: 8px;
+  background-color: lightpink;
+  border-radius: 4px;
+  border: 2px solid darkred;
 }
