@@ -120,6 +120,8 @@ const EditTicket = () => {
       </form>
     </div>
   )
+
+  return content
 }
 
 export default EditTicket
