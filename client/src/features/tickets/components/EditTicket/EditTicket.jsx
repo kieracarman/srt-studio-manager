@@ -48,6 +48,7 @@ const EditTicket = () => {
     [title, description, assignedRole, status].every(Boolean) && !isLoading
 
   const handleSubmit = async (e) => {
+    e.preventDefault()
     if (canSave) {
       await updateTicket({
         title,
@@ -58,12 +59,12 @@ const EditTicket = () => {
     }
   }
 
-  const handleDelete = (e) => {
+  const handleDelete = async (e) => {
     e.preventDefault()
 
     deleteText === 'Delete Ticket'
       ? setDeleteText('Are you sure?')
-      : deleteTicket({ id })
+      : await deleteTicket({ id })
   }
 
   const errClass = isError || isDeleteError ? 'errmsg' : 'offscreen'
@@ -112,7 +113,7 @@ const EditTicket = () => {
             type='submit'
             disabled={!canSave}
           >
-            Save
+            {canSave ? 'Save' : 'Missing Required Fields'}
           </button>
         </div>
       </form>

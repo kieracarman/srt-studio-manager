@@ -10,10 +10,10 @@ const NewTicket = () => {
 
   const navigate = useNavigate()
 
-  const [title, setTitle] = useState()
-  const [description, setDescription] = useState()
-  const [assignedRole, setAssignedRole] = useState()
-  const [status, setStatus] = useState()
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [assignedRole, setAssignedRole] = useState('')
+  const [status, setStatus] = useState('')
 
   useEffect(() => {
     if (isSuccess) {
