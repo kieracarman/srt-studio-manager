@@ -2,7 +2,7 @@ import styles from './AssetList.module.css'
 import { AssetListItem } from '../'
 import { useTableData } from '../../../../hooks'
 
-const AssetList = ({ query, assets }) => {
+const AssetList = ({ query, assets, error }) => {
   const { tableData, requestSort, sortArrow } = useTableData(assets)
 
   const filterArray = (array) => {
@@ -54,7 +54,14 @@ const AssetList = ({ query, assets }) => {
           </th>
         </tr>
       </thead>
-      <tbody>{tableContent}</tbody>
+      <tbody>
+        {error && (
+          <tr>
+            <td className='errmsg'>{error}</td>
+          </tr>
+        )}
+        {tableContent}
+      </tbody>
     </table>
   )
 

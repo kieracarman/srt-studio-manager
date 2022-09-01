@@ -2,7 +2,7 @@ import styles from './BookingList.module.css'
 import { BookingListItem } from '../'
 import { useTableData } from '../../../../hooks'
 
-const BookingList = ({ query, bookings }) => {
+const BookingList = ({ query, bookings, error }) => {
   const { tableData, requestSort, sortArrow } = useTableData(bookings)
 
   const filterArray = (array) => {
@@ -50,7 +50,14 @@ const BookingList = ({ query, bookings }) => {
           </th>
         </tr>
       </thead>
-      <tbody>{tableContent}</tbody>
+      <tbody>
+        {error && (
+          <tr>
+            <td>{error}</td>
+          </tr>
+        )}
+        {tableContent}
+      </tbody>
     </table>
   )
 

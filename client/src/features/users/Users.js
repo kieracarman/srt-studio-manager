@@ -21,11 +21,14 @@ const Users = () => {
   })
 
   let content
+  let usersList
 
   if (isLoading) content = <p>Loading...</p>
 
   if (isError) {
-    content = <p className='errmsg'>{error?.data?.message}</p>
+    usersList = (
+      <UserList query={searchQuery} users={[]} error={error?.data?.message} />
+    )
   }
 
   if (isSuccess) {
@@ -35,18 +38,20 @@ const Users = () => {
       return users.entities[id]
     })
 
-    content = (
-      <section className={styles.users}>
-        <SearchBar
-          item='User'
-          newItemPath='/users/new'
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
-        <UserList query={searchQuery} users={usersArray} />
-      </section>
-    )
+    usersList = <UserList query={searchQuery} users={usersArray} />
   }
+
+  content = (
+    <section className={styles.users}>
+      <SearchBar
+        item='User'
+        newItemPath='/users/new'
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
+      {usersList}
+    </section>
+  )
 
   return content
 }

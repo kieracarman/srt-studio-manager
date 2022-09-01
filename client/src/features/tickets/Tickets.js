@@ -21,11 +21,18 @@ const Tickets = () => {
   })
 
   let content
+  let ticketList
 
   if (isLoading) content = <p>Loading...</p>
 
   if (isError) {
-    content = <p className='errmsg'>{error?.data?.message}</p>
+    ticketList = (
+      <TicketList
+        query={searchQuery}
+        tickets={[]}
+        error={error?.data?.message}
+      />
+    )
   }
 
   if (isSuccess) {
@@ -35,18 +42,20 @@ const Tickets = () => {
       return tickets.entities[id]
     })
 
-    content = (
-      <section className={styles.tickets}>
-        <SearchBar
-          item='Ticket'
-          newItemPath='/tickets/new'
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
-        <TicketList query={searchQuery} tickets={ticketsArray} />
-      </section>
-    )
+    ticketList = <TicketList query={searchQuery} tickets={ticketsArray} />
   }
+
+  content = (
+    <section className={styles.tickets}>
+      <SearchBar
+        item='Ticket'
+        newItemPath='/tickets/new'
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
+      {ticketList}
+    </section>
+  )
 
   return content
 }

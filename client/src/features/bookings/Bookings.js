@@ -21,11 +21,18 @@ const Bookings = () => {
   })
 
   let content
+  let bookingsList
 
   if (isLoading) content = <p>Loading...</p>
 
   if (isError) {
-    content = <p className='errmsg'>{error?.data?.message}</p>
+    bookingsList = (
+      <BookingList
+        query={searchQuery}
+        bookings={[]}
+        error={error?.data?.message}
+      />
+    )
   }
 
   if (isSuccess) {
@@ -35,18 +42,20 @@ const Bookings = () => {
       return bookings.entities[id]
     })
 
-    content = (
-      <section className={styles.bookings}>
-        <SearchBar
-          item='Booking'
-          newItemPath='/bookings/new'
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
-        <BookingList query={searchQuery} bookings={bookingsArray} />
-      </section>
-    )
+    bookingsList = <BookingList query={searchQuery} bookings={bookingsArray} />
   }
+
+  content = (
+    <section className={styles.bookings}>
+      <SearchBar
+        item='Booking'
+        newItemPath='/bookings/new'
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
+      {bookingsList}
+    </section>
+  )
 
   return content
 }

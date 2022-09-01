@@ -2,7 +2,7 @@ import styles from './UserList.module.css'
 import { UserListItem } from '../'
 import { useTableData } from '../../../../hooks'
 
-const UserList = ({ query, users }) => {
+const UserList = ({ query, users, error }) => {
   const { tableData, requestSort, sortArrow } = useTableData(users)
 
   const filterArray = (array) => {
@@ -42,7 +42,14 @@ const UserList = ({ query, users }) => {
           </th>
         </tr>
       </thead>
-      <tbody>{tableContent}</tbody>
+      <tbody>
+        {error && (
+          <tr>
+            <td>{error}</td>
+          </tr>
+        )}
+        {tableContent}
+      </tbody>
     </table>
   )
 

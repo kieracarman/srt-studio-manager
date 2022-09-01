@@ -21,11 +21,14 @@ const Assets = () => {
   })
 
   let content
+  let assetsList
 
   if (isLoading) content = <p>Loading...</p>
 
   if (isError) {
-    content = <p className='errmsg'>{error?.data?.message}</p>
+    assetsList = (
+      <AssetList query={searchQuery} assets={[]} error={error?.data?.message} />
+    )
   }
 
   if (isSuccess) {
@@ -35,18 +38,20 @@ const Assets = () => {
       return assets.entities[id]
     })
 
-    content = (
-      <section className={styles.assets}>
-        <SearchBar
-          item='Asset'
-          newItemPath='/assets/new'
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
-        <AssetList query={searchQuery} assets={assetsArray} />
-      </section>
-    )
+    assetsList = <AssetList query={searchQuery} assets={assetsArray} />
   }
+
+  content = (
+    <section className={styles.assets}>
+      <SearchBar
+        item='Asset'
+        newItemPath='/assets/new'
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
+      {assetsList}
+    </section>
+  )
 
   return content
 }

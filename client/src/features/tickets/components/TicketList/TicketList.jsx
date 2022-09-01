@@ -2,7 +2,7 @@ import styles from './TicketList.module.css'
 import { TicketListItem } from '../'
 import { useTableData } from '../../../../hooks'
 
-const TicketList = ({ query, tickets }) => {
+const TicketList = ({ query, tickets, error }) => {
   const { tableData, requestSort, sortArrow } = useTableData(tickets)
 
   const filterArray = (array) => {
@@ -22,8 +22,8 @@ const TicketList = ({ query, tickets }) => {
       <TicketListItem
         key={ticket._id}
         id={ticket._id}
-        createdBy={ticket.author.username}
         title={ticket.title}
+        createdBy=''
         assignedRole={ticket.assignedRole}
         status={ticket.status}
       />
@@ -48,7 +48,14 @@ const TicketList = ({ query, tickets }) => {
           </th>
         </tr>
       </thead>
-      <tbody>{tableContent}</tbody>
+      <tbody>
+        {error && (
+          <tr>
+            <td>{error}</td>
+          </tr>
+        )}
+        {tableContent}
+      </tbody>
     </table>
   )
 
