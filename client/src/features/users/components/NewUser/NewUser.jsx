@@ -1,38 +1,24 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import styles from './EditUser.module.css'
-import {
-  selectUserById,
-  useUpdateUserMutation,
-  useDeleteUserMutation
-} from '../../usersApiSlice'
+import styles from './NewUser.module.css'
+import { useAddNewUserMutation } from '../../usersApiSlice'
 
-const EditUser = () => {
-  const [updateUser, { isLoading, isSuccess, isError, error }] =
-    useUpdateUserMutation()
+const NewUser = () => {
+  const [addNewUser, { isLoading, isSuccess, isError, error }] =
+    useAddNewUserMutation()
 
-  const [
-    deleteUser,
-    { isSuccess: isDeleteSuccess, isError: isDeleteError, error: deleteError }
-  ] = useDeleteUserMutation()
-
-  const { id } = useParams()
   const navigate = useNavigate()
 
-  const user = useSelector((state) => selectUserById(state, id))
-
-  const [username, setUsername] = useState(user.username)
-  const [firstName, setFirstName] = useState(user.firstName)
-  const [lastName, setLastName] = useState(user.lastName)
-  const [role, setRole] = useState(user.role)
-  const [accessLevel, setAccessLevel] = useState(user.accessLevel)
+  const [username, setUsername] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [role, setRole] = useState('')
+  const [accessLevel, setAccessLevel] = useState('')
   const [password, setPassword] = useState('')
-  const [deleteText, setDeleteText] = useState('Delete User')
 
   useEffect(() => {
-    if (isSuccess || isDeleteSuccess) {
+    if (isSuccess) {
       setUsername('')
       setFirstName('')
       setLastName('')
@@ -41,7 +27,7 @@ const EditUser = () => {
       setPassword('')
       navigate('/users')
     }
-  }, [isSuccess, isDeleteSuccess, navigate])
+  }, [isSuccess, navigate])
 
   const onUsernameChanged = (e) => setUsername(e.target.value)
   const onFirstNameChanged = (e) => setFirstName(e.target.value)
@@ -51,32 +37,26 @@ const EditUser = () => {
   const onPasswordChanged = (e) => setPassword(e.target.value)
 
   const canSave =
-    [username, firstName, lastName, role, accessLevel].every(Boolean) &&
-    !isLoading
+    [username, firstName, lastName, role, accessLevel, password].every(
+      Boolean
+    ) && !isLoading
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (canSave) {
-      await updateUser({
+      await addNewUser({
         username,
         firstName,
         lastName,
         role,
-        accessLevel
+        accessLevel,
+        password
       })
     }
   }
 
-  const handleDelete = async (e) => {
-    e.preventDefault()
-
-    deleteText === 'Delete User'
-      ? setDeleteText('Are you sure?')
-      : await deleteUser({ id })
-  }
-
-  const errClass = isError || isDeleteError ? 'errmsg' : 'offscreen'
-  const errContent = (error?.data?.message || deleteError?.data?.message) ?? ''
+  const errClass = isError ? 'errmsg' : 'offscreen'
+  const errContent = error?.data?.message ?? ''
 
   const disabledButtonClass = canSave ? '' : 'disabled'
 
@@ -113,7 +93,7 @@ const EditUser = () => {
           <option value='senior'>senior</option>
           <option value='staff'>staff</option>
         </select>
-        <label>New Password</label>
+        <label>Password</label>
         <input
           type='password'
           onChange={onPasswordChanged}
@@ -121,9 +101,7 @@ const EditUser = () => {
           id='password'
         />
         <div>
-          <button type='button' onClick={handleDelete} className='alert'>
-            {deleteText}
-          </button>
+          <span></span>
           <button
             className={disabledButtonClass}
             type='submit'
@@ -139,4 +117,4 @@ const EditUser = () => {
   return content
 }
 
-export default EditUser
+export default NewUser
