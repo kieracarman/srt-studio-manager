@@ -57,13 +57,26 @@ const EditUser = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (canSave) {
-      await updateUser({
-        username,
-        firstName,
-        lastName,
-        role,
-        accessLevel
-      })
+      if (password) {
+        await updateUser({
+          id,
+          username,
+          firstName,
+          lastName,
+          role,
+          accessLevel,
+          password
+        })
+      } else {
+        await updateUser({
+          id,
+          username,
+          firstName,
+          lastName,
+          role,
+          accessLevel
+        })
+      }
     }
   }
 
