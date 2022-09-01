@@ -97,7 +97,7 @@ const EditBooking = () => {
             type='submit'
             disabled={!canSave}
           >
-            Save
+            {canSave ? 'Save' : 'Missing Required Fields'}
           </button>
         </div>
       </form>
