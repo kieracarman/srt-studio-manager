@@ -1,41 +1,27 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import styles from './NewBooking.module.css'
-import {
-  selectBookingById,
-  useUpdateBookingMutation,
-  useDeleteBookingMutation
-} from '../../bookingsApiSlice'
+import { useAddNewBookingMutation } from '../../bookingsApiSlice'
 
-const EditBooking = () => {
-  const [updateBooking, { isLoading, isSuccess, isError, error }] =
-    useUpdateBookingMutation()
+const NewBooking = () => {
+  const [addNewBooking, { isLoading, isSuccess, isError, error }] =
+    useAddNewBookingMutation()
 
-  const [
-    deleteBooking,
-    { isSuccess: isDeleteSuccess, isError: isDeleteError, error: deleteError }
-  ] = useDeleteBookingMutation()
-
-  const { id } = useParams()
   const navigate = useNavigate()
 
-  const booking = useSelector((state) => selectBookingById(state, id))
-
-  const [title, setTitle] = useState(booking.title)
-  const [bookingDate, setBookingDate] = useState(booking.bookingDate)
-  const [room, setRoom] = useState(booking.room)
-  const [deleteText, setDeleteText] = useState('Delete Booking')
+  const [title, setTitle] = useState('')
+  const [bookingDate, setBookingDate] = useState('')
+  const [room, setRoom] = useState('')
 
   useEffect(() => {
-    if (isSuccess || isDeleteSuccess) {
+    if (isSuccess) {
       setTitle('')
       setBookingDate('')
       setRoom('')
       navigate('/bookings')
     }
-  }, [isSuccess, isDeleteSuccess, navigate])
+  }, [isSuccess, navigate])
 
   const onTitleChanged = (e) => setTitle(e.target.value)
   const onBookingDateChanged = (e) => setBookingDate(e.target.value)
@@ -46,7 +32,7 @@ const EditBooking = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (canSave) {
-      await updateBooking({
+      await addNewBooking({
         title,
         bookingDate,
         room
@@ -54,16 +40,8 @@ const EditBooking = () => {
     }
   }
 
-  const handleDelete = async (e) => {
-    e.preventDefault()
-
-    deleteText === 'Delete Booking'
-      ? setDeleteText('Are you sure?')
-      : await deleteBooking({ id })
-  }
-
-  const errClass = isError || isDeleteError ? 'errmsg' : 'offscreen'
-  const errContent = (error?.data?.message || deleteError?.data?.message) ?? ''
+  const errClass = isError ? 'errmsg' : 'offscreen'
+  const errContent = error?.data?.message ?? ''
 
   const disabledButtonClass = canSave ? '' : 'disabled'
 
@@ -89,9 +67,7 @@ const EditBooking = () => {
           <option value='213'>213</option>
         </select>
         <div>
-          <button type='button' onClick={handleDelete} className='alert'>
-            {deleteText}
-          </button>
+          <span></span>
           <button
             className={disabledButtonClass}
             type='submit'
@@ -107,4 +83,4 @@ const EditBooking = () => {
   return content
 }
 
-export default EditBooking
+export default NewBooking
