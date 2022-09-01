@@ -5,13 +5,7 @@ const ticketSchema = mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  author: {
-    id: mongoose.Schema.Types.ObjectId,
-    username: {
-      type: String,
-      required: true
-    }
-  },
+  author: mongoose.Schema.Types.ObjectId,
   title: {
     type: String,
     required: true
@@ -41,8 +35,7 @@ const ticketSchema = mongoose.Schema({
       },
       author: mongoose.Schema.Types.ObjectId,
       notes: {
-        type: String,
-        required: true
+        type: String
       }
     }
   ]

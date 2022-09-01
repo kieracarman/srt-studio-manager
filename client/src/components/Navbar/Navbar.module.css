@@ -19,11 +19,17 @@
   display: grid;
   justify-items: center;
   gap: 8px;
+
+  font-weight: 400;
+  border: none;
+  border-radius: 0;
+  background: none;
 }
 
 .navbarLink:hover {
   opacity: 1;
   text-decoration: none;
+  background: none;
 }
 
 .navbarLinkActive {

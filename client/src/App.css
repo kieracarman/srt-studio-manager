@@ -70,3 +70,19 @@ button.alert:hover {
   color: red;
   cursor: pointer;
 }
+
+button.disabled {
+  background-color: #444;
+}
+
+button.disabled:hover {
+  cursor: not-allowed;
+}
+
+.error {
+  padding: 8px;
+  margin-bottom: 8px;
+  background-color: lightpink;
+  border-radius: 4px;
+  border: 2px solid darkred;
+}
