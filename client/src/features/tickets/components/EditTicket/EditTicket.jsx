@@ -51,6 +51,7 @@ const EditTicket = () => {
     e.preventDefault()
     if (canSave) {
       await updateTicket({
+        id,
         title,
         description,
         assignedRole,

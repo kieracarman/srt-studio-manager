@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-import styles from './NewBooking.module.css'
+import styles from './EditBooking.module.css'
 import {
   selectBookingById,
   useUpdateBookingMutation,
@@ -47,6 +47,7 @@ const EditBooking = () => {
     e.preventDefault()
     if (canSave) {
       await updateBooking({
+        id,
         title,
         bookingDate,
         room
