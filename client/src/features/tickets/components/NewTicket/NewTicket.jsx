@@ -1,43 +1,29 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import styles from './EditTicket.module.css'
-import {
-  selectTicketById,
-  useUpdateTicketMutation,
-  useDeleteTicketMutation
-} from '../../ticketsApiSlice'
+import styles from './NewTicket.module.css'
+import { useAddNewTicketMutation } from '../../ticketsApiSlice'
 
-const EditTicket = () => {
-  const [updateTicket, { isLoading, isSuccess, isError, error }] =
-    useUpdateTicketMutation()
+const NewTicket = () => {
+  const [addNewTicket, { isLoading, isSuccess, isError, error }] =
+    useAddNewTicketMutation()
 
-  const [
-    deleteTicket,
-    { isSuccess: isDeleteSuccess, isError: isDeleteError, error: deleteError }
-  ] = useDeleteTicketMutation()
-
-  const { id } = useParams()
   const navigate = useNavigate()
 
-  const ticket = useSelector((state) => selectTicketById(state, id))
-
-  const [title, setTitle] = useState(ticket.title)
-  const [description, setDescription] = useState(ticket.description)
-  const [assignedRole, setAssignedRole] = useState(ticket.assignedRole)
-  const [status, setStatus] = useState(ticket.status)
-  const [deleteText, setDeleteText] = useState('Delete Ticket')
+  const [title, setTitle] = useState()
+  const [description, setDescription] = useState()
+  const [assignedRole, setAssignedRole] = useState()
+  const [status, setStatus] = useState()
 
   useEffect(() => {
-    if (isSuccess || isDeleteSuccess) {
+    if (isSuccess) {
       setTitle('')
       setDescription('')
       setAssignedRole('')
       setStatus('')
       navigate('/tickets')
     }
-  }, [isSuccess, isDeleteSuccess, navigate])
+  }, [isSuccess, navigate])
 
   const onTitleChanged = (e) => setTitle(e.target.value)
   const onDescriptionChanged = (e) => setDescription(e.target.value)
@@ -49,7 +35,7 @@ const EditTicket = () => {
 
   const handleSubmit = async (e) => {
     if (canSave) {
-      await updateTicket({
+      await addNewTicket({
         title,
         description,
         assignedRole,
@@ -58,16 +44,8 @@ const EditTicket = () => {
     }
   }
 
-  const handleDelete = (e) => {
-    e.preventDefault()
-
-    deleteText === 'Delete Ticket'
-      ? setDeleteText('Are you sure?')
-      : deleteTicket({ id })
-  }
-
-  const errClass = isError || isDeleteError ? 'errmsg' : 'offscreen'
-  const errContent = (error?.data?.message || deleteError?.data?.message) ?? ''
+  const errClass = isError ? 'errmsg' : 'offscreen'
+  const errContent = error?.data?.message ?? ''
 
   const disabledButtonClass = canSave ? '' : 'disabled'
 
@@ -104,9 +82,7 @@ const EditTicket = () => {
           <option value='complete'>complete</option>
         </select>
         <div>
-          <button type='button' onClick={handleDelete} className='alert'>
-            {deleteText}
-          </button>
+          <span></span>
           <button
             className={disabledButtonClass}
             type='submit'
@@ -118,6 +94,8 @@ const EditTicket = () => {
       </form>
     </div>
   )
+
+  return content
 }
 
-export default EditTicket
+export default NewTicket
