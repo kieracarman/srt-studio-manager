@@ -16,7 +16,6 @@ The scope of this project includes multiple RESTful APIs to manage all of the di
 - Mongoose
 - React
 - Redux
-- Passport.js
 
 ## Installation
 
