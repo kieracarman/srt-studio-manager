@@ -9,23 +9,22 @@ import { usersApiSlice } from '../users/usersApiSlice'
 
 const Prefetch = () => {
   useEffect(() => {
-    console.log('subscribing')
-    const assets = store.dispatch(assetsApiSlice.endpoints.getAssets.initiate())
-    const bookings = store.dispatch(
-      bookingsApiSlice.endpoints.getBookings.initiate()
+    store.dispatch(
+      assetsApiSlice.util.prefetch('getAssets', 'assetsList', { force: true })
     )
-    const tickets = store.dispatch(
-      ticketsApiSlice.endpoints.getTickets.initiate()
+    store.dispatch(
+      bookingsApiSlice.util.prefetch('getBookings', 'bookingsList', {
+        force: true
+      })
     )
-    const users = store.dispatch(usersApiSlice.endpoints.getUsers.initiate())
-
-    return () => {
-      console.log('unsubscribing')
-      assets.unsubscribe()
-      bookings.unsubscribe()
-      tickets.unsubscribe()
-      users.unsubscribe()
-    }
+    store.dispatch(
+      ticketsApiSlice.util.prefetch('getTickets', 'ticketsList', {
+        force: true
+      })
+    )
+    store.dispatch(
+      usersApiSlice.util.prefetch('getUsers', 'usersList', { force: true })
+    )
   }, [])
 
   return <Outlet />

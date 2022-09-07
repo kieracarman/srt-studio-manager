@@ -1,12 +1,11 @@
 import bcrypt from 'bcryptjs'
-import asyncHandler from 'express-async-handler'
 
 import User from '../models/User.js'
 
 // @desc Get all users
 // @route GET /users
 // @access Private
-const getAllUsers = asyncHandler(async (req, res) => {
+const getAllUsers = async (req, res) => {
   const users = await User.find().select('-password').lean()
 
   if (!users?.length) {
@@ -14,12 +13,12 @@ const getAllUsers = asyncHandler(async (req, res) => {
   }
 
   res.json(users)
-})
+}
 
 // @desc Create a new user
 // @route POST /users
 // @access Private
-const createUser = asyncHandler(async (req, res) => {
+const createUser = async (req, res) => {
   const { username, password, firstName, lastName, role, accessLevel } =
     req.body
 
@@ -62,12 +61,12 @@ const createUser = asyncHandler(async (req, res) => {
   } else {
     res.status(400).json({ message: 'Invalid user data received.' })
   }
-})
+}
 
 // @desc Update a user
 // @route PATCH /users
 // @access Private
-const updateUser = asyncHandler(async (req, res) => {
+const updateUser = async (req, res) => {
   const { id, username, password, firstName, lastName, role, accessLevel } =
     req.body
 
@@ -105,12 +104,12 @@ const updateUser = asyncHandler(async (req, res) => {
   const updatedUser = await user.save()
 
   res.json({ message: `User '${updatedUser.username}' updated.` })
-})
+}
 
 // @desc Delete a user
 // @route DELETE /users
 // @access Private
-const deleteUser = asyncHandler(async (req, res) => {
+const deleteUser = async (req, res) => {
   const { id } = req.body
 
   if (!id) {
@@ -128,6 +127,6 @@ const deleteUser = asyncHandler(async (req, res) => {
   const reply = `Username ${result.username} with id ${result._id} deleted.`
 
   res.json(reply)
-})
+}
 
 export { getAllUsers, createUser, updateUser, deleteUser }
