@@ -1,24 +1,30 @@
-import asyncHandler from 'express-async-handler'
-
 import Booking from '../models/Booking.js'
+import User from '../models/User.js'
 
 // @desc Get all bookings
 // @route GET /bookings
 // @access Private
-const getAllBookings = asyncHandler(async (req, res) => {
+const getAllBookings = async (req, res) => {
   const bookings = await Booking.find().lean()
 
   if (!bookings?.length) {
     return res.status(400).json({ message: 'No bookings found.' })
   }
 
-  res.json(bookings)
-})
+  const bookingsWithUser = await Promise.all(
+    bookings.map(async (booking) => {
+      const { username } = await User.findById(booking.author).lean().exec()
+      return { ...booking, username }
+    })
+  )
+
+  res.json(bookingsWithUser)
+}
 
 // @desc Create a new booking
 // @route POST /bookings
 // @access Private
-const createBooking = asyncHandler(async (req, res) => {
+const createBooking = async (req, res) => {
   const booking = await Booking.create(req.body)
 
   if (booking) {
@@ -26,12 +32,12 @@ const createBooking = asyncHandler(async (req, res) => {
   } else {
     res.status(400).json({ message: 'Invalid booking data received.' })
   }
-})
+}
 
 // @desc Update a booking
 // @route PATCH /bookings
 // @access Private
-const updateBooking = asyncHandler(async (req, res) => {
+const updateBooking = async (req, res) => {
   const { id } = req.body
 
   // Make sure data is not empty
@@ -53,12 +59,12 @@ const updateBooking = asyncHandler(async (req, res) => {
   )
 
   res.json({ message: `Booking with id ${updatedBooking._id} updated.` })
-})
+}
 
 // @desc Delete a booking
 // @route DELETE /bookings
 // @access Private
-const deleteBooking = asyncHandler(async (req, res) => {
+const deleteBooking = async (req, res) => {
   const { id } = req.body
 
   if (!id) {
@@ -76,6 +82,6 @@ const deleteBooking = asyncHandler(async (req, res) => {
   const reply = `Booking with id ${result._id} deleted.`
 
   res.json(reply)
-})
+}
 
 export { getAllBookings, createBooking, updateBooking, deleteBooking }

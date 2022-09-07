@@ -23,7 +23,7 @@ const BookingList = ({ query, bookings, error }) => {
         key={booking._id}
         id={booking._id}
         title={booking.title}
-        author={booking.author}
+        author={booking.username}
         bookingDate={booking.bookingDate}
         room={booking.room}
         status={booking.status}

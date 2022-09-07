@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 
 import styles from './EditTicket.module.css'
 import {
-  selectTicketById,
+  useGetTicketsQuery,
   useUpdateTicketMutation,
   useDeleteTicketMutation
 } from '../../ticketsApiSlice'
@@ -21,7 +20,11 @@ const EditTicket = () => {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const ticket = useSelector((state) => selectTicketById(state, id))
+  const { ticket } = useGetTicketsQuery('ticketsList', {
+    selectFromResult: ({ data }) => ({
+      ticket: data?.entities[id]
+    })
+  })
 
   const [title, setTitle] = useState(ticket.title)
   const [description, setDescription] = useState(ticket.description)

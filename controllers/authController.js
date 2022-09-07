@@ -1,6 +1,5 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import asyncHandler from 'express-async-handler'
 
 import User from '../models/User.js'
 import validateLoginInput from '../validation/validateLogin.js'
@@ -8,7 +7,7 @@ import validateLoginInput from '../validation/validateLogin.js'
 // @desc Login
 // @route POST /auth/login
 // @access Public
-const login = asyncHandler(async (req, res) => {
+const login = async (req, res) => {
   // Form validation
   const { errors, isValid } = validateLoginInput(req.body)
   if (!isValid) return res.status(400).send(errors)
@@ -57,7 +56,7 @@ const login = asyncHandler(async (req, res) => {
 
   // Send accessToken containing username and roles
   res.json({ accessToken })
-})
+}
 
 // @desc Refresh
 // @route GET /auth/refresh
@@ -72,7 +71,7 @@ const refresh = (req, res) => {
   jwt.verify(
     refreshToken,
     process.env.REFRESH_TOKEN_SECRET,
-    asyncHandler(async (err, decoded) => {
+    async (err, decoded) => {
       if (err) return res.status(403).json({ message: 'Forbidden' })
 
       const foundUser = await User.findOne({
@@ -84,7 +83,9 @@ const refresh = (req, res) => {
       const accessToken = jwt.sign(
         {
           UserInfo: {
+            userId: foundUser.id,
             username: foundUser.username,
+            firstName: foundUser.firstName,
             role: foundUser.role
           }
         },
@@ -93,7 +94,7 @@ const refresh = (req, res) => {
       )
 
       res.json({ accessToken })
-    })
+    }
   )
 }
 

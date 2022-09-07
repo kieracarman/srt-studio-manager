@@ -4,6 +4,7 @@ import morgan from 'morgan'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import path from 'path'
+import 'express-async-errors'
 
 import 'dotenv/config'
 import connectDB from './config/connectDB.js'
