@@ -8,10 +8,12 @@ const initialState = assetsAdapter.getInitialState()
 export const assetsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAssets: builder.query({
-      query: () => '/assets',
-      validateStatus: (response, result) => {
-        return response.status === 200 && !result.isError
-      },
+      query: () => ({
+        url: '/assets',
+        validateStatus: (response, result) => {
+          return response.status === 200 && !result.isError
+        }
+      }),
       transformResponse: (responseData) => {
         const loadedAssets = responseData.map((asset) => {
           asset.id = asset._id
