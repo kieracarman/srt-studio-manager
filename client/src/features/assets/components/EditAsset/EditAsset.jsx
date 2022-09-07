@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import styles from './EditAsset.module.css'
 import {
-  useGetAssetsQuery,
+  selectAssetById,
   useUpdateAssetMutation,
   useDeleteAssetMutation
 } from '../../assetsApiSlice'
@@ -20,11 +21,7 @@ const EditAsset = () => {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const { asset } = useGetAssetsQuery('assetsList', {
-    selectFromResult: ({ data }) => ({
-      asset: data?.entities[id]
-    })
-  })
+  const asset = useSelector((state) => selectAssetById(state, id))
 
   const [description, setDescription] = useState(asset.description)
   const [tagNumber, setTagNumber] = useState(asset.tagNumber)

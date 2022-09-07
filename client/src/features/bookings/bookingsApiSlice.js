@@ -8,12 +8,10 @@ const initialState = bookingsAdapter.getInitialState()
 export const bookingsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getBookings: builder.query({
-      query: () => ({
-        url: '/bookings',
-        validateStatus: (response, result) => {
-          return response.status === 200 && !result.isError
-        }
-      }),
+      query: () => '/bookings',
+      validateStatus: (response, result) => {
+        return response.status === 200 && !result.isError
+      },
       transformResponse: (responseData) => {
         const loadedBookings = responseData.map((booking) => {
           booking.id = booking._id

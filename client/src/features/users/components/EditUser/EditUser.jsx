@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import styles from './EditUser.module.css'
 import {
-  useGetUsersQuery,
+  selectUserById,
   useUpdateUserMutation,
   useDeleteUserMutation
 } from '../../usersApiSlice'
@@ -20,11 +21,7 @@ const EditUser = () => {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const { user } = useGetUsersQuery('usersList', {
-    selectFromResult: ({ data }) => ({
-      user: data?.entities[id]
-    })
-  })
+  const user = useSelector((state) => selectUserById(state, id))
 
   const [username, setUsername] = useState(user.username)
   const [firstName, setFirstName] = useState(user.firstName)

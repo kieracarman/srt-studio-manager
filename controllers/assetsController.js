@@ -1,9 +1,11 @@
+import asyncHandler from 'express-async-handler'
+
 import Asset from '../models/Asset.js'
 
 // @desc Get all assets
 // @route GET /assets
 // @access Private
-const getAllAssets = async (req, res) => {
+const getAllAssets = asyncHandler(async (req, res) => {
   const assets = await Asset.find().lean()
 
   if (!assets?.length) {
@@ -11,12 +13,12 @@ const getAllAssets = async (req, res) => {
   }
 
   res.json(assets)
-}
+})
 
 // @desc Create a new asset
 // @route POST /assets
 // @access Private
-const createAsset = async (req, res) => {
+const createAsset = asyncHandler(async (req, res) => {
   const asset = await Asset.create(req.body)
 
   if (asset) {
@@ -24,12 +26,12 @@ const createAsset = async (req, res) => {
   } else {
     res.status(400).json({ message: 'Invalid asset data received.' })
   }
-}
+})
 
 // @desc Update an asset
 // @route PATCH /assets
 // @access Private
-const updateAsset = async (req, res) => {
+const updateAsset = asyncHandler(async (req, res) => {
   const { id } = req.body
 
   // Make sure update data is not empty
@@ -51,12 +53,12 @@ const updateAsset = async (req, res) => {
   )
 
   res.json({ message: `Asset with id ${updatedAsset._id} updated.` })
-}
+})
 
 // @desc Delete an asset
 // @route DELETE /assets
 // @access Private
-const deleteAsset = async (req, res) => {
+const deleteAsset = asyncHandler(async (req, res) => {
   const { id } = req.body
 
   if (!id) {
@@ -74,6 +76,6 @@ const deleteAsset = async (req, res) => {
   const reply = `Asset with id ${result._id} deleted.`
 
   res.json(reply)
-}
+})
 
 export { getAllAssets, createAsset, updateAsset, deleteAsset }

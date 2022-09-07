@@ -13,7 +13,7 @@ const PersistLogin = () => {
   const effectRan = useRef(false)
   const [trueSuccess, setTrueSuccess] = useState(false)
 
-  const [refresh, { isUninitialized, isLoading, isSuccess, isError, error }] =
+  const [refresh, { isUninitialized, isLoading, isSuccess, isError }] =
     useRefreshMutation()
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const PersistLogin = () => {
   } else if (isLoading) {
     content = <p>Loading...</p>
   } else if (isError) {
-    console.log(error)
+    navigate('/login')
   }
 
   return content

@@ -1,9 +1,11 @@
+import asyncHandler from 'express-async-handler'
+
 import Ticket from '../models/Ticket.js'
 
 // @desc Get all tickets
 // @route GET /tickets
 // @access Private
-const getAllTickets = async (req, res) => {
+const getAllTickets = asyncHandler(async (req, res) => {
   const tickets = await Ticket.find().lean()
 
   if (!tickets?.length) {
@@ -11,12 +13,12 @@ const getAllTickets = async (req, res) => {
   }
 
   res.json(tickets)
-}
+})
 
 // @desc Create a new ticket
 // @route POST /tickets
 // @access Private
-const createTicket = async (req, res) => {
+const createTicket = asyncHandler(async (req, res) => {
   const ticket = await Ticket.create(req.body)
 
   if (ticket) {
@@ -24,12 +26,12 @@ const createTicket = async (req, res) => {
   } else {
     res.status(400).json({ message: 'Invalid ticket data received.' })
   }
-}
+})
 
 // @desc Update a ticket
 // @route PATCH /tickets
 // @access Private
-const updateTicket = async (req, res) => {
+const updateTicket = asyncHandler(async (req, res) => {
   const { id } = req.body
 
   // Make sure data is not empty
@@ -51,12 +53,12 @@ const updateTicket = async (req, res) => {
   )
 
   res.json({ message: `Ticket with id ${updatedTicket._id} updated.` })
-}
+})
 
 // @desc Delete a ticket
 // @route DELETE /tickets
 // @access Private
-const deleteTicket = async (req, res) => {
+const deleteTicket = asyncHandler(async (req, res) => {
   const { id } = req.body
 
   if (!id) {
@@ -74,6 +76,6 @@ const deleteTicket = async (req, res) => {
   const reply = `Ticket with id ${result._id} deleted.`
 
   res.json(reply)
-}
+})
 
 export { getAllTickets, createTicket, updateTicket, deleteTicket }

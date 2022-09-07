@@ -8,12 +8,10 @@ const initialState = ticketsAdapter.getInitialState()
 export const ticketsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getTickets: builder.query({
-      query: () => ({
-        url: '/tickets',
-        validateStatus: (response, result) => {
-          return response.status === 200 && !result.isError
-        }
-      }),
+      query: () => '/tickets',
+      validateStatus: (response, result) => {
+        return response.status === 200 && !result.isError
+      },
       transformResponse: (responseData) => {
         const loadedTickets = responseData.map((ticket) => {
           ticket.id = ticket._id

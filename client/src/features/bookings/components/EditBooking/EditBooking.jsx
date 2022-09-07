@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import styles from './EditBooking.module.css'
 import {
-  useGetBookingsQuery,
+  selectBookingById,
   useUpdateBookingMutation,
   useDeleteBookingMutation
 } from '../../bookingsApiSlice'
@@ -20,11 +21,7 @@ const EditBooking = () => {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const { booking } = useGetBookingsQuery('bookingsList', {
-    selectFromResult: ({ data }) => ({
-      booking: data?.entities[id]
-    })
-  })
+  const booking = useSelector((state) => selectBookingById(state, id))
 
   const [title, setTitle] = useState(booking.title)
   const [bookingDate, setBookingDate] = useState(booking.bookingDate)
