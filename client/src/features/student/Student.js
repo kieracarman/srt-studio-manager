@@ -1,9 +1,9 @@
 import useAuth from '../../hooks/useAuth'
-import { NewBooking } from '../bookings/components'
+import { StudentBookingForm } from './'
 
 const Student = () => {
-  const { username } = useAuth()
+  const { userId } = useAuth()
 
-  return <NewBooking />
+  return <StudentBookingForm author={userId} />
 }
 export default Student

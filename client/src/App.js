@@ -8,130 +8,128 @@ import { EditAsset, NewAsset } from './features/assets/components'
 import { EditUser, NewUser } from './features/users/components'
 import { EditTicket, NewTicket } from './features/tickets/components'
 import { EditBooking, NewBooking } from './features/bookings/components'
-import Student from './features/student/Student'
+import { Student } from './features/student/'
 import { ROLES } from './config/roles'
 import useAuth from './hooks/useAuth'
 
 const App = () => {
   const { role } = useAuth()
 
-  let content
+  let routes
 
   if (role === ROLES.admin || role === ROLES.supervisor) {
-    content = (
-      <Routes>
-        <Route path='login' element={<Login />} />
+    routes = (
+      <Route element={<PersistLogin />}>
+        <Route
+          element={
+            <RequireAuth allowedRoles={[ROLES.admin, ROLES.supervisor]} />
+          }
+        >
+          <Route element={<Prefetch />}>
+            <Route path='/' element={<Layout />}>
+              <Route index element={<Dashboard />} />
 
-        <Route element={<PersistLogin />}>
-          <Route
-            element={
-              <RequireAuth allowedRoles={[ROLES.admin, ROLES.supervisor]} />
-            }
-          >
-            <Route element={<Prefetch />}>
-              <Route path='/' element={<Layout />}>
-                <Route index element={<Dashboard />} />
+              <Route path='assets'>
+                <Route index element={<Assets />} />
+                <Route
+                  path=':id'
+                  element={
+                    <Modal onClose='/assets'>
+                      <EditAsset />
+                    </Modal>
+                  }
+                />
+                <Route
+                  path='new'
+                  element={
+                    <Modal onClose='/assets'>
+                      <NewAsset />
+                    </Modal>
+                  }
+                />
+              </Route>
 
-                <Route path='assets'>
-                  <Route index element={<Assets />} />
-                  <Route
-                    path=':id'
-                    element={
-                      <Modal onClose='/assets'>
-                        <EditAsset />
-                      </Modal>
-                    }
-                  />
-                  <Route
-                    path='new'
-                    element={
-                      <Modal onClose='/assets'>
-                        <NewAsset />
-                      </Modal>
-                    }
-                  />
-                </Route>
+              <Route path='users'>
+                <Route index element={<Users />} />
+                <Route
+                  path=':id'
+                  element={
+                    <Modal onClose='/users'>
+                      <EditUser />
+                    </Modal>
+                  }
+                />
+                <Route
+                  path='new'
+                  element={
+                    <Modal onClose='/users'>
+                      <NewUser />
+                    </Modal>
+                  }
+                />
+              </Route>
 
-                <Route path='users'>
-                  <Route index element={<Users />} />
-                  <Route
-                    path=':id'
-                    element={
-                      <Modal onClose='/users'>
-                        <EditUser />
-                      </Modal>
-                    }
-                  />
-                  <Route
-                    path='new'
-                    element={
-                      <Modal onClose='/users'>
-                        <NewUser />
-                      </Modal>
-                    }
-                  />
-                </Route>
+              <Route path='tickets'>
+                <Route index element={<Tickets />} />
+                <Route
+                  path=':id'
+                  element={
+                    <Modal onClose='/tickets'>
+                      <EditTicket />
+                    </Modal>
+                  }
+                />
+                <Route
+                  path='new'
+                  element={
+                    <Modal onClose='/tickets'>
+                      <NewTicket />
+                    </Modal>
+                  }
+                />
+              </Route>
 
-                <Route path='tickets'>
-                  <Route index element={<Tickets />} />
-                  <Route
-                    path=':id'
-                    element={
-                      <Modal onClose='/tickets'>
-                        <EditTicket />
-                      </Modal>
-                    }
-                  />
-                  <Route
-                    path='new'
-                    element={
-                      <Modal onClose='/tickets'>
-                        <NewTicket />
-                      </Modal>
-                    }
-                  />
-                </Route>
-
-                <Route path='bookings'>
-                  <Route index element={<Bookings />} />
-                  <Route
-                    path=':id'
-                    element={
-                      <Modal onClose='/bookings'>
-                        <EditBooking />
-                      </Modal>
-                    }
-                  />
-                  <Route
-                    path='new'
-                    element={
-                      <Modal onClose='/bookings'>
-                        <NewBooking />
-                      </Modal>
-                    }
-                  />
-                </Route>
+              <Route path='bookings'>
+                <Route index element={<Bookings />} />
+                <Route
+                  path=':id'
+                  element={
+                    <Modal onClose='/bookings'>
+                      <EditBooking />
+                    </Modal>
+                  }
+                />
+                <Route
+                  path='new'
+                  element={
+                    <Modal onClose='/bookings'>
+                      <NewBooking />
+                    </Modal>
+                  }
+                />
               </Route>
             </Route>
           </Route>
         </Route>
-      </Routes>
+      </Route>
     )
   } else {
-    content = (
-      <Routes>
-        <Route path='login' element={<Login />} />
-
-        <Route element={<PersistLogin />}>
-          <Route element={<RequireAuth allowedRoles={[ROLES.basic]} />}>
-            <Route path='/' element={<Student />} />
-          </Route>
+    routes = (
+      <Route element={<PersistLogin />}>
+        <Route element={<RequireAuth allowedRoles={[ROLES.basic]} />}>
+          <Route path='/' element={<Student />} />
         </Route>
-      </Routes>
+      </Route>
     )
   }
 
-  return content
+  return (
+    <Routes>
+      <Route path='login' element={<Login />} />
+
+      {routes}
+    </Routes>
+  )
 }
 
 export default App

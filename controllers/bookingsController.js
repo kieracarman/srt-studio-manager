@@ -1,4 +1,5 @@
 import Booking from '../models/Booking.js'
+import User from '../models/User.js'
 
 // @desc Get all bookings
 // @route GET /bookings
@@ -10,7 +11,14 @@ const getAllBookings = async (req, res) => {
     return res.status(400).json({ message: 'No bookings found.' })
   }
 
-  res.json(bookings)
+  const bookingsWithUser = await Promise.all(
+    bookings.map(async (booking) => {
+      const { username } = await User.findById(booking.author).lean().exec()
+      return { ...booking, username }
+    })
+  )
+
+  res.json(bookingsWithUser)
 }
 
 // @desc Create a new booking
