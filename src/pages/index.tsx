@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { trpc } from '../common/utils/trpc'
+import { trpc } from '@utils/trpc'
 import styles from './index.module.css'
 
 const Home: NextPage = () => {
