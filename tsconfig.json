@@ -3,7 +3,9 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/common/components/*"],
+      "@constants/*": ["src/common/constants"],
       "@env/*": ["src/common/env/*"],
+      "@hooks/*": ["src/common/hooks/*"],
       "@server/*": ["src/common/server/*"],
       "@styles/*": ["src/common/styles/*"],
       "@types/*": ["src/common/types/*"],
