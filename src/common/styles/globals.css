@@ -38,7 +38,7 @@ p {
   font-weight: bold;
 }
 
-button {
+.button {
   padding: 8px 16px;
   color: #fff;
   font-weight: bold;
@@ -49,12 +49,12 @@ button {
   text-decoration: none;
 }
 
-button:hover {
+.button:hover {
   background-color: #444;
   cursor: pointer;
 }
 
-button.outline {
+.button.outline {
   padding: 8px 16px;
   color: #777;
   font-weight: bold;
@@ -65,13 +65,13 @@ button.outline {
   text-decoration: none;
 }
 
-button.outline:hover {
+.button.outline:hover {
   border: 1px solid #555;
   color: #000;
   cursor: pointer;
 }
 
-button.alert {
+.button.alert {
   padding: 8px 16px;
   color: lightcoral;
   font-weight: bold;
@@ -82,17 +82,17 @@ button.alert {
   text-decoration: none;
 }
 
-button.alert:hover {
+.button.alert:hover {
   border: 1px solid red;
   color: red;
   cursor: pointer;
 }
 
-button.disabled {
+.button.disabled {
   background-color: #444;
 }
 
-button.disabled:hover {
+.button.disabled:hover {
   cursor: not-allowed;
 }
 
