@@ -14,11 +14,90 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id String @id @default(cuid())
+model Asset {
+    id                 String    @id @default(cuid())
+    tagNumber          String
+    description        String
+    make               String
+    model              String
+    type               String
+    minimumAccessLevel String
+    status             String
+    serialNumber       String?
+    acquisitionType    String?
+    acquisitionAmount  String?
+    dateInService      DateTime?
+    dateOutService     DateTime?
+    createdAt          DateTime  @default(now())
+    updatedAt          DateTime  @updatedAt
+    location           Room      @relation(fields: [roomId], references: [id])
+    roomId             String
+    bookings           Booking[]
+    tickets            Ticket[]
+
+    @@map("assets")
+}
+
+model Room {
+    id       String    @id @default(cuid())
+    name     String    @unique
+    assets   Asset[]
+    bookings Booking[]
+
+    @@map("rooms")
+}
+
+model Booking {
+    id           String    @id @default(cuid())
+    title        String
+    bookingDate  DateTime
+    status       String
+    approvedDate DateTime?
+    createdAt    DateTime  @default(now())
+    updatedAt    DateTime  @updatedAt
+    assets       Asset[]
+    room         Room      @relation(fields: [roomId], references: [id])
+    createdBy    User      @relation(fields: [createdById], references: [id])
+    roomId       String
+    createdById  String
+
+    @@map("bookings")
+}
+
+model Ticket {
+    id           String   @id @default(cuid())
+    title        String
+    text         String
+    status       String
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+    assignedRole String
+    createdBy    User     @relation(fields: [createdById], references: [id])
+    asset        Asset?   @relation(fields: [assetId], references: [id])
+    createdById  String
+    assetId      String?
+
+    @@map("tickets")
 }
 
 // Necessary for Next auth
+model User {
+    id          String    @id @default(cuid())
+    firstName   String
+    lastName    String
+    email       String    @unique
+    role        String
+    accessLevel String
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+    accounts    Account[]
+    sessions    Session[]
+    bookings    Booking[]
+    tickets     Ticket[]
+
+    @@map("users")
+}
+
 model Account {
     id                String  @id @default(cuid())
     userId            String
@@ -35,6 +114,7 @@ model Account {
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([provider, providerAccountId])
+    @@map("accounts")
 }
 
 model Session {
@@ -43,16 +123,8 @@ model Session {
     userId       String
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
 
-model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
+    @@map("sessions")
 }
 
 model VerificationToken {
@@ -61,4 +133,5 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+    @@map("verification_tokens")
 }
