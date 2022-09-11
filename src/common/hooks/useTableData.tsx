@@ -1,22 +1,31 @@
 import { useState, useMemo } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
 
-type SortConfig = {
+type SortConfigProp = {
   direction: string
   key: string
 }
 
-const useSortableData = (array: any[] | undefined, config: SortConfig) => {
+const useTableData = <TArrayObjType,>(
+  array: TArrayObjType[],
+  config: SortConfigProp
+) => {
   const [sort, setSort] = useState(config)
 
   const sortedData = useMemo(() => {
     const sortableData = [...array]
     if (sort.direction !== '') {
       sortableData.sort((a, b) => {
-        if (a[sort.key] < b[sort.key]) {
+        if (
+          a[sort.key as keyof TArrayObjType] <
+          b[sort.key as keyof TArrayObjType]
+        ) {
           return sort.direction === 'ascending' ? -1 : 1
         }
-        if (a[sort.key] > b[sort.key]) {
+        if (
+          a[sort.key as keyof TArrayObjType] >
+          b[sort.key as keyof TArrayObjType]
+        ) {
           return sort.direction === 'ascending' ? 1 : -1
         }
         return 0
@@ -49,4 +58,4 @@ const useSortableData = (array: any[] | undefined, config: SortConfig) => {
   return { tableData: sortedData, requestSort, sortArrow }
 }
 
-export default useSortableData
+export default useTableData

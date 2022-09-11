@@ -10,15 +10,18 @@ type AssetWithLocation = Prisma.AssetGetPayload<{
 
 type AssetListProps = {
   query: string
-  assets: AssetWithLocation[] | undefined
+  assets: AssetWithLocation[]
   error?: string
 }
 
 const AssetList = ({ query, assets, error }: AssetListProps) => {
-  const { tableData, requestSort, sortArrow } = useTableData(assets, {
-    direction: '',
-    key: ''
-  })
+  const { tableData, requestSort, sortArrow } = useTableData<AssetWithLocation>(
+    assets,
+    {
+      direction: '',
+      key: ''
+    }
+  )
 
   const filterArray = (array: AssetWithLocation[]) => {
     return array.filter((item) => {

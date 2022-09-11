@@ -10,15 +10,16 @@ type TicketWithRelations = Prisma.TicketGetPayload<{
 
 type TicketListProps = {
   query: string
-  tickets: TicketWithRelations[] | undefined
+  tickets: TicketWithRelations[]
   error?: string
 }
 
 const TicketList = ({ query, tickets, error }: TicketListProps) => {
-  const { tableData, requestSort, sortArrow } = useTableData(tickets, {
-    direction: '',
-    key: ''
-  })
+  const { tableData, requestSort, sortArrow } =
+    useTableData<TicketWithRelations>(tickets, {
+      direction: '',
+      key: ''
+    })
 
   const filterArray = (array: TicketWithRelations[]) => {
     return array.filter((item) => {

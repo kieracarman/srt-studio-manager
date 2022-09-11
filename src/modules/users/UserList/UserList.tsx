@@ -6,12 +6,12 @@ import useTableData from '@hooks/useTableData'
 
 type UserListProps = {
   query: string
-  users: User[] | undefined
+  users: User[]
   error?: string
 }
 
 const UserList = ({ query, users, error }: UserListProps) => {
-  const { tableData, requestSort, sortArrow } = useTableData(users, {
+  const { tableData, requestSort, sortArrow } = useTableData<User>(users, {
     direction: '',
     key: ''
   })

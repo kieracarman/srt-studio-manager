@@ -4,7 +4,6 @@ import { trpc } from '@utils/trpc'
 
 const Home: NextPage = () => {
   const utils = trpc.useContext()
-  const assetsQuery = trpc.useQuery(['asset.getAll'])
   const addAsset = trpc.useMutation('asset.add', {
     async onSuccess() {
       await utils.invalidateQueries(['asset.getAll'])
@@ -50,9 +49,6 @@ const Home: NextPage = () => {
       >
         Add Asset
       </button>
-      {assetsQuery.isSuccess && (
-        <AssetList query='' assets={assetsQuery.data} error='' />
-      )}
     </>
   )
 }

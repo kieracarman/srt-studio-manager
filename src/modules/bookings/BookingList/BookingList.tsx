@@ -13,15 +13,16 @@ type BookingWithRelations = Prisma.BookingGetPayload<{
 
 type BookingListProps = {
   query: string
-  bookings: BookingWithRelations[] | undefined
+  bookings: BookingWithRelations[]
   error?: string
 }
 
 const BookingList = ({ query, bookings, error }: BookingListProps) => {
-  const { tableData, requestSort, sortArrow } = useTableData(bookings, {
-    direction: '',
-    key: ''
-  })
+  const { tableData, requestSort, sortArrow } =
+    useTableData<BookingWithRelations>(bookings, {
+      direction: '',
+      key: ''
+    })
 
   const filterArray = (array: BookingWithRelations[]) => {
     return array.filter((item) => {
