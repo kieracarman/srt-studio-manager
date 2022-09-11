@@ -7,7 +7,7 @@ import { prisma } from '@server/db/client'
 import { env } from '@env/server.mjs'
 
 export const authOptions: NextAuthOptions = {
-  // Include user.id on session
+  // Include user.id and user.role on session
   callbacks: {
     session({ session, user }) {
       if (session.user) {
