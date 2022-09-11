@@ -5,7 +5,7 @@ import AssetListItem from '../AssetListItem/AssetListItem'
 import useTableData from '@hooks/useTableData'
 
 type AssetWithLocation = Prisma.AssetGetPayload<{
-  include: { location: { select: { name: true } } }
+  include: { location: true }
 }>
 
 type AssetListProps = {
@@ -41,7 +41,7 @@ const AssetList = ({ query, assets, error }: AssetListProps) => {
         description={asset.description}
         make={asset.make}
         model={asset.model}
-        location={asset.location.name}
+        location={asset.location}
         status={asset.status}
       />
     )

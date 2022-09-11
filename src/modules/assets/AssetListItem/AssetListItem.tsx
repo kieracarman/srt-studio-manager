@@ -1,3 +1,4 @@
+import { Room } from '@prisma/client'
 import Link from 'next/link'
 
 import styles from './AssetListItem.module.css'
@@ -8,7 +9,7 @@ type AssetListItemProps = {
   description: string
   make: string
   model: string
-  location: string
+  location: Room
   status: string
 }
 
@@ -28,7 +29,7 @@ const AssetListItem = ({
         <td className='bold'>{description}</td>
         <td>{make}</td>
         <td>{model}</td>
-        <td>{location}</td>
+        <td>{location.name}</td>
         <td>
           <span
             className={`${styles.statusTag} ${
