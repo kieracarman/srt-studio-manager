@@ -55,7 +55,7 @@ export const assetRouter = createRouter()
       const asset = ctx.prisma.asset.create({
         data: {
           ...input.data,
-          location: { connect: { name: input.location } }
+          location: { connect: { id: input.location } }
         }
       })
 
