@@ -20,8 +20,8 @@ const Modal = ({ children, onClose }: ModalProps) => {
   const content = (
     <div className={styles.modal}>
       <header>
-        <Link className='button' href={onClose}>
-          Close
+        <Link href={onClose}>
+          <a className='button outline'>Close</a>
         </Link>
       </header>
       <section>{children}</section>
