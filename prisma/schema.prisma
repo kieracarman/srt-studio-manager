@@ -51,7 +51,7 @@ model Booking {
     id           String    @id @default(cuid())
     title        String
     bookingDate  DateTime
-    status       String
+    status       String    @default("pending")
     approvedDate DateTime?
     createdAt    DateTime  @default(now())
     updatedAt    DateTime  @updatedAt

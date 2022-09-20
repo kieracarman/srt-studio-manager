@@ -4,7 +4,7 @@ import { z } from 'zod'
 const bookingSchema = z.object({
   title: z.string(),
   bookingDate: z.date(),
-  status: z.string(),
+  status: z.string().optional(),
   approvedDate: z.date().optional()
 })
 
@@ -44,9 +44,9 @@ export const bookingRouter = createRouter()
   })
   .mutation('add', {
     input: z.object({
-      createdBy: z.string().cuid(),
+      createdBy: z.string().cuid().optional(),
       room: z.string().cuid(),
-      assets: z.array(z.string().cuid()),
+      assets: z.array(z.string().cuid()).optional(),
       data: bookingSchema
     }),
     async resolve({ ctx, input }) {
@@ -57,7 +57,7 @@ export const bookingRouter = createRouter()
           ...data,
           createdBy: { connect: { id: createdBy } },
           room: { connect: { id: room } },
-          assets: { connect: assets.map((id) => ({ id })) }
+          assets: { connect: assets?.map((id) => ({ id })) }
         }
       })
 
@@ -67,9 +67,9 @@ export const bookingRouter = createRouter()
   .mutation('edit', {
     input: z.object({
       id: z.string().cuid(),
-      createdBy: z.string().cuid(),
+      createdBy: z.string().cuid().optional(),
       room: z.string().cuid(),
-      assets: z.array(z.string().cuid()),
+      assets: z.array(z.string().cuid()).optional(),
       data: bookingSchema
     }),
     async resolve({ ctx, input }) {
@@ -81,7 +81,7 @@ export const bookingRouter = createRouter()
           ...data,
           createdBy: { connect: { id: createdBy } },
           room: { connect: { id: room } },
-          assets: { connect: assets.map((id) => ({ id })) }
+          assets: { connect: assets?.map((id) => ({ id })) }
         }
       })
 
