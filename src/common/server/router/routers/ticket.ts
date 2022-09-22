@@ -42,8 +42,8 @@ export const ticketRouter = createRouter()
   })
   .mutation('add', {
     input: z.object({
-      createdBy: z.string().cuid(),
-      asset: z.string().cuid(),
+      createdBy: z.string().cuid().optional(),
+      asset: z.string().cuid().optional(),
       data: ticketSchema
     }),
     async resolve({ ctx, input }) {
@@ -63,8 +63,8 @@ export const ticketRouter = createRouter()
   .mutation('edit', {
     input: z.object({
       id: z.string().cuid(),
-      createdBy: z.string().cuid(),
-      asset: z.string().cuid(),
+      createdBy: z.string().cuid().optional(),
+      asset: z.string().cuid().optional(),
       data: ticketSchema
     }),
     async resolve({ ctx, input }) {
