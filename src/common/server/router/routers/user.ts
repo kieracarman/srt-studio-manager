@@ -1,4 +1,4 @@
-import { createRouter } from '../context'
+import { createProtectedRouter } from '../context'
 import { z } from 'zod'
 
 const userSchema = z.object({
@@ -8,7 +8,17 @@ const userSchema = z.object({
   accessLevel: z.string()
 })
 
-export const userRouter = createRouter()
+export const userRouter = createProtectedRouter()
+  .query('getCurrentRole', {
+    async resolve({ ctx }) {
+      const userResponse = await ctx.prisma.user.findFirst({
+        where: { id: ctx.session.user.id },
+        select: { role: true }
+      })
+
+      return userResponse?.role
+    }
+  })
   .query('getAll', {
     async resolve({ ctx }) {
       return await ctx.prisma.user.findMany()
