@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { trpc } from '@utils/trpc'
 
 import styles from './Users.module.css'
+import Layout from '@components/Layout/Layout'
 import SearchBar from '@components/SearchBar/SearchBar'
 import UserList from '@modules/users/UserList/UserList'
 
@@ -28,15 +29,17 @@ const Users = () => {
   }
 
   content = (
-    <section className={styles.users}>
-      <SearchBar
-        item='User'
-        newItemPath='/users/new'
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
-      {usersList}
-    </section>
+    <Layout>
+      <section className={styles.users}>
+        <SearchBar
+          item='User'
+          newItemPath='/users/new'
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+        {usersList}
+      </section>
+    </Layout>
   )
 
   return content

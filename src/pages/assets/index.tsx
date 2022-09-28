@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { trpc } from '@utils/trpc'
 
 import styles from './Assets.module.css'
+import Layout from '@components/Layout/Layout'
 import SearchBar from '@components/SearchBar/SearchBar'
 import AssetList from '@modules/assets/AssetList/AssetList'
 
@@ -28,15 +29,17 @@ const Assets = () => {
   }
 
   content = (
-    <section className={styles.assets}>
-      <SearchBar
-        item='Asset'
-        newItemPath='/assets/new'
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
-      {assetsList}
-    </section>
+    <Layout>
+      <section className={styles.assets}>
+        <SearchBar
+          item='Asset'
+          newItemPath='/assets/new'
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+        {assetsList}
+      </section>
+    </Layout>
   )
 
   return content

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { trpc } from '@utils/trpc'
 
 import styles from './Bookings.module.css'
+import Layout from '@components/Layout/Layout'
 import SearchBar from '@components/SearchBar/SearchBar'
 import BookingList from '@modules/bookings/BookingList/BookingList'
 
@@ -28,15 +29,17 @@ const Bookings = () => {
   }
 
   content = (
-    <section className={styles.bookings}>
-      <SearchBar
-        item='Booking'
-        newItemPath='/bookings/new'
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
-      {bookingsList}
-    </section>
+    <Layout>
+      <section className={styles.bookings}>
+        <SearchBar
+          item='Booking'
+          newItemPath='/bookings/new'
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+        {bookingsList}
+      </section>
+    </Layout>
   )
 
   return content

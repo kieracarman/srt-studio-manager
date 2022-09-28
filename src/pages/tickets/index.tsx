@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { trpc } from '@utils/trpc'
 
 import styles from './Tickets.module.css'
+import Layout from '@components/Layout/Layout'
 import SearchBar from '@components/SearchBar/SearchBar'
 import TicketList from '@modules/tickets/TicketList/TicketList'
 
@@ -28,15 +29,17 @@ const Tickets = () => {
   }
 
   content = (
-    <section className={styles.tickets}>
-      <SearchBar
-        item='Ticket'
-        newItemPath='/tickets/new'
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
-      {ticketList}
-    </section>
+    <Layout>
+      <section className={styles.tickets}>
+        <SearchBar
+          item='Ticket'
+          newItemPath='/tickets/new'
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+        {ticketList}
+      </section>
+    </Layout>
   )
 
   return content
