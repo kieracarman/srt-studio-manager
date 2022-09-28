@@ -4,23 +4,16 @@ import styles from './UserListItem.module.css'
 
 type UserListItemProps = {
   id: string
-  firstName: string
-  lastName: string
+  name: string
   role: string
   accessLevel: string
 }
 
-const UserListItem = ({
-  id,
-  firstName,
-  lastName,
-  role,
-  accessLevel
-}: UserListItemProps) => {
+const UserListItem = ({ id, name, role, accessLevel }: UserListItemProps) => {
   return (
     <Link href={`/users/${id}`}>
       <tr className={styles.listItem}>
-        <td className='bold'>{`${firstName} ${lastName}`}</td>
+        <td className='bold'>{name}</td>
         <td>{role}</td>
         <td>{accessLevel}</td>
       </tr>

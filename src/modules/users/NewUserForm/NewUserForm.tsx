@@ -5,8 +5,7 @@ import styles from './NewUserForm.module.css'
 import { trpc } from '@utils/trpc'
 
 type FormValues = {
-  firstName: string
-  lastName: string
+  name: string
   email: string
   role: string
   accessLevel: string
@@ -34,10 +33,8 @@ const NewUserForm = () => {
   const content = (
     <div className={styles.editForm}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label>First Name</label>
-        <input {...register('firstName')} id='firstName' />
-        <label>Last Name</label>
-        <input {...register('lastName')} id='lastName' />
+        <label>Name</label>
+        <input {...register('name')} id='firstName' />
         <label>Role</label>
         <select {...register('role')} id='role' defaultValue=''>
           <option value='' disabled>

@@ -27,13 +27,7 @@ const BookingList = ({ query, bookings, error }: BookingListProps) => {
   const filterArray = (array: BookingWithRelations[]) => {
     return array.filter((item) => {
       return query !== ''
-        ? [
-            item.id,
-            item.title,
-            item.bookingDate,
-            item.createdBy.firstName,
-            item.createdBy.lastName
-          ]
+        ? [item.id, item.title, item.bookingDate, item.createdBy.name]
             .join(' ')
             .toString()
             .toLowerCase()
@@ -63,8 +57,8 @@ const BookingList = ({ query, bookings, error }: BookingListProps) => {
           <th onClick={() => requestSort('title')}>
             Title{sortArrow('title')}
           </th>
-          <th onClick={() => requestSort('createdBy.firstName')}>
-            Created By{sortArrow('createdBy.firstName')}
+          <th onClick={() => requestSort('createdBy.name')}>
+            Created By{sortArrow('createdBy.name')}
           </th>
           <th onClick={() => requestSort('room')}>Room{sortArrow('room')}</th>
           <th onClick={() => requestSort('bookingDate')}>

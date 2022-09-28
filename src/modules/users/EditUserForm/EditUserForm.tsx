@@ -53,10 +53,13 @@ const EditUserForm = ({ user }: { user: User }) => {
   const content = (
     <div className={styles.editForm}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label>First Name</label>
-        <input {...register('firstName')} id='firstName' />
-        <label>Last Name</label>
-        <input {...register('lastName')} id='lastName' />
+        <label>Name</label>
+        <input
+          {...register('name')}
+          id='name'
+          defaultValue={user.name}
+          disabled
+        />
         <label>Role</label>
         <select {...register('role')} id='role' defaultValue={user.role}>
           <option value='' disabled>

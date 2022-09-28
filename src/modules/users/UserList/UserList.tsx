@@ -19,7 +19,7 @@ const UserList = ({ query, users, error }: UserListProps) => {
   const filterArray = (array: User[]) => {
     return array.filter((item) => {
       return query !== ''
-        ? [item.id, item.firstName, item.lastName, item.role, item.accessLevel]
+        ? [item.id, item.name, item.role, item.accessLevel]
             .join(' ')
             .toString()
             .toLowerCase()
@@ -33,8 +33,7 @@ const UserList = ({ query, users, error }: UserListProps) => {
       <UserListItem
         key={user.id}
         id={user.id}
-        firstName={user.firstName}
-        lastName={user.lastName}
+        name={user.name}
         role={user.role}
         accessLevel={user.accessLevel}
       />

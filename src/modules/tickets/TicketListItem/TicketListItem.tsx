@@ -22,7 +22,7 @@ const TicketListItem = ({
     <Link href={`/tickets/${id}`}>
       <tr className={styles.listItem}>
         <td className='bold'>{title}</td>
-        <td>{`${createdBy.firstName} ${createdBy.lastName}`}</td>
+        <td>{createdBy.name}</td>
         <td>{assignedRole}</td>
         <td>
           <span

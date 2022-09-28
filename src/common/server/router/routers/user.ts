@@ -2,8 +2,7 @@ import { createRouter } from '../context'
 import { z } from 'zod'
 
 const userSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
+  name: z.string(),
   email: z.string().email(),
   role: z.string(),
   accessLevel: z.string()

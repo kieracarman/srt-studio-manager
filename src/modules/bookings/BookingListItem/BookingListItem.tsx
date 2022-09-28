@@ -24,7 +24,7 @@ const BookingListItem = ({
     <Link href={`/bookings/${id}`}>
       <tr className={styles.listItem}>
         <td className='bold'>{title}</td>
-        <td>{`${createdBy.firstName} ${createdBy.lastName}`}</td>
+        <td>{createdBy.name}</td>
         <td>{room.name}</td>
         <td>{bookingDate.toString()}</td>
         <td>
