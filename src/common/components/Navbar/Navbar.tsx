@@ -16,7 +16,7 @@ const items = [
   { path: 'users', name: 'Users', icon: <Users /> },
   { path: 'tickets', name: 'Tickets', icon: <AlertCircle /> },
   { path: 'bookings', name: 'Bookings', icon: <Calendar /> },
-  { path: 'logout', name: 'Log out', icon: <LogOut /> }
+  { path: 'api/auth/signout', name: 'Log out', icon: <LogOut /> }
 ]
 
 const Navbar = () => {
