@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import styles from './NewBookingForm.module.css'
@@ -12,6 +13,8 @@ type FormValues = {
 
 const NewBookingForm = () => {
   const router = useRouter()
+
+  const { data: session } = useSession()
 
   const { register, handleSubmit } = useForm<FormValues>()
 
@@ -28,6 +31,7 @@ const NewBookingForm = () => {
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     await addBooking.mutateAsync({
       room: data.room,
+      createdBy: session?.user?.id,
       data
     })
     router.push('/bookings')

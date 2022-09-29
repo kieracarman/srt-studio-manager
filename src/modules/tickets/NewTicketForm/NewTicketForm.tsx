@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import styles from './NewTicketForm.module.css'
@@ -14,6 +15,8 @@ type FormValues = {
 const NewTicketForm = () => {
   const router = useRouter()
 
+  const { data: session } = useSession()
+
   const { register, handleSubmit } = useForm<FormValues>()
 
   const utils = trpc.useContext()
@@ -25,7 +28,7 @@ const NewTicketForm = () => {
   })
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    await addTicket.mutateAsync({ data })
+    await addTicket.mutateAsync({ createdBy: session?.user?.id, data })
     router.push('/tickets')
   }
 
