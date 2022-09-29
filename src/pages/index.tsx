@@ -1,15 +1,18 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useSession } from 'next-auth/react'
 
 import Layout from '@components/Layout/Layout'
+import { trpc } from '@utils/trpc'
+import StudentHome from '@modules/student/StudentHome'
 
 const Home: NextPage = () => {
-  const { status } = useSession({
-    required: true
-  })
+  const { data: role } = trpc.useQuery(['user.getCurrentRole'])
 
-  if (status === 'authenticated') {
+  if (role === 'basic') {
+    return <StudentHome />
+  }
+
+  if (role === 'admin' || role === 'supervisor') {
     return (
       <>
         <Head>
@@ -24,7 +27,7 @@ const Home: NextPage = () => {
     )
   }
 
-  return <p>Loading...</p>
+  return null
 }
 
 export default Home
