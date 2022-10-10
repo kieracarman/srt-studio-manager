@@ -5,20 +5,23 @@ import AssetListItem from '../AssetListItem/AssetListItem'
 import useTableData from '@hooks/useTableData'
 
 type AssetWithLocation = Prisma.AssetGetPayload<{
-  include: { location: { select: { name: true } } }
+  include: { location: true }
 }>
 
 type AssetListProps = {
   query: string
-  assets: AssetWithLocation[] | undefined
+  assets: AssetWithLocation[]
   error?: string
 }
 
 const AssetList = ({ query, assets, error }: AssetListProps) => {
-  const { tableData, requestSort, sortArrow } = useTableData(assets, {
-    direction: '',
-    key: ''
-  })
+  const { tableData, requestSort, sortArrow } = useTableData<AssetWithLocation>(
+    assets,
+    {
+      direction: '',
+      key: ''
+    }
+  )
 
   const filterArray = (array: AssetWithLocation[]) => {
     return array.filter((item) => {
@@ -41,7 +44,7 @@ const AssetList = ({ query, assets, error }: AssetListProps) => {
         description={asset.description}
         make={asset.make}
         model={asset.model}
-        location={asset.location.name}
+        location={asset.location}
         status={asset.status}
       />
     )

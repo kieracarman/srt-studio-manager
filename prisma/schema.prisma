@@ -51,7 +51,7 @@ model Booking {
     id           String    @id @default(cuid())
     title        String
     bookingDate  DateTime
-    status       String
+    status       String    @default("pending")
     approvedDate DateTime?
     createdAt    DateTime  @default(now())
     updatedAt    DateTime  @updatedAt
@@ -82,18 +82,18 @@ model Ticket {
 
 // Necessary for Next auth
 model User {
-    id          String    @id @default(cuid())
-    firstName   String
-    lastName    String
-    email       String    @unique
-    role        String
-    accessLevel String
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt
-    accounts    Account[]
-    sessions    Session[]
-    bookings    Booking[]
-    tickets     Ticket[]
+    id            String    @id @default(cuid())
+    name          String?
+    email         String?   @unique
+    emailVerified String?
+    role          String    @default("basic")
+    accessLevel   String    @default("staff")
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    accounts      Account[]
+    sessions      Session[]
+    bookings      Booking[]
+    tickets       Ticket[]
 
     @@map("users")
 }
@@ -107,6 +107,7 @@ model Account {
     refresh_token     String? //@db.Text
     access_token      String? //@db.Text
     expires_at        Int?
+    ext_expires_in    Int?
     token_type        String?
     scope             String?
     id_token          String? //@db.Text
