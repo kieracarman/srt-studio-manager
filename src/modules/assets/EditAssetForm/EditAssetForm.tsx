@@ -1,10 +1,11 @@
-import { MouseEvent, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import styles from './EditAssetForm.module.css'
 import { trpc } from '@utils/trpc'
 import { Prisma } from '@prisma/client'
+import { Alert, Button } from '@components/ui'
 
 type TAssetWithLocation = Prisma.AssetGetPayload<{
   include: { location: true }
@@ -54,17 +55,11 @@ const EditAssetForm = ({ asset }: { asset: TAssetWithLocation }) => {
     router.push('/assets')
   }
 
-  const [deleteText, setDeleteText] = useState('Delete Asset')
+  const [open, setOpen] = useState(false)
 
-  const handleDelete = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-
-    if (deleteText === 'Delete Asset') {
-      setDeleteText('Are you sure?')
-    } else {
-      await deleteAsset.mutateAsync({ id: asset.id })
-      router.push('/assets')
-    }
+  const handleDelete = async () => {
+    await deleteAsset.mutateAsync({ id: asset.id })
+    router.push('/assets')
   }
 
   const content = (
@@ -129,14 +124,20 @@ const EditAssetForm = ({ asset }: { asset: TAssetWithLocation }) => {
           <option value='staff'>staff</option>
         </select>
         <div>
-          <button type='button' onClick={handleDelete} className='button alert'>
-            {deleteText}
-          </button>
-          <button className='button' type='submit'>
-            Save
-          </button>
+          <Button variant='secondary' onClick={() => setOpen(true)}>
+            Delete asset
+          </Button>
+          <Button type='submit'>Save</Button>
         </div>
       </form>
+      <Alert
+        open={open}
+        setOpen={setOpen}
+        action={handleDelete}
+        title='Are you sure?'
+        description='Once an asset is deleted, it cannot be recovered. Deleting an asset is permanent.'
+        confirmText='Yes, delete asset'
+      />
     </div>
   )
 

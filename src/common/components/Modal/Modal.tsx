@@ -1,8 +1,8 @@
-import Link from 'next/link'
 import { useState, useEffect, PropsWithChildren } from 'react'
 import { createPortal } from 'react-dom'
 
 import styles from './Modal.module.css'
+import { Button } from '@components/ui'
 
 type ModalProps = PropsWithChildren<{
   onClose: string
@@ -20,9 +20,9 @@ const Modal = ({ children, onClose }: ModalProps) => {
   const content = (
     <div className={styles.modal}>
       <header>
-        <Link href={onClose}>
-          <a className='button outline'>Close</a>
-        </Link>
+        <Button variant='secondary' href={onClose}>
+          Close
+        </Button>
       </header>
       <section>{children}</section>
     </div>

@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 
 import styles from './NewUserForm.module.css'
 import { trpc } from '@utils/trpc'
+import { Button } from '@components/ui'
 
 type FormValues = {
   name: string
@@ -58,9 +59,7 @@ const NewUserForm = () => {
         <input type='password' {...register('password')} id='password' />
         <div>
           <span></span>
-          <button type='submit' className='button'>
-            Save
-          </button>
+          <Button type='submit'>Save</Button>
         </div>
       </form>
     </div>

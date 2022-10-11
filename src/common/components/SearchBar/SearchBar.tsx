@@ -1,6 +1,5 @@
-import Link from 'next/link'
-
 import styles from './SearchBar.module.css'
+import { Button } from '@components/ui'
 
 type SearchBarProps = {
   item: string
@@ -27,9 +26,8 @@ const SearchBar = ({
       />
       {/*<button className='btn-outline'>Filter</button>
       <button className='btn-outline'>Export</button>*/}
-      <Link href={newItemPath}>
-        <a className='button'>{`New ${item}`}</a>
-      </Link>
+
+      <Button href={newItemPath}>New {item}</Button>
     </section>
   )
 }

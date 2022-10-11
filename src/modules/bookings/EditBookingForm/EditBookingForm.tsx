@@ -1,10 +1,11 @@
-import { MouseEvent, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import styles from './EditBookingForm.module.css'
 import { trpc } from '@utils/trpc'
 import { Prisma } from '@prisma/client'
+import { Alert, Button } from '@components/ui'
 
 type BookingWithRoom = Prisma.BookingGetPayload<{
   include: { room: true }
@@ -47,17 +48,11 @@ const EditBookingForm = ({ booking }: { booking: BookingWithRoom }) => {
     })
   }
 
-  const [deleteText, setDeleteText] = useState('Delete Booking')
+  const [open, setOpen] = useState(false)
 
-  const handleDelete = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-
-    if (deleteText === 'Delete Booking') {
-      setDeleteText('Are you sure?')
-    } else {
-      await deleteBooking.mutateAsync({ id: booking.id })
-      router.push('/bookings')
-    }
+  const handleDelete = async () => {
+    await deleteBooking.mutateAsync({ id: booking.id })
+    router.push('/bookings')
   }
 
   const content = (
@@ -79,14 +74,18 @@ const EditBookingForm = ({ booking }: { booking: BookingWithRoom }) => {
           ))}
         </select>
         <div>
-          <button type='button' onClick={handleDelete} className='button alert'>
-            {deleteText}
-          </button>
-          <button className='button' type='submit'>
-            Save
-          </button>
+          <Button onClick={() => setOpen(true)}>Delete booking</Button>
+          <Button type='submit'>Save</Button>
         </div>
       </form>
+      <Alert
+        open={open}
+        setOpen={setOpen}
+        action={handleDelete}
+        title='Are you sure?'
+        description='Once a booking is deleted, it cannot be recovered. Deleting a booking is permanent.'
+        confirmText='Yes, delete booking'
+      />
     </div>
   )
 

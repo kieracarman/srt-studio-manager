@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React, { forwardRef, ReactNode } from 'react'
 import { cls } from '../../utils/helpers'
 
@@ -7,7 +8,7 @@ const classes = {
   size: {
     small: 'px-2 py-1 text-xs',
     default: 'px-4 py-2 text-sm',
-    large: 'px-8 py-3 text-md',
+    large: 'px-8 py-3 text-md'
   },
   variant: {
     primary:
@@ -17,18 +18,19 @@ const classes = {
     danger:
       'border-transparent bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
     ghost:
-      'border-transparent bg-transparent shadow-none hover:bg-gray-200 focus:ring-indigo-500',
-  },
+      'border-transparent bg-transparent shadow-none hover:bg-gray-200 focus:ring-indigo-500'
+  }
 }
 
 type ButtonProps = {
-  children: ReactNode
+  children?: ReactNode
   type?: 'button' | 'submit' | 'reset'
   className?: string
   size?: keyof typeof classes.size
   variant?: keyof typeof classes.variant
   disabled?: boolean
   onClick?: () => void
+  href?: string
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -40,26 +42,42 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       variant = 'primary',
       size = 'default',
       disabled = false,
+      href,
       ...props
     },
     ref
-  ) => (
-    <button
-      ref={ref}
-      disabled={disabled}
-      type={type}
-      className={cls(`
+  ) =>
+    href ? (
+      <Link href={href}>
+        <a
+          className={cls(`
+            ${classes.base}
+            ${classes.size[size]}
+            ${classes.variant[variant]}
+            ${className}
+          `)}
+          {...props}
+        >
+          {children}
+        </a>
+      </Link>
+    ) : (
+      <button
+        ref={ref}
+        disabled={disabled}
+        type={type}
+        className={cls(`
       ${classes.base}
       ${classes.size[size]}
       ${classes.variant[variant]}
       ${disabled && classes.disabled}
       ${className}
     `)}
-      {...props}
-    >
-      {children}
-    </button>
-  )
+        {...props}
+      >
+        {children}
+      </button>
+    )
 )
 
 Button.displayName = 'Button'

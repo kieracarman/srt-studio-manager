@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 
 import styles from './NewTicketForm.module.css'
 import { trpc } from '@utils/trpc'
+import { Button } from '@components/ui'
 
 type FormValues = {
   title: string
@@ -57,7 +58,7 @@ const NewTicketForm = () => {
         </select>
         <div>
           <span></span>
-          <button type='submit'>Save</button>
+          <Button type='submit'>Save</Button>
         </div>
       </form>
     </div>
