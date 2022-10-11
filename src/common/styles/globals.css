@@ -16,11 +16,6 @@ textarea {
   box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 h1 {
   font-size: 36px;
   margin: 0 0 16px 0;
@@ -40,64 +35,6 @@ p {
 
 .bold {
   font-weight: bold;
-}
-
-.button {
-  padding: 8px 16px;
-  color: #fff;
-  font-weight: bold;
-  background-color: #000;
-  border-radius: 4px;
-  border: 1px solid black;
-  display: inline-block;
-  text-decoration: none;
-}
-
-.button:hover {
-  background-color: #444;
-  cursor: pointer;
-}
-
-.button.outline {
-  padding: 8px 16px;
-  color: #777;
-  font-weight: bold;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  display: inline-block;
-  text-decoration: none;
-}
-
-.button.outline:hover {
-  border: 1px solid #555;
-  color: #000;
-  cursor: pointer;
-}
-
-.button.alert {
-  padding: 8px 16px;
-  color: lightcoral;
-  font-weight: bold;
-  background-color: #fff;
-  border: 1px solid lightcoral;
-  border-radius: 4px;
-  display: inline-block;
-  text-decoration: none;
-}
-
-.button.alert:hover {
-  border: 1px solid red;
-  color: red;
-  cursor: pointer;
-}
-
-.button.disabled {
-  background-color: #444;
-}
-
-.button.disabled:hover {
-  cursor: not-allowed;
 }
 
 .error {
