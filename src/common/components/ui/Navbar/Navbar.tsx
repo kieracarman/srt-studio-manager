@@ -8,7 +8,7 @@ import {
 } from 'react-feather'
 
 import styles from './Navbar.module.css'
-import NavLink from '@components/NavLink/NavLink'
+import { NavLink } from '@components/ui'
 
 const items = [
   { path: '', name: 'Dashboard', icon: <Activity /> },

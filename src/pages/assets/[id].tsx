@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
-import Modal from '@components/Modal/Modal'
+import { Modal } from '@components/ui'
 import EditAssetForm from '@modules/assets/EditAssetForm/EditAssetForm'
 import { trpc } from '@utils/trpc'
 

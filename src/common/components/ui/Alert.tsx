@@ -1,7 +1,7 @@
 import React, { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
-import { Button } from './'
+import { Button } from '@components/ui'
 
 type AlertProps = {
   open: boolean

@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { trpc } from '@utils/trpc'
 
 import styles from './Users.module.css'
-import Layout from '@components/Layout/Layout'
-import SearchBar from '@components/SearchBar/SearchBar'
+import { Layout, SearchBar } from '@components/ui'
 import UserList from '@modules/users/UserList/UserList'
 
 const Users = () => {

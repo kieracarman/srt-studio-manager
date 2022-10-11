@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 
-import Modal from '@components/Modal/Modal'
+import { Modal } from '@components/ui'
 import NewAssetForm from '@modules/assets/NewAssetForm/NewAssetForm'
 
 const NewAsset: NextPage = () => {

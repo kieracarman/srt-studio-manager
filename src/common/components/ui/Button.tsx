@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { forwardRef, ReactNode } from 'react'
-import { cls } from '../../utils/helpers'
+import { cls } from '@utils/helpers'
 
 const classes = {
   base: 'transition ease-in-out duration-200 border w-full justify-center rounded-md font-medium shadow-sm sm:w-auto focus:ring-offset-2 focus:ring-2 focus:outline-none',

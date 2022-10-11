@@ -1,13 +1,13 @@
-// src/pages/_app.tsx
-import { httpBatchLink } from '@trpc/client/links/httpBatchLink'
-import { loggerLink } from '@trpc/client/links/loggerLink'
-import { withTRPC } from '@trpc/next'
 import { SessionProvider } from 'next-auth/react'
 import type { AppType } from 'next/dist/shared/lib/utils'
 import superjson from 'superjson'
+import { httpBatchLink } from '@trpc/client/links/httpBatchLink'
+import { loggerLink } from '@trpc/client/links/loggerLink'
+import { withTRPC } from '@trpc/next'
+
 import type { AppRouter } from '@server/router'
+import { AuthRedirect } from '@components/auth'
 import '@styles/globals.css'
-import AuthRedirect from '@components/AuthRedirect/AuthRedirect'
 
 const MyApp: AppType = ({
   Component,
