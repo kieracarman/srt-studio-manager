@@ -74,7 +74,9 @@ const EditBookingForm = ({ booking }: { booking: BookingWithRoom }) => {
           ))}
         </select>
         <div>
-          <Button onClick={() => setOpen(true)}>Delete booking</Button>
+          <Button variant='secondary' onClick={() => setOpen(true)}>
+            Delete booking
+          </Button>
           <Button type='submit'>Save</Button>
         </div>
       </form>

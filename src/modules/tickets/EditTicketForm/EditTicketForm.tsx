@@ -74,7 +74,9 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
           <option value='complete'>complete</option>
         </select>
         <div>
-          <Button onClick={() => setOpen(true)}>Delete ticket</Button>
+          <Button variant='secondary' onClick={() => setOpen(true)}>
+            Delete ticket
+          </Button>
           <Button type='submit'>Save</Button>
         </div>
       </form>

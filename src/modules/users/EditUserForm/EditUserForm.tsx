@@ -81,7 +81,9 @@ const EditUserForm = ({ user }: { user: User }) => {
         <label>New Password</label>
         <input type='password' {...register('password')} id='password' />
         <div>
-          <Button onClick={() => setOpen(true)}>Delete user</Button>
+          <Button variant='secondary' onClick={() => setOpen(true)}>
+            Delete user
+          </Button>
           <Button type='submit'>Save</Button>
         </div>
       </form>
