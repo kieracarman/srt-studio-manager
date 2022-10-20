@@ -1,4 +1,3 @@
-import styles from './SearchBar.module.css'
 import { Button } from '@components/ui'
 
 type SearchBarProps = {
@@ -15,9 +14,9 @@ const SearchBar = ({
   setSearchQuery
 }: SearchBarProps) => {
   return (
-    <section className={styles.searchBar}>
+    <section className='flex md:justify-between md:p-4'>
       <input
-        className={styles.searchBarInput}
+        className='border-b border-b-gray-200 p-2 text-xl outline-none focus:border-b-black md:w-1/2 md:rounded-md md:border md:border-gray-200 md:px-3 md:py-2 md:text-sm md:focus:border-black'
         placeholder='Search'
         value={searchQuery}
         onInput={(e) =>
