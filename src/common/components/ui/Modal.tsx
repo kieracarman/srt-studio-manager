@@ -1,7 +1,6 @@
 import { useState, useEffect, PropsWithChildren } from 'react'
 import { createPortal } from 'react-dom'
 
-import styles from './Modal.module.css'
 import { Button } from '@components/ui'
 
 type ModalProps = PropsWithChildren<{
@@ -18,13 +17,13 @@ const Modal = ({ children, onClose }: ModalProps) => {
   }, [])
 
   const content = (
-    <div className={styles.modal}>
-      <header>
+    <div className='fixed top-0 left-0 z-10 h-full w-full overflow-hidden bg-white'>
+      <header className='sticky top-0 flex justify-end overflow-hidden border-b border-b-gray-200 p-2'>
         <Button variant='secondary' href={onClose}>
           Close
         </Button>
       </header>
-      <section>{children}</section>
+      <section className='overflow-auto'>{children}</section>
     </div>
   )
 
