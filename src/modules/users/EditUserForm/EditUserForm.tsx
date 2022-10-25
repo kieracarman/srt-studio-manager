@@ -52,7 +52,7 @@ const EditUserForm = ({ user }: { user: User }) => {
         <input
           {...register('name')}
           id='name'
-          defaultValue={user.name}
+          defaultValue={user.name ? user.name : ''}
           disabled
         />
         <label>Role</label>
