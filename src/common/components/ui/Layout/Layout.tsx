@@ -1,8 +1,7 @@
 import { PropsWithChildren } from 'react'
 
 import styles from './Layout.module.css'
-import Topbar from '@components/Topbar/Topbar'
-import Navbar from '@components/Navbar/Navbar'
+import { Navbar, Topbar } from '@components/ui'
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (

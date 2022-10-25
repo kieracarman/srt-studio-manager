@@ -2,9 +2,9 @@ import { createProtectedRouter } from '../context'
 import { z } from 'zod'
 
 const userSchema = z.object({
-  email: z.string().email().optional(),
-  role: z.string().optional(),
-  accessLevel: z.string().optional()
+  email: z.string().email().nullable(),
+  role: z.string(),
+  accessLevel: z.string()
 })
 
 export const userRouter = createProtectedRouter()

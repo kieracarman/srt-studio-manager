@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { trpc } from '@utils/trpc'
 
 import styles from './Assets.module.css'
-import Layout from '@components/Layout/Layout'
-import SearchBar from '@components/SearchBar/SearchBar'
+import { Layout, SearchBar } from '@components/ui'
 import AssetList from '@modules/assets/AssetList/AssetList'
 
 const Assets = () => {

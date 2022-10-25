@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { trpc } from '@utils/trpc'
 
 import styles from './Bookings.module.css'
-import Layout from '@components/Layout/Layout'
-import SearchBar from '@components/SearchBar/SearchBar'
+import { Layout, SearchBar } from '@components/ui'
 import BookingList from '@modules/bookings/BookingList/BookingList'
 
 const Bookings = () => {

@@ -1,11 +1,9 @@
 import Link from 'next/link'
 
-import styles from './Topbar.module.css'
-
 const Topbar = () => {
   return (
-    <div className={styles.topbar}>
-      <div className={styles.navbarBrand}>
+    <div className='h-full flex justify-start items-center border-b border-gray-200'>
+      <div className='px-2 xl:px-6 xl:text-2xl'>
         <Link href='/'>SRT Studio Manager</Link>
       </div>
     </div>

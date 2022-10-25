@@ -4,7 +4,7 @@ import styles from './UserListItem.module.css'
 
 type UserListItemProps = {
   id: string
-  name: string
+  name: string | null
   role: string
   accessLevel: string
 }

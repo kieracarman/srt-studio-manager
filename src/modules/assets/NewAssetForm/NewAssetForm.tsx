@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 
 import styles from './NewAssetForm.module.css'
 import { trpc } from '@utils/trpc'
+import { Button } from '@components/ui'
 
 type TFormValues = {
   description: string
@@ -97,9 +98,7 @@ const NewAssetForm = () => {
         </select>
         <div>
           <span></span>
-          <button className='button' type='submit'>
-            Save
-          </button>
+          <Button type='submit'>Save</Button>
         </div>
       </form>
     </div>

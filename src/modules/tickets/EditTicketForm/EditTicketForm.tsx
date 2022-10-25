@@ -1,10 +1,11 @@
-import { MouseEvent, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import styles from './EditTicketForm.module.css'
 import { trpc } from '@utils/trpc'
 import { Ticket } from '@prisma/client'
+import { Alert, Button } from '@components/ui'
 
 type FormValues = {
   title: string
@@ -40,17 +41,11 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
     })
   }
 
-  const [deleteText, setDeleteText] = useState('Delete Ticket')
+  const [open, setOpen] = useState(false)
 
-  const handleDelete = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-
-    if (deleteText === 'Delete Ticket') {
-      setDeleteText('Are you sure?')
-    } else {
-      await deleteTicket.mutateAsync({ id: ticket.id })
-      router.push('/bookings')
-    }
+  const handleDelete = async () => {
+    await deleteTicket.mutateAsync({ id: ticket.id })
+    router.push('/bookings')
   }
 
   const content = (
@@ -79,12 +74,20 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
           <option value='complete'>complete</option>
         </select>
         <div>
-          <button type='button' onClick={handleDelete} className='button alert'>
-            {deleteText}
-          </button>
-          <button type='submit'>Save</button>
+          <Button variant='secondary' onClick={() => setOpen(true)}>
+            Delete ticket
+          </Button>
+          <Button type='submit'>Save</Button>
         </div>
       </form>
+      <Alert
+        open={open}
+        setOpen={setOpen}
+        action={handleDelete}
+        title='Are you sure?'
+        description='Once a ticket is deleted, it cannot be recovered. Deleting a ticket is permanent.'
+        confirmText='Yes, delete ticket'
+      />
     </div>
   )
 
