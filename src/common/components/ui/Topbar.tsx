@@ -1,11 +1,10 @@
-import Link from 'next/link'
+import { Navigation, UserMenu } from '@components/ui'
 
 const Topbar = () => {
   return (
-    <div className='h-full flex justify-start items-center border-b border-gray-200'>
-      <div className='px-2 xl:px-6 xl:text-2xl'>
-        <Link href='/'>SRT Studio Manager</Link>
-      </div>
+    <div className='flex items-center justify-between p-4 sm:p-8'>
+      <Navigation />
+      <UserMenu />
     </div>
   )
 }

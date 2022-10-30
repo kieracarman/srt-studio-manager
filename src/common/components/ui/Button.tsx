@@ -3,7 +3,7 @@ import React, { forwardRef, ReactNode } from 'react'
 import { cls } from '@utils/helpers'
 
 const classes = {
-  base: 'transition ease-in-out duration-200 border w-auto justify-center rounded-md font-medium shadow-sm focus:ring-offset-2 focus:ring-2 focus:outline-none',
+  base: 'transition ease-in-out duration-200 border w-auto justify-center rounded-md shadow-sm focus:ring-offset-2 focus:ring-2 focus:outline-none',
   disabled: 'opacity-50 cursor-not-allowed',
   size: {
     small: 'px-2 py-1 text-xs',
