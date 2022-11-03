@@ -36,6 +36,7 @@ const EditUserForm = ({ user }: { user: User }) => {
       id: user.id,
       data
     })
+    router.push('/users')
   }
 
   const [open, setOpen] = useState(false)
