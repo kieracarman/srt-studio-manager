@@ -9,6 +9,7 @@ import { withTRPC } from '@trpc/next'
 import type { AppRouter } from '@server/router'
 import { AuthRedirect } from '@components/auth'
 import '@styles/globals.css'
+import '@fontsource/inter'
 
 const MyApp = ({ Component, pageProps }: AppProps<{ session: Session }>) => {
   return (

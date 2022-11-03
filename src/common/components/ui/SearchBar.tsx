@@ -14,9 +14,10 @@ const SearchBar = ({
   setSearchQuery
 }: SearchBarProps) => {
   return (
-    <section className='flex md:justify-between md:p-4'>
+    <section className='flex justify-between gap-2 px-2 py-1 sm:px-8'>
       <input
-        className='border-b border-b-gray-200 p-2 text-xl outline-none focus:border-b-black md:w-1/2 md:rounded-md md:border md:border-gray-200 md:px-3 md:py-2 md:text-sm md:focus:border-black'
+        className='w-full max-w-lg rounded-md px-4 py-2 text-sm shadow-sm transition duration-200 ease-in-out focus:border-black focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+        type='text'
         placeholder='Search'
         value={searchQuery}
         onInput={(e) =>
