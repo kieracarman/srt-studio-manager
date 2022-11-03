@@ -1,13 +1,11 @@
 import { PropsWithChildren } from 'react'
 
-import { Topbar } from '@components/ui'
+import { Header } from '@components/ui'
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
     <div>
-      <header>
-        <Topbar />
-      </header>
+      <Header />
       <main>{children}</main>
     </div>
   )
