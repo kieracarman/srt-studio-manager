@@ -12,7 +12,7 @@ const UserMenu = () => {
     <Menu as='div' className='relative'>
       <Menu.Button
         as='div'
-        className='flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-black text-xl text-white'
+        className='flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-black text-xl text-white transition duration-200 ease-in-out hover:opacity-60'
       >
         {Array.from(data?.data?.user?.name ?? '')[0]}
       </Menu.Button>
@@ -25,7 +25,7 @@ const UserMenu = () => {
         leaveFrom='transform opacity-100 scale-100'
         leaveTo='transform opacity-0 scale-95'
       >
-        <Menu.Items className='absolute right-0 z-20 mt-2 w-48 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
+        <Menu.Items className='absolute right-0 z-20 mt-2 w-auto min-w-[12rem] origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
           <div className='flex flex-col gap-1 px-4 py-2 text-sm'>
             Logged in as{' '}
             <span className='whitespace-nowrap font-semibold'>
