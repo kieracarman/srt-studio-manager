@@ -3,6 +3,7 @@ import { Prisma } from '@prisma/client'
 import styles from './AssetList.module.css'
 import AssetListItem from '../AssetListItem/AssetListItem'
 import useTableData from '@hooks/useTableData'
+import { Empty, Loader } from '@components/ui'
 
 type AssetWithLocation = Prisma.AssetGetPayload<{
   include: { location: true }
@@ -50,38 +51,46 @@ const AssetList = ({ query, assets, error }: AssetListProps) => {
     )
   })
 
-  const content = (
-    <table className={styles.list}>
-      <thead>
-        <tr>
-          <th onClick={() => requestSort('tagNumber')}>
-            Tag #{sortArrow('tagNumber')}
-          </th>
-          <th onClick={() => requestSort('description')}>
-            Description{sortArrow('description')}
-          </th>
-          <th onClick={() => requestSort('make')}>Make{sortArrow('make')}</th>
-          <th onClick={() => requestSort('model')}>
-            Model{sortArrow('model')}
-          </th>
-          <th onClick={() => requestSort('location')}>
-            Location{sortArrow('location')}
-          </th>
-          <th onClick={() => requestSort('status')}>
-            Status{sortArrow('status')}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {error && (
+  let content
+
+  if (assets.length === 0) {
+    content = <Empty item='asset' />
+  } else if (assets.length !== 0) {
+    content = (
+      <table className={styles.list}>
+        <thead>
           <tr>
-            <td className='errmsg'>{error}</td>
+            <th onClick={() => requestSort('tagNumber')}>
+              Tag #{sortArrow('tagNumber')}
+            </th>
+            <th onClick={() => requestSort('description')}>
+              Description{sortArrow('description')}
+            </th>
+            <th onClick={() => requestSort('make')}>Make{sortArrow('make')}</th>
+            <th onClick={() => requestSort('model')}>
+              Model{sortArrow('model')}
+            </th>
+            <th onClick={() => requestSort('location')}>
+              Location{sortArrow('location')}
+            </th>
+            <th onClick={() => requestSort('status')}>
+              Status{sortArrow('status')}
+            </th>
           </tr>
-        )}
-        {tableContent}
-      </tbody>
-    </table>
-  )
+        </thead>
+        <tbody>
+          {error && (
+            <tr>
+              <td className='errmsg'>{error}</td>
+            </tr>
+          )}
+          {tableContent}
+        </tbody>
+      </table>
+    )
+  } else {
+    content = <Loader />
+  }
 
   return content
 }

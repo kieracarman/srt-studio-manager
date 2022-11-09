@@ -3,6 +3,7 @@ import { Prisma } from '@prisma/client'
 import styles from './TicketList.module.css'
 import TicketListItem from '../TicketListItem/TicketListItem'
 import useTableData from '@hooks/useTableData'
+import { Empty, Loader } from '@components/ui'
 
 type TicketWithRelations = Prisma.TicketGetPayload<{
   include: { createdBy: true }
@@ -46,34 +47,42 @@ const TicketList = ({ query, tickets, error }: TicketListProps) => {
     )
   })
 
-  const content = (
-    <table className={styles.list}>
-      <thead>
-        <tr>
-          <th onClick={() => requestSort('title')}>
-            Title{sortArrow('title')}
-          </th>
-          <th onClick={() => requestSort('createdBy.firstName')}>
-            Created By{sortArrow('createdBy.firstName')}
-          </th>
-          <th onClick={() => requestSort('assignedRole')}>
-            Assigned Role{sortArrow('assignedRole')}
-          </th>
-          <th onClick={() => requestSort('status')}>
-            Status{sortArrow('status')}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {error && (
+  let content
+
+  if (tickets.length === 0) {
+    content = <Empty item='ticket' />
+  } else if (tickets.length !== 0) {
+    content = (
+      <table className={styles.list}>
+        <thead>
           <tr>
-            <td>{error}</td>
+            <th onClick={() => requestSort('title')}>
+              Title{sortArrow('title')}
+            </th>
+            <th onClick={() => requestSort('createdBy.firstName')}>
+              Created By{sortArrow('createdBy.firstName')}
+            </th>
+            <th onClick={() => requestSort('assignedRole')}>
+              Assigned Role{sortArrow('assignedRole')}
+            </th>
+            <th onClick={() => requestSort('status')}>
+              Status{sortArrow('status')}
+            </th>
           </tr>
-        )}
-        {tableContent}
-      </tbody>
-    </table>
-  )
+        </thead>
+        <tbody>
+          {error && (
+            <tr>
+              <td>{error}</td>
+            </tr>
+          )}
+          {tableContent}
+        </tbody>
+      </table>
+    )
+  } else {
+    content = <Loader />
+  }
 
   return content
 }

@@ -21,7 +21,12 @@ const Home: NextPage = () => {
           <link rel='icon' href='/favicon.ico' />
         </Head>
         <Layout>
-          <h1>Dashboard</h1>
+          <div className='mt-32 flex items-center justify-center'>
+            <div className='rounded-xl border-4 border-dashed border-gray-200 p-8'>
+              <h2 className='mb-4 text-lg font-semibold'>Empty Dashboard</h2>
+              <p>Nothing to see here!</p>
+            </div>
+          </div>
         </Layout>
       </>
     )

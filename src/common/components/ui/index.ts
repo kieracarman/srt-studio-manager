@@ -1,6 +1,7 @@
 export { default as Alert } from './Alert'
 export { default as AuthRedirect } from '../auth/AuthRedirect'
 export { default as Button } from './Button'
+export { default as Empty } from './Empty'
 export { default as Header } from './Header'
 export { default as Layout } from './Layout'
 export { default as Loader } from './Loader'
