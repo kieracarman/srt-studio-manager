@@ -31,7 +31,7 @@ const Users = () => {
     <Layout>
       <section className={styles.users}>
         <SearchBar
-          item='User'
+          item='user'
           newItemPath='/users/new'
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}

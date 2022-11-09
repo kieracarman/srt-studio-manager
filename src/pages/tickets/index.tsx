@@ -31,7 +31,7 @@ const Tickets = () => {
     <Layout>
       <section className={styles.tickets}>
         <SearchBar
-          item='Ticket'
+          item='ticket'
           newItemPath='/tickets/new'
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}

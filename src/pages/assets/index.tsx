@@ -31,7 +31,7 @@ const Assets = () => {
     <Layout>
       <section className={styles.assets}>
         <SearchBar
-          item='Asset'
+          item='asset'
           newItemPath='/assets/new'
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}

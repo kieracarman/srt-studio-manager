@@ -31,7 +31,7 @@ const Bookings = () => {
     <Layout>
       <section className={styles.bookings}>
         <SearchBar
-          item='Booking'
+          item='booking'
           newItemPath='/bookings/new'
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
