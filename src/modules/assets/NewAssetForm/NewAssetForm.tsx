@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 
 import styles from './NewAssetForm.module.css'
 import { trpc } from '@utils/trpc'
-import { Button } from '@components/ui'
+import { Button } from '@components/form'
 
 type TFormValues = {
   description: string

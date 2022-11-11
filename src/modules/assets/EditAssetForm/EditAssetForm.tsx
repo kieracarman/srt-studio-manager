@@ -5,7 +5,8 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import styles from './EditAssetForm.module.css'
 import { trpc } from '@utils/trpc'
 import { Prisma } from '@prisma/client'
-import { Alert, Button } from '@components/ui'
+import { Alert } from '@components/ui'
+import { Button } from '@components/form'
 
 type TAssetWithLocation = Prisma.AssetGetPayload<{
   include: { location: true }

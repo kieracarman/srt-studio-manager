@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDown } from 'react-feather'
 
-import { Button } from '@components/ui'
+import { Button } from '@components/form'
 
 const links = [
   { path: '/', name: 'Dashboard' },
