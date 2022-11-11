@@ -6,7 +6,6 @@ import { Button } from '@components/form'
 
 const UserMenu = () => {
   const data = useSession()
-  console.log(data)
 
   return (
     <Menu as='div' className='relative'>
