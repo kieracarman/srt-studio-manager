@@ -1,6 +1,6 @@
 import { FilePlus } from 'react-feather'
 
-import { Button } from '@components/ui'
+import { Button } from '@components/form'
 
 type EmptyProps = {
   item: string

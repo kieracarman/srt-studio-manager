@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { useSession } from 'next-auth/react'
 
-import { Button } from '@components/ui'
+import { Button } from '@components/form'
 
 const UserMenu = () => {
   const data = useSession()

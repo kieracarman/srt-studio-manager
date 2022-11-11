@@ -1,7 +1,7 @@
 import { useState, useEffect, PropsWithChildren } from 'react'
 import { createPortal } from 'react-dom'
 
-import { Button } from '@components/ui'
+import { Button } from '@components/form'
 
 type ModalProps = PropsWithChildren<{
   onClose: string
