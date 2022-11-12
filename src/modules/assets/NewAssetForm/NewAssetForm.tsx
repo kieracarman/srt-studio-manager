@@ -1,19 +1,18 @@
 import { useRouter } from 'next/router'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
-import styles from './NewAssetForm.module.css'
 import { trpc } from '@utils/trpc'
-import { Button } from '@components/form'
+import { Button, FormInput } from '@components/form'
 
-type TFormValues = {
+type AssetFormFields = {
   description: string
   tagNumber: string
   make: string
   model: string
   serialNumber: string
   location: string
-  acquisitionDate: Date
-  acquisitionAmount: string
+  acquisitionDate?: Date
+  acquisitionAmount?: string
   status: string
   type: string
   minimumAccessLevel: string
@@ -22,7 +21,11 @@ type TFormValues = {
 const NewAssetForm = () => {
   const router = useRouter()
 
-  const { register, handleSubmit } = useForm<TFormValues>()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<AssetFormFields>()
 
   const utils = trpc.useContext()
 
@@ -34,27 +37,62 @@ const NewAssetForm = () => {
 
   const { data: rooms } = trpc.useQuery(['room.getAll'])
 
-  const onSubmit: SubmitHandler<TFormValues> = async (data) => {
+  const onSubmit = handleSubmit(async (data) => {
     await addAsset.mutateAsync({
       location: data.location,
       data
     })
     router.push('/assets')
-  }
+  })
 
   const content = (
-    <div className={styles.editForm}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor='description'>Description</label>
-        <input {...register('description')} />
-        <label htmlFor='tagNumber'>Tag #</label>
-        <input {...register('tagNumber')} />
-        <label htmlFor='make'>Make</label>
-        <input {...register('make')} />
-        <label htmlFor='model'>Model</label>
-        <input {...register('model')} />
-        <label htmlFor='serialNumber'>Serial #</label>
-        <input {...register('serialNumber')} />
+    <div className='m-auto max-w-lg p-4'>
+      <form onSubmit={onSubmit} className='flex flex-col gap-4'>
+        <FormInput<AssetFormFields>
+          id='description'
+          name='description'
+          label='Description'
+          register={register}
+          rules={{ required: 'You must enter a description.' }}
+          errors={errors}
+        />
+
+        <FormInput<AssetFormFields>
+          id='tagNumber'
+          name='tagNumber'
+          label='Tag #'
+          register={register}
+          rules={{ required: 'You must enter a tag number.' }}
+          errors={errors}
+        />
+
+        <FormInput<AssetFormFields>
+          id='make'
+          name='make'
+          label='Make'
+          register={register}
+          rules={{ required: 'You must enter a make.' }}
+          errors={errors}
+        />
+
+        <FormInput<AssetFormFields>
+          id='model'
+          name='model'
+          label='Model'
+          register={register}
+          rules={{ required: 'You must enter a make.' }}
+          errors={errors}
+        />
+
+        <FormInput<AssetFormFields>
+          id='serialNumber'
+          name='serialNumber'
+          label='Serial #'
+          register={register}
+          rules={{ required: 'You must enter a serial number.' }}
+          errors={errors}
+        />
+
         <label htmlFor='location'>Location</label>
         <select {...register('location')} defaultValue=''>
           <option value='' disabled>
@@ -66,10 +104,23 @@ const NewAssetForm = () => {
             </option>
           ))}
         </select>
-        <label htmlFor='acquisitionDate'>Acquisition Date</label>
-        <input {...register('acquisitionDate')} />
-        <label htmlFor='acquisitionAmount'>Acquisition Amount</label>
-        <input {...register('acquisitionAmount')} />
+
+        <FormInput<AssetFormFields>
+          id='acquisitionDate'
+          name='acquisitionDate'
+          label='Acquisition Date'
+          register={register}
+          errors={errors}
+        />
+
+        <FormInput<AssetFormFields>
+          id='acquisitionAmount'
+          name='acquisitionAmount'
+          label='Acquisition Amount'
+          register={register}
+          errors={errors}
+        />
+
         <label htmlFor='status'>Status</label>
         <select {...register('status')} defaultValue=''>
           <option value='' disabled>
@@ -78,6 +129,7 @@ const NewAssetForm = () => {
           <option value='in'>in</option>
           <option value='out'>out</option>
         </select>
+
         <label htmlFor='type'>Asset Type</label>
         <select {...register('type')} defaultValue=''>
           <option value='' disabled>
@@ -86,6 +138,7 @@ const NewAssetForm = () => {
           <option value='hardware'>hardware</option>
           <option value='software'>software</option>
         </select>
+
         <label htmlFor='minimumAccessLevel'>Minimum Access Level</label>
         <select {...register('minimumAccessLevel')} defaultValue=''>
           <option value='' disabled>
@@ -96,7 +149,8 @@ const NewAssetForm = () => {
           <option value='senior'>senior</option>
           <option value='staff'>staff</option>
         </select>
-        <div>
+
+        <div className='flex justify-between'>
           <span></span>
           <Button type='submit'>Save</Button>
         </div>
