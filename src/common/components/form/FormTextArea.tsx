@@ -1,4 +1,3 @@
-import { DetailedHTMLProps, TextareaHTMLAttributes } from 'react'
 import get from 'lodash.get'
 import { ErrorMessage } from '@hookform/error-message'
 import {
@@ -11,6 +10,7 @@ import {
 } from 'react-hook-form'
 
 import { TextArea, FormErrorMessage } from '@components/form'
+import { TextAreaProps } from '@components/form/TextArea'
 
 type FormTextAreaProps<TFormValues extends FieldValues> = {
   id: string
@@ -20,12 +20,9 @@ type FormTextAreaProps<TFormValues extends FieldValues> = {
   rules?: RegisterOptions
   register?: UseFormRegister<TFormValues>
   errors?: Partial<DeepMap<TFormValues, FieldError>>
-} & DetailedHTMLProps<
-  TextareaHTMLAttributes<HTMLTextAreaElement>,
-  HTMLTextAreaElement
->
+} & Omit<TextAreaProps, 'name'>
 
-const FormTextArea = <TFormValues extends Record<string, any>>({
+const FormTextArea = <TFormValues extends Record<string, unknown>>({
   id,
   name,
   label,
