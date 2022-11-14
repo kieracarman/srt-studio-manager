@@ -1,15 +1,8 @@
-import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
 import { trpc } from '@utils/trpc'
-import { Prisma } from '@prisma/client'
-import { Alert } from '@components/ui'
 import { Button, FormInput, FormSelect } from '@components/form'
-
-type AssetWithLocation = Prisma.AssetGetPayload<{
-  include: { location: true }
-}>
 
 type AssetFormFields = {
   description: string
@@ -25,7 +18,7 @@ type AssetFormFields = {
   minimumAccessLevel: string
 }
 
-const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
+const NewAssetForm = () => {
   const router = useRouter()
 
   const {
@@ -36,14 +29,7 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
 
   const utils = trpc.useContext()
 
-  const editAsset = trpc.useMutation('asset.edit', {
-    async onSuccess() {
-      await utils.invalidateQueries(['asset.getAll'])
-      await utils.invalidateQueries(['asset.getOne', { id: asset.id }])
-    }
-  })
-
-  const deleteAsset = trpc.useMutation(['asset.delete'], {
+  const addAsset = trpc.useMutation(['asset.add'], {
     async onSuccess() {
       await utils.invalidateQueries(['asset.getAll'])
     }
@@ -52,20 +38,12 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
   const { data: rooms } = trpc.useQuery(['room.getAll'])
 
   const onSubmit = handleSubmit(async (data) => {
-    await editAsset.mutateAsync({
-      id: asset.id,
+    await addAsset.mutateAsync({
       location: data.location,
       data
     })
     router.push('/assets')
   })
-
-  const [open, setOpen] = useState(false)
-
-  const handleDelete = async () => {
-    await deleteAsset.mutateAsync({ id: asset.id })
-    router.push('/assets')
-  }
 
   const content = (
     <div className='m-auto max-w-lg p-4'>
@@ -77,7 +55,6 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
           register={register}
           rules={{ required: 'You must enter a description.' }}
           errors={errors}
-          defaultValue={asset.description}
         />
 
         <FormInput<AssetFormFields>
@@ -85,9 +62,8 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
           name='tagNumber'
           label='Tag #'
           register={register}
-          rules={{ required: 'You must enter a description.' }}
+          rules={{ required: 'You must enter a tag number.' }}
           errors={errors}
-          defaultValue={asset.tagNumber}
         />
 
         <FormInput<AssetFormFields>
@@ -97,7 +73,6 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
           register={register}
           rules={{ required: 'You must enter a make.' }}
           errors={errors}
-          defaultValue={asset.make}
         />
 
         <FormInput<AssetFormFields>
@@ -105,9 +80,8 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
           name='model'
           label='Model'
           register={register}
-          rules={{ required: 'You must enter a model.' }}
+          rules={{ required: 'You must enter a make.' }}
           errors={errors}
-          defaultValue={asset.model}
         />
 
         <FormInput<AssetFormFields>
@@ -117,7 +91,6 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
           register={register}
           rules={{ required: 'You must enter a serial number.' }}
           errors={errors}
-          defaultValue={asset.serialNumber ?? ''}
         />
 
         <FormSelect<AssetFormFields>
@@ -127,7 +100,6 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
           register={register}
           rules={{ required: 'You must enter a location.' }}
           errors={errors}
-          defaultValue={asset.location.id}
         >
           {rooms?.map((room) => (
             <option key={room.id} value={room.id}>
@@ -142,7 +114,6 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
           label='Acquisition Amount'
           register={register}
           errors={errors}
-          defaultValue={asset.acquisitionAmount ?? ''}
         />
 
         <FormSelect<AssetFormFields>
@@ -152,7 +123,6 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
           register={register}
           rules={{ required: 'You must enter a status.' }}
           errors={errors}
-          defaultValue={asset.status}
         >
           <option value='in'>in</option>
           <option value='out'>out</option>
@@ -165,7 +135,6 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
           register={register}
           rules={{ required: 'You must enter an asset type.' }}
           errors={errors}
-          defaultValue={asset.type}
         >
           <option value='hardware'>hardware</option>
           <option value='software'>software</option>
@@ -178,7 +147,6 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
           register={register}
           rules={{ required: 'You must enter a minimum access level.' }}
           errors={errors}
-          defaultValue={asset.minimumAccessLevel}
         >
           <option value='sophomore'>sophomore</option>
           <option value='junior'>junior</option>
@@ -186,25 +154,15 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
           <option value='staff'>staff</option>
         </FormSelect>
 
-        <div>
-          <Button variant='secondary' onClick={() => setOpen(true)}>
-            Delete asset
-          </Button>
+        <div className='flex justify-between'>
+          <span></span>
           <Button type='submit'>Save</Button>
         </div>
       </form>
-      <Alert
-        open={open}
-        setOpen={setOpen}
-        action={handleDelete}
-        title='Are you sure?'
-        description='Once an asset is deleted, it cannot be recovered. Deleting an asset is permanent.'
-        confirmText='Yes, delete asset'
-      />
     </div>
   )
 
   return content
 }
 
-export default EditAssetForm
+export default NewAssetForm
