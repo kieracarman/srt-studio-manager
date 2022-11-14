@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
 import { Modal } from '@components/ui'
-import EditAssetForm from '@modules/assets/EditAssetForm/EditAssetForm'
+import EditAssetForm from '@modules/assets/EditAssetForm'
 import { trpc } from '@utils/trpc'
 
 const EditAsset: NextPage = () => {
