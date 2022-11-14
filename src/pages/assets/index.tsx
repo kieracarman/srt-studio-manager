@@ -28,7 +28,7 @@ const Assets = () => {
 
   content = (
     <Layout>
-      <section className={styles.assets}>
+      <section className='grid grid-rows-[auto_1fr]'>
         <SearchBar
           item='asset'
           newItemPath='/assets/new'
