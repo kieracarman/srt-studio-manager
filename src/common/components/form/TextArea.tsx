@@ -3,7 +3,7 @@ import { forwardRef } from 'react'
 import { cls } from '@utils/helpers'
 
 const classes = {
-  base: 'rounded-md shadow-sm transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2',
+  base: 'block w-full rounded-md shadow-sm transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2',
   disabled: 'opacity-50 border-gray-200 bg-gray-100 cursor-not-allowed',
   size: {
     small: '',
@@ -11,7 +11,7 @@ const classes = {
     large: ''
   },
   variant: {
-    default: 'border-black focus:border-black focus:ring-indigo-500',
+    default: 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500',
     valid: '',
     error: 'border-red-600 focus:border-red-600 focus:ring-red-600'
   }

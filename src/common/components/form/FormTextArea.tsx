@@ -38,7 +38,9 @@ const FormTextArea = <TFormValues extends Record<string, unknown>>({
   return (
     <div className={`flex flex-col gap-1 ${className}`} aria-live='assertive'>
       <div className='flex justify-between'>
-        <label htmlFor={id}>{label}</label>
+        <label htmlFor={id} className='block text-sm font-medium text-gray-700'>
+          {label}
+        </label>
         <ErrorMessage
           errors={errors}
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
