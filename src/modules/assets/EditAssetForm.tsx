@@ -1,8 +1,15 @@
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
 import { trpc } from '@utils/trpc'
+import { Prisma } from '@prisma/client'
+import { Alert } from '@components/ui'
 import { Button, FormInput, FormSelect } from '@components/form'
+
+type AssetWithLocation = Prisma.AssetGetPayload<{
+  include: { location: true }
+}>
 
 type AssetFormFields = {
   description: string
@@ -11,14 +18,13 @@ type AssetFormFields = {
   model: string
   serialNumber: string
   location: string
-  acquisitionDate?: Date
   acquisitionAmount?: string
   status: string
   type: string
   minimumAccessLevel: string
 }
 
-const NewAssetForm = () => {
+const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
   const router = useRouter()
 
   const {
@@ -29,7 +35,14 @@ const NewAssetForm = () => {
 
   const utils = trpc.useContext()
 
-  const addAsset = trpc.useMutation(['asset.add'], {
+  const editAsset = trpc.useMutation('asset.edit', {
+    async onSuccess() {
+      await utils.invalidateQueries(['asset.getAll'])
+      await utils.invalidateQueries(['asset.getOne', { id: asset.id }])
+    }
+  })
+
+  const deleteAsset = trpc.useMutation(['asset.delete'], {
     async onSuccess() {
       await utils.invalidateQueries(['asset.getAll'])
     }
@@ -38,12 +51,20 @@ const NewAssetForm = () => {
   const { data: rooms } = trpc.useQuery(['room.getAll'])
 
   const onSubmit = handleSubmit(async (data) => {
-    await addAsset.mutateAsync({
+    await editAsset.mutateAsync({
+      id: asset.id,
       location: data.location,
       data
     })
     router.push('/assets')
   })
+
+  const [open, setOpen] = useState(false)
+
+  const handleDelete = async () => {
+    await deleteAsset.mutateAsync({ id: asset.id })
+    router.push('/assets')
+  }
 
   const content = (
     <div className='m-auto max-w-lg p-4'>
@@ -55,6 +76,7 @@ const NewAssetForm = () => {
           register={register}
           rules={{ required: 'You must enter a description.' }}
           errors={errors}
+          defaultValue={asset.description}
         />
 
         <FormInput<AssetFormFields>
@@ -62,8 +84,9 @@ const NewAssetForm = () => {
           name='tagNumber'
           label='Tag #'
           register={register}
-          rules={{ required: 'You must enter a tag number.' }}
+          rules={{ required: 'You must enter a description.' }}
           errors={errors}
+          defaultValue={asset.tagNumber}
         />
 
         <FormInput<AssetFormFields>
@@ -73,6 +96,7 @@ const NewAssetForm = () => {
           register={register}
           rules={{ required: 'You must enter a make.' }}
           errors={errors}
+          defaultValue={asset.make}
         />
 
         <FormInput<AssetFormFields>
@@ -80,8 +104,9 @@ const NewAssetForm = () => {
           name='model'
           label='Model'
           register={register}
-          rules={{ required: 'You must enter a make.' }}
+          rules={{ required: 'You must enter a model.' }}
           errors={errors}
+          defaultValue={asset.model}
         />
 
         <FormInput<AssetFormFields>
@@ -91,6 +116,7 @@ const NewAssetForm = () => {
           register={register}
           rules={{ required: 'You must enter a serial number.' }}
           errors={errors}
+          defaultValue={asset.serialNumber ?? ''}
         />
 
         <FormSelect<AssetFormFields>
@@ -100,6 +126,7 @@ const NewAssetForm = () => {
           register={register}
           rules={{ required: 'You must enter a location.' }}
           errors={errors}
+          defaultValue={asset.location.id}
         >
           {rooms?.map((room) => (
             <option key={room.id} value={room.id}>
@@ -109,19 +136,12 @@ const NewAssetForm = () => {
         </FormSelect>
 
         <FormInput<AssetFormFields>
-          id='acquisitionDate'
-          name='acquisitionDate'
-          label='Acquisition Date'
-          register={register}
-          errors={errors}
-        />
-
-        <FormInput<AssetFormFields>
           id='acquisitionAmount'
           name='acquisitionAmount'
           label='Acquisition Amount'
           register={register}
           errors={errors}
+          defaultValue={asset.acquisitionAmount ?? ''}
         />
 
         <FormSelect<AssetFormFields>
@@ -131,6 +151,7 @@ const NewAssetForm = () => {
           register={register}
           rules={{ required: 'You must enter a status.' }}
           errors={errors}
+          defaultValue={asset.status}
         >
           <option value='in'>in</option>
           <option value='out'>out</option>
@@ -143,6 +164,7 @@ const NewAssetForm = () => {
           register={register}
           rules={{ required: 'You must enter an asset type.' }}
           errors={errors}
+          defaultValue={asset.type}
         >
           <option value='hardware'>hardware</option>
           <option value='software'>software</option>
@@ -155,6 +177,7 @@ const NewAssetForm = () => {
           register={register}
           rules={{ required: 'You must enter a minimum access level.' }}
           errors={errors}
+          defaultValue={asset.minimumAccessLevel}
         >
           <option value='sophomore'>sophomore</option>
           <option value='junior'>junior</option>
@@ -162,15 +185,25 @@ const NewAssetForm = () => {
           <option value='staff'>staff</option>
         </FormSelect>
 
-        <div className='flex justify-between'>
-          <span></span>
+        <div>
+          <Button variant='secondary' onClick={() => setOpen(true)}>
+            Delete asset
+          </Button>
           <Button type='submit'>Save</Button>
         </div>
       </form>
+      <Alert
+        open={open}
+        setOpen={setOpen}
+        action={handleDelete}
+        title='Are you sure?'
+        description='Once an asset is deleted, it cannot be recovered. Deleting an asset is permanent.'
+        confirmText='Yes, delete asset'
+      />
     </div>
   )
 
   return content
 }
 
-export default NewAssetForm
+export default EditAssetForm

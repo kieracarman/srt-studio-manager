@@ -11,7 +11,6 @@ type AssetFormFields = {
   model: string
   serialNumber: string
   location: string
-  acquisitionDate?: Date
   acquisitionAmount?: string
   status: string
   type: string
