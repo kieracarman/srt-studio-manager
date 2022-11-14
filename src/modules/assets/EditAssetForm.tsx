@@ -185,7 +185,7 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
           <option value='staff'>staff</option>
         </FormSelect>
 
-        <div>
+        <div className='flex justify-between'>
           <Button variant='secondary' onClick={() => setOpen(true)}>
             Delete asset
           </Button>
