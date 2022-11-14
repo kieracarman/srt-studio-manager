@@ -1,6 +1,8 @@
 export { default as Button } from './Button'
 export { default as FormErrorMessage } from './FormErrorMessage'
 export { default as FormInput } from './FormInput'
+export { default as FormSelect } from './FormSelect'
 export { default as FormTextArea } from './FormTextArea'
 export { default as Input } from './Input'
+export { default as Select } from './Select'
 export { default as TextArea } from './TextArea'
