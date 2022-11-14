@@ -21,6 +21,7 @@ export type SelectProps = {
   id: string
   name: string
   label: string
+  defaultValue?: string
   children: ReactNode
   className?: string
   size?: keyof typeof classes.size
@@ -34,6 +35,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       id,
       name,
       label,
+      defaultValue = '',
       children,
       className = '',
       size = 'default',
@@ -47,7 +49,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       id={id}
       ref={ref}
       name={name}
-      defaultValue=''
+      defaultValue={defaultValue}
       aria-label={label}
       disabled={disabled}
       className={cls(`

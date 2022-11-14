@@ -21,6 +21,7 @@ export type InputProps = {
   id: string
   name: string
   label: string
+  defaultValue?: string
   type?: 'text' | 'email'
   className?: string
   size?: keyof typeof classes.size
@@ -34,6 +35,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       id,
       name,
       label,
+      defaultValue,
       type = 'text',
       className = '',
       size = 'default',
@@ -48,6 +50,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         id={id}
         ref={ref}
         name={name}
+        defaultValue={defaultValue}
         type={type}
         aria-label={label}
         disabled={disabled}
