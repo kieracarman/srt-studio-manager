@@ -17,8 +17,8 @@ const Modal = ({ children, onClose }: ModalProps) => {
   }, [])
 
   const content = (
-    <div className='fixed top-0 left-0 z-10 h-full w-full overflow-hidden bg-white'>
-      <header className='sticky top-0 flex justify-end overflow-hidden border-b border-b-gray-200 p-2'>
+    <div className='fixed top-0 left-0 z-10 h-full w-full overflow-auto bg-white'>
+      <header className='sticky top-0 flex justify-end overflow-hidden border-b border-b-gray-200 bg-white p-2'>
         <Button variant='secondary' href={onClose}>
           Close
         </Button>
