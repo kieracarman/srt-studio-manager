@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
 import { trpc } from '@utils/trpc'
-import { Button, FormInput } from '@components/form'
+import { Button, FormInput, FormSelect } from '@components/form'
 
 type AssetFormFields = {
   description: string
@@ -93,17 +93,20 @@ const NewAssetForm = () => {
           errors={errors}
         />
 
-        <label htmlFor='location'>Location</label>
-        <select {...register('location')} defaultValue=''>
-          <option value='' disabled>
-            Select...
-          </option>
+        <FormSelect<AssetFormFields>
+          id='location'
+          name='location'
+          label='Location'
+          register={register}
+          rules={{ required: 'You must enter a location.' }}
+          errors={errors}
+        >
           {rooms?.map((room) => (
             <option key={room.id} value={room.id}>
               {room.name}
             </option>
           ))}
-        </select>
+        </FormSelect>
 
         <FormInput<AssetFormFields>
           id='acquisitionDate'
@@ -121,34 +124,43 @@ const NewAssetForm = () => {
           errors={errors}
         />
 
-        <label htmlFor='status'>Status</label>
-        <select {...register('status')} defaultValue=''>
-          <option value='' disabled>
-            Select...
-          </option>
+        <FormSelect<AssetFormFields>
+          id='status'
+          name='status'
+          label='Status'
+          register={register}
+          rules={{ required: 'You must enter a status.' }}
+          errors={errors}
+        >
           <option value='in'>in</option>
           <option value='out'>out</option>
-        </select>
+        </FormSelect>
 
-        <label htmlFor='type'>Asset Type</label>
-        <select {...register('type')} defaultValue=''>
-          <option value='' disabled>
-            Select...
-          </option>
+        <FormSelect<AssetFormFields>
+          id='type'
+          name='type'
+          label='Asset Type'
+          register={register}
+          rules={{ required: 'You must enter an asset type.' }}
+          errors={errors}
+        >
           <option value='hardware'>hardware</option>
           <option value='software'>software</option>
-        </select>
+        </FormSelect>
 
-        <label htmlFor='minimumAccessLevel'>Minimum Access Level</label>
-        <select {...register('minimumAccessLevel')} defaultValue=''>
-          <option value='' disabled>
-            Select...
-          </option>
+        <FormSelect<AssetFormFields>
+          id='minimumAccessLevel'
+          name='minimumAccessLevel'
+          label='Minimum Access Level'
+          register={register}
+          rules={{ required: 'You must enter a minimum access level.' }}
+          errors={errors}
+        >
           <option value='sophomore'>sophomore</option>
           <option value='junior'>junior</option>
           <option value='senior'>senior</option>
           <option value='staff'>staff</option>
-        </select>
+        </FormSelect>
 
         <div className='flex justify-between'>
           <span></span>
