@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { trpc } from '@utils/trpc'
 
-import styles from './Assets.module.css'
-import { Layout, SearchBar } from '@components/ui'
+import { Layout, SearchBar, Loader } from '@components/ui'
 import AssetList from '@modules/assets/AssetList/AssetList'
 
 const Assets = () => {
@@ -15,7 +14,7 @@ const Assets = () => {
   let content
   let assetsList
 
-  if (isLoading) content = <p>Loading...</p>
+  if (isLoading) content = <Loader />
 
   if (isError) {
     assetsList = (
