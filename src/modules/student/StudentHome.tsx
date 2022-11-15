@@ -1,5 +1,11 @@
+import StudentBookingForm from './StudentBookingForm'
+
 const StudentHome = () => {
-  return <div>Student Home</div>
+  return (
+    <div className='p-4'>
+      <StudentBookingForm />
+    </div>
+  )
 }
 
 export default StudentHome

@@ -6,6 +6,7 @@ import { api } from '@utils/api'
 import { AuthRedirect } from '@components/auth'
 import '@styles/globals.css'
 import '@fontsource/inter'
+import 'react-datepicker/dist/react-datepicker.css'
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
