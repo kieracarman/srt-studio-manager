@@ -30,8 +30,8 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
-  } = useForm<AssetFormFields>()
+    formState: { errors, isDirty, isValid }
+  } = useForm<AssetFormFields>({ mode: 'onChange' })
 
   const utils = trpc.useContext()
 
@@ -189,7 +189,9 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
           <Button variant='secondary' onClick={() => setOpen(true)}>
             Delete asset
           </Button>
-          <Button type='submit'>Save</Button>
+          <Button type='submit' disabled={!isDirty || !isValid}>
+            Save
+          </Button>
         </div>
       </form>
       <Alert

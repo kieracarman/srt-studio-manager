@@ -23,8 +23,8 @@ const NewAssetForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
-  } = useForm<AssetFormFields>()
+    formState: { errors, isDirty, isValid }
+  } = useForm<AssetFormFields>({ mode: 'onChange' })
 
   const utils = trpc.useContext()
 
@@ -155,7 +155,9 @@ const NewAssetForm = () => {
 
         <div className='flex justify-between'>
           <span></span>
-          <Button type='submit'>Save</Button>
+          <Button type='submit' disabled={!isDirty || !isValid}>
+            Save
+          </Button>
         </div>
       </form>
     </div>
