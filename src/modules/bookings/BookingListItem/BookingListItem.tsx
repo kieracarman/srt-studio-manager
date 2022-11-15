@@ -5,28 +5,28 @@ import styles from './BookingListItem.module.css'
 
 type BookingListItemProps = {
   id: string
-  title: string
+  description: string
   createdBy: User
   room: Room
-  bookingDate: Date
+  startDate: Date
   status: string
 }
 
 const BookingListItem = ({
   id,
-  title,
+  description,
   createdBy,
   room,
-  bookingDate,
+  startDate,
   status
 }: BookingListItemProps) => {
   return (
     <Link href={`/bookings/${id}`} legacyBehavior>
       <tr className={styles.listItem}>
-        <td className='bold'>{title}</td>
+        <td className='bold'>{description}</td>
         <td>{createdBy.name}</td>
         <td>{room.name}</td>
-        <td>{bookingDate.toString()}</td>
+        <td>{startDate.toLocaleDateString()}</td>
         <td>
           <span
             className={`${styles.statusTag} ${

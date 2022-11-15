@@ -13,8 +13,9 @@ type BookingWithRoom = Prisma.BookingGetPayload<{
 }>
 
 type FormValues = {
-  title: string
-  bookingDate: Date
+  description: string
+  startDate: Date
+  endDate: Date
   room: string
   status: string
 }
@@ -59,10 +60,12 @@ const EditBookingForm = ({ booking }: { booking: BookingWithRoom }) => {
   const content = (
     <div className={styles.editForm}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Title</label>
-        <input {...register('title')} id='title' />
-        <label>Booking Date</label>
-        <input {...register('bookingDate')} id='bookingDate' />
+        <label>Description</label>
+        <input {...register('description')} id='description' />
+        <label>Start Date</label>
+        <input {...register('startDate')} id='startDate' />
+        <label>End Date</label>
+        <input {...register('endDate')} id='endDate' />
         <label>Room</label>
         <select {...register('room')} id='room' defaultValue={booking.room.id}>
           <option value='' disabled>

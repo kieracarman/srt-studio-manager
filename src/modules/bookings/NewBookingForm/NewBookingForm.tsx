@@ -7,8 +7,9 @@ import { trpc } from '@utils/trpc'
 import { Button } from '@components/form'
 
 type FormValues = {
-  title: string
-  bookingDate: Date
+  description: string
+  startDate: Date
+  endDate: Date
   room: string
 }
 
@@ -41,10 +42,12 @@ const NewBookingForm = () => {
   const content = (
     <div className={styles.editForm}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Title</label>
-        <input {...register('title')} />
-        <label>Booking Date</label>
-        <input {...register('bookingDate')} />
+        <label>Description</label>
+        <input {...register('description')} />
+        <label>Start Date</label>
+        <input {...register('startDate')} />
+        <label>End Date</label>
+        <input {...register('endDate')} />
         <label>Room</label>
         <select {...register('room')} defaultValue=''>
           <option value='' disabled>
