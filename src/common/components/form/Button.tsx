@@ -4,7 +4,7 @@ import { cls } from '@utils/helpers'
 
 const classes = {
   base: 'whitespace-nowrap transition ease-in-out duration-200 border w-auto justify-center rounded-md shadow-sm focus:ring-offset-2 focus:ring-2 focus:outline-none',
-  disabled: 'opacity-50 cursor-not-allowed',
+  disabled: 'opacity-50 pointer-events-none',
   size: {
     small: 'px-2 py-1 text-xs',
     default: 'px-4 py-2 text-sm',
