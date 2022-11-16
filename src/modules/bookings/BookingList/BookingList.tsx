@@ -66,15 +66,15 @@ const BookingList = ({ query, bookings, error }: BookingListProps) => {
       <table className={styles.list}>
         <thead>
           <tr>
-            <th onClick={() => requestSort('title')}>
-              Title{sortArrow('title')}
+            <th onClick={() => requestSort('description')}>
+              Description{sortArrow('description')}
             </th>
             <th onClick={() => requestSort('createdBy.name')}>
               Created By{sortArrow('createdBy.name')}
             </th>
             <th onClick={() => requestSort('room')}>Room{sortArrow('room')}</th>
-            <th onClick={() => requestSort('bookingDate')}>
-              Booking Date{sortArrow('bookingDate')}
+            <th onClick={() => requestSort('startDate')}>
+              Booking Date{sortArrow('startDate')}
             </th>
             <th onClick={() => requestSort('status')}>
               Status{sortArrow('status')}
