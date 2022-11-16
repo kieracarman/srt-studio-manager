@@ -1,9 +1,14 @@
+import { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { useSession } from 'next-auth/react'
 import DatePicker from 'react-datepicker'
 
 import { trpc } from '@utils/trpc'
 import { Button, FormInput, FormSelect, Input } from '@components/form'
+
+type StudentBookingFormProps = {
+  onCompleted: () => void
+}
 
 type StudentBookingFormFields = {
   description: string
@@ -38,6 +43,7 @@ const StudentBookingForm = () => {
       room: data.room,
       data
     })
+    onCompleted()
   })
 
   return (

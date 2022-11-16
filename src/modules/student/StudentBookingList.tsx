@@ -1,12 +1,17 @@
+import { useState } from 'react'
+
 import { trpc } from '@utils/trpc'
 import { Loader } from '@components/ui'
 import BookingCard from './BookingCard'
 import NewBookingCard from './NewBookingCard'
+import BookingModal from './BookingModal'
 
 const StudentBookingList = () => {
   const { data, isLoading, isSuccess, isError, error } = trpc.useQuery([
     'booking.getAll'
   ])
+
+  const [open, setOpen] = useState(false)
 
   if (isLoading) return <Loader />
 
@@ -22,7 +27,8 @@ const StudentBookingList = () => {
             startDate={booking.startDate}
           />
         ))}
-        <NewBookingCard />
+        <NewBookingCard setOpen={setOpen} />
+        <BookingModal open={open} setOpen={setOpen} />
       </div>
     )
   }
