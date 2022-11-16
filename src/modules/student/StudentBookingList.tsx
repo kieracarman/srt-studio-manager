@@ -1,6 +1,7 @@
 import { trpc } from '@utils/trpc'
 import { Loader } from '@components/ui'
-import StudentBookingCard from './StudentBookingCard'
+import BookingCard from './BookingCard'
+import NewBookingCard from './NewBookingCard'
 
 const StudentBookingList = () => {
   const { data, isLoading, isSuccess, isError, error } = trpc.useQuery([
@@ -21,6 +22,7 @@ const StudentBookingList = () => {
             startDate={booking.startDate}
           />
         ))}
+        <StudentBookingNew />
       </div>
     )
   }
