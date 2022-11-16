@@ -16,13 +16,13 @@ const StudentBookingList = () => {
     return (
       <div className='flex flex-col gap-4'>
         {data.map((booking) => (
-          <StudentBookingCard
+          <BookingCard
             key={booking.id}
             description={booking.description}
             startDate={booking.startDate}
           />
         ))}
-        <StudentBookingNew />
+        <NewBookingCard />
       </div>
     )
   }

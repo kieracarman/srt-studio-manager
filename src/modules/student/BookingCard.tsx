@@ -6,7 +6,7 @@ type BookingCardProps = {
 }
 
 const BookingCard = ({ description, startDate }: BookingCardProps) => (
-  <div className='flex items-center justify-between rounded-lg border border-gray-300 py-4 px-5 shadow-sm'>
+  <div className='flex cursor-pointer items-center justify-between rounded-lg border border-gray-300 py-4 px-5 shadow-sm'>
     <div>
       <h3 className='text-lg font-medium'>{description}</h3>
       <p className='text-sm text-gray-500'>
