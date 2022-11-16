@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useSession } from 'next-auth/react'
 
 import { trpc } from '@utils/trpc'
 import { Loader } from '@components/ui'
@@ -11,6 +12,8 @@ const StudentBookingList = () => {
     'booking.getAll'
   ])
 
+  const { data: userData } = useSession()
+
   const [open, setOpen] = useState(false)
 
   if (isLoading) return <Loader />
@@ -20,13 +23,15 @@ const StudentBookingList = () => {
   if (isSuccess) {
     return (
       <div className='flex flex-col gap-4'>
-        {data.map((booking) => (
-          <BookingCard
-            key={booking.id}
-            description={booking.description}
-            startDate={booking.startDate}
-          />
-        ))}
+        {data
+          .filter((booking) => booking.createdBy.id === userData?.user?.id)
+          .map((booking) => (
+            <BookingCard
+              key={booking.id}
+              description={booking.description}
+              startDate={booking.startDate}
+            />
+          ))}
         <NewBookingCard setOpen={setOpen} />
         <BookingModal open={open} setOpen={setOpen} />
       </div>
