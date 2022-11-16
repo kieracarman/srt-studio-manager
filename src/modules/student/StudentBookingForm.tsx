@@ -17,7 +17,9 @@ type StudentBookingFormFields = {
   room: string
 }
 
-const StudentBookingForm = () => {
+const StudentBookingForm = ({ onCompleted }: StudentBookingFormProps) => {
+  const [submitText, setSubmitText] = useState('Submit booking request')
+
   const {
     register,
     handleSubmit,
@@ -38,6 +40,7 @@ const StudentBookingForm = () => {
   const { data: userData } = useSession()
 
   const onSubmit = handleSubmit(async (data) => {
+    setSubmitText('Submitting...')
     await addBooking.mutateAsync({
       createdBy: userData?.user?.id,
       room: data.room,
@@ -119,7 +122,7 @@ const StudentBookingForm = () => {
       </div>
 
       <Button type='submit' disabled={!isDirty || !isValid}>
-        Save
+        {submitText}
       </Button>
     </form>
   )
