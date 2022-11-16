@@ -93,6 +93,7 @@ const StudentBookingForm = ({ onCompleted }: StudentBookingFormProps) => {
                 showTimeSelect
                 timeIntervals={15}
                 dateFormat='MM/dd/yyyy h:mm aa'
+                popperPlacement='top'
               />
             </div>
           )}
@@ -115,6 +116,7 @@ const StudentBookingForm = ({ onCompleted }: StudentBookingFormProps) => {
                 showTimeSelect
                 timeIntervals={15}
                 dateFormat='MM/dd/yyyy h:mm aa'
+                popperPlacement='top'
               />
             </div>
           )}
