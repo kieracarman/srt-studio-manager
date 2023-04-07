@@ -19,7 +19,7 @@ const TicketListItem = ({
   status
 }: TicketListItemProps) => {
   return (
-    <Link href={`/tickets/${id}`}>
+    <Link href={`/tickets/${id}`} legacyBehavior>
       <tr className={styles.listItem}>
         <td className='bold'>{title}</td>
         <td>{createdBy.name}</td>
@@ -41,7 +41,7 @@ const TicketListItem = ({
         </td>
       </tr>
     </Link>
-  )
+  );
 }
 
 export default TicketListItem

@@ -21,7 +21,7 @@ const BookingListItem = ({
   status
 }: BookingListItemProps) => {
   return (
-    <Link href={`/bookings/${id}`}>
+    <Link href={`/bookings/${id}`} legacyBehavior>
       <tr className={styles.listItem}>
         <td className='bold'>{title}</td>
         <td>{createdBy.name}</td>
@@ -44,7 +44,7 @@ const BookingListItem = ({
         </td>
       </tr>
     </Link>
-  )
+  );
 }
 
 export default BookingListItem

@@ -48,19 +48,19 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) =>
     href ? (
-      <Link href={href}>
-        <a
-          className={cls(`
-            ${classes.base}
-            ${classes.size[size]}
-            ${classes.variant[variant]}
-            ${className}
-          `)}
-          {...props}
-        >
-          {children}
-        </a>
-      </Link>
+      (<Link
+        href={href}
+        className={cls(`
+          ${classes.base}
+          ${classes.size[size]}
+          ${classes.variant[variant]}
+          ${className}
+        `)}
+        {...props}>
+
+        {children}
+
+      </Link>)
     ) : (
       <button
         ref={ref}
