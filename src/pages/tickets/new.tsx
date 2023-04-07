@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 
-import Modal from '@components/Modal/Modal'
+import { Modal } from '@components/ui'
 import NewTicketForm from '@modules/tickets/NewTicketForm/NewTicketForm'
 
 const NewTicket: NextPage = () => {

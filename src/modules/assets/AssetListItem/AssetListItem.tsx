@@ -23,7 +23,7 @@ const AssetListItem = ({
   status
 }: AssetListItemProps) => {
   const content = (
-    <Link href={`/assets/${id}`}>
+    <Link href={`/assets/${id}`} legacyBehavior>
       <tr className={styles.listItem}>
         <td>{tagNumber}</td>
         <td className='bold'>{description}</td>

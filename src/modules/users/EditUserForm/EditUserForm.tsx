@@ -1,10 +1,12 @@
-import { MouseEvent, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import styles from './EditUserForm.module.css'
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 import { User } from '@prisma/client'
+import { Alert } from '@components/ui'
+import { Button } from '@components/form'
 
 type FormValues = User & {
   password?: string
@@ -15,18 +17,17 @@ const EditUserForm = ({ user }: { user: User }) => {
 
   const { register, handleSubmit } = useForm<FormValues>()
 
-  const utils = trpc.useContext()
+  const utils = api.useContext()
 
-  const editUser = trpc.useMutation('user.edit', {
+  const editUser = api.user.edit.useMutation({
     async onSuccess() {
-      await utils.invalidateQueries(['user.getAll'])
-      await utils.invalidateQueries(['user.getOne', { id: user.id }])
+      await utils.user.invalidate()
     }
   })
 
-  const deleteUser = trpc.useMutation(['user.delete'], {
+  const deleteUser = api.user.delete.useMutation({
     async onSuccess() {
-      await utils.invalidateQueries(['user.getAll'])
+      await utils.user.invalidate()
     }
   })
 
@@ -35,19 +36,14 @@ const EditUserForm = ({ user }: { user: User }) => {
       id: user.id,
       data
     })
+    router.push('/users')
   }
 
-  const [deleteText, setDeleteText] = useState('Delete User')
+  const [open, setOpen] = useState(false)
 
-  const handleDelete = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-
-    if (deleteText === 'Delete User') {
-      setDeleteText('Are you sure?')
-    } else {
-      await deleteUser.mutateAsync({ id: user.id })
-      router.push('/users')
-    }
+  const handleDelete = async () => {
+    await deleteUser.mutateAsync({ id: user.id })
+    router.push('/users')
   }
 
   const content = (
@@ -57,7 +53,7 @@ const EditUserForm = ({ user }: { user: User }) => {
         <input
           {...register('name')}
           id='name'
-          defaultValue={user.name}
+          defaultValue={user.name ? user.name : ''}
           disabled
         />
         <label>Role</label>
@@ -86,14 +82,20 @@ const EditUserForm = ({ user }: { user: User }) => {
         <label>New Password</label>
         <input type='password' {...register('password')} id='password' />
         <div>
-          <button type='button' onClick={handleDelete} className='button alert'>
-            {deleteText}
-          </button>
-          <button className='button' type='submit'>
-            Save
-          </button>
+          <Button variant='secondary' onClick={() => setOpen(true)}>
+            Delete user
+          </Button>
+          <Button type='submit'>Save</Button>
         </div>
       </form>
+      <Alert
+        open={open}
+        setOpen={setOpen}
+        action={handleDelete}
+        title='Are you sure?'
+        description='Once you delete a user, it cannot be recovered. Deleting a user is permanent.'
+        confirmText='Yes, delete user'
+      />
     </div>
   )
 

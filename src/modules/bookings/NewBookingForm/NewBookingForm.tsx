@@ -3,11 +3,13 @@ import { useSession } from 'next-auth/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import styles from './NewBookingForm.module.css'
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
+import { Button } from '@components/form'
 
 type FormValues = {
-  title: string
-  bookingDate: Date
+  description: string
+  startDate: Date
+  endDate: Date
   room: string
 }
 
@@ -18,15 +20,15 @@ const NewBookingForm = () => {
 
   const { register, handleSubmit } = useForm<FormValues>()
 
-  const utils = trpc.useContext()
+  const utils = api.useContext()
 
-  const addBooking = trpc.useMutation(['booking.add'], {
+  const addBooking = api.booking.add.useMutation({
     async onSuccess() {
-      await utils.invalidateQueries(['booking.getAll'])
+      await utils.booking.invalidate()
     }
   })
 
-  const { data: rooms } = trpc.useQuery(['room.getAll'])
+  const { data: rooms } = api.room.getAll.useQuery()
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     await addBooking.mutateAsync({
@@ -40,10 +42,12 @@ const NewBookingForm = () => {
   const content = (
     <div className={styles.editForm}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Title</label>
-        <input {...register('title')} />
-        <label>Booking Date</label>
-        <input {...register('bookingDate')} />
+        <label>Description</label>
+        <input {...register('description')} />
+        <label>Start Date</label>
+        <input {...register('startDate')} />
+        <label>End Date</label>
+        <input {...register('endDate')} />
         <label>Room</label>
         <select {...register('room')} defaultValue=''>
           <option value='' disabled>
@@ -57,9 +61,7 @@ const NewBookingForm = () => {
         </select>
         <div>
           <span></span>
-          <button className='button' type='submit'>
-            Save
-          </button>
+          <Button type='submit'>Save</Button>
         </div>
       </form>
     </div>

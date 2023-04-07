@@ -2,137 +2,138 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "sqlite"
-    // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.text annotations in model Account below
-    // Further reading: 
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
+  provider = "mysql"
+  // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.text annotations in model Account below
+  // Further reading: 
+  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+  url      = env("DATABASE_URL")
 }
 
 model Asset {
-    id                 String    @id @default(cuid())
-    tagNumber          String
-    description        String
-    make               String
-    model              String
-    type               String
-    minimumAccessLevel String
-    status             String
-    serialNumber       String?
-    acquisitionType    String?
-    acquisitionAmount  String?
-    dateInService      DateTime?
-    dateOutService     DateTime?
-    createdAt          DateTime  @default(now())
-    updatedAt          DateTime  @updatedAt
-    location           Room      @relation(fields: [roomId], references: [id])
-    roomId             String
-    bookings           Booking[]
-    tickets            Ticket[]
+  id                 String    @id @default(cuid())
+  tagNumber          String
+  description        String
+  make               String
+  model              String
+  type               String
+  minimumAccessLevel String
+  status             String
+  serialNumber       String?
+  acquisitionType    String?
+  acquisitionAmount  String?
+  dateInService      DateTime?
+  dateOutService     DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  location           Room      @relation(fields: [roomId], references: [id])
+  roomId             String
+  bookings           Booking[]
+  tickets            Ticket[]
 
-    @@map("assets")
+  @@map("assets")
 }
 
 model Room {
-    id       String    @id @default(cuid())
-    name     String    @unique
-    assets   Asset[]
-    bookings Booking[]
+  id       String    @id @default(cuid())
+  name     String    @unique
+  assets   Asset[]
+  bookings Booking[]
 
-    @@map("rooms")
+  @@map("rooms")
 }
 
 model Booking {
-    id           String    @id @default(cuid())
-    title        String
-    bookingDate  DateTime
-    status       String    @default("pending")
-    approvedDate DateTime?
-    createdAt    DateTime  @default(now())
-    updatedAt    DateTime  @updatedAt
-    assets       Asset[]
-    room         Room      @relation(fields: [roomId], references: [id])
-    createdBy    User      @relation(fields: [createdById], references: [id])
-    roomId       String
-    createdById  String
+  id           String    @id @default(cuid())
+  description  String
+  startDate    DateTime
+  endDate      DateTime
+  status       String    @default("pending")
+  approvedDate DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  assets       Asset[]
+  room         Room      @relation(fields: [roomId], references: [id])
+  createdBy    User      @relation(fields: [createdById], references: [id])
+  roomId       String
+  createdById  String
 
-    @@map("bookings")
+  @@map("bookings")
 }
 
 model Ticket {
-    id           String   @id @default(cuid())
-    title        String
-    text         String
-    status       String
-    createdAt    DateTime @default(now())
-    updatedAt    DateTime @updatedAt
-    assignedRole String
-    createdBy    User     @relation(fields: [createdById], references: [id])
-    asset        Asset?   @relation(fields: [assetId], references: [id])
-    createdById  String
-    assetId      String?
+  id           String   @id @default(cuid())
+  title        String
+  text         String
+  status       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  assignedRole String
+  createdBy    User     @relation(fields: [createdById], references: [id])
+  asset        Asset?   @relation(fields: [assetId], references: [id])
+  createdById  String
+  assetId      String?
 
-    @@map("tickets")
+  @@map("tickets")
 }
 
 // Necessary for Next auth
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified String?
-    role          String    @default("basic")
-    accessLevel   String    @default("staff")
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt
-    accounts      Account[]
-    sessions      Session[]
-    bookings      Booking[]
-    tickets       Ticket[]
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified String?
+  role          String    @default("basic")
+  accessLevel   String    @default("staff")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  accounts      Account[]
+  sessions      Session[]
+  bookings      Booking[]
+  tickets       Ticket[]
 
-    @@map("users")
+  @@map("users")
 }
 
 model Account {
-    id                String  @id @default(cuid())
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String? //@db.Text
-    access_token      String? //@db.Text
-    expires_at        Int?
-    ext_expires_in    Int?
-    token_type        String?
-    scope             String?
-    id_token          String? //@db.Text
-    session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  ext_expires_in    Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([provider, providerAccountId])
-    @@map("accounts")
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
 }
 
 model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@map("sessions")
+  @@map("sessions")
 }
 
 model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-    @@unique([identifier, token])
-    @@map("verification_tokens")
+  @@unique([identifier, token])
+  @@map("verification_tokens")
 }

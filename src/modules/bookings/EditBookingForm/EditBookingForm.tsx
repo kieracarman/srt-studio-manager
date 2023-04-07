@@ -1,18 +1,21 @@
-import { MouseEvent, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import styles from './EditBookingForm.module.css'
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 import { Prisma } from '@prisma/client'
+import { Alert } from '@components/ui'
+import { Button } from '@components/form'
 
 type BookingWithRoom = Prisma.BookingGetPayload<{
   include: { room: true }
 }>
 
 type FormValues = {
-  title: string
-  bookingDate: Date
+  description: string
+  startDate: Date
+  endDate: Date
   room: string
   status: string
 }
@@ -22,22 +25,21 @@ const EditBookingForm = ({ booking }: { booking: BookingWithRoom }) => {
 
   const { register, handleSubmit } = useForm<FormValues>()
 
-  const utils = trpc.useContext()
+  const utils = api.useContext()
 
-  const editBooking = trpc.useMutation('booking.edit', {
+  const editBooking = api.booking.edit.useMutation({
     async onSuccess() {
-      await utils.invalidateQueries(['booking.getAll'])
-      await utils.invalidateQueries(['booking.getOne', { id: booking.id }])
+      await utils.booking.invalidate()
     }
   })
 
-  const deleteBooking = trpc.useMutation(['booking.delete'], {
+  const deleteBooking = api.booking.delete.useMutation({
     async onSuccess() {
-      await utils.invalidateQueries(['booking.getAll'])
+      await utils.booking.invalidate()
     }
   })
 
-  const { data: rooms } = trpc.useQuery(['room.getAll'])
+  const { data: rooms } = api.room.getAll.useQuery()
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     await editBooking.mutateAsync({
@@ -47,26 +49,22 @@ const EditBookingForm = ({ booking }: { booking: BookingWithRoom }) => {
     })
   }
 
-  const [deleteText, setDeleteText] = useState('Delete Booking')
+  const [open, setOpen] = useState(false)
 
-  const handleDelete = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-
-    if (deleteText === 'Delete Booking') {
-      setDeleteText('Are you sure?')
-    } else {
-      await deleteBooking.mutateAsync({ id: booking.id })
-      router.push('/bookings')
-    }
+  const handleDelete = async () => {
+    await deleteBooking.mutateAsync({ id: booking.id })
+    router.push('/bookings')
   }
 
   const content = (
     <div className={styles.editForm}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Title</label>
-        <input {...register('title')} id='title' />
-        <label>Booking Date</label>
-        <input {...register('bookingDate')} id='bookingDate' />
+        <label>Description</label>
+        <input {...register('description')} id='description' />
+        <label>Start Date</label>
+        <input {...register('startDate')} id='startDate' />
+        <label>End Date</label>
+        <input {...register('endDate')} id='endDate' />
         <label>Room</label>
         <select {...register('room')} id='room' defaultValue={booking.room.id}>
           <option value='' disabled>
@@ -79,14 +77,20 @@ const EditBookingForm = ({ booking }: { booking: BookingWithRoom }) => {
           ))}
         </select>
         <div>
-          <button type='button' onClick={handleDelete} className='button alert'>
-            {deleteText}
-          </button>
-          <button className='button' type='submit'>
-            Save
-          </button>
+          <Button variant='secondary' onClick={() => setOpen(true)}>
+            Delete booking
+          </Button>
+          <Button type='submit'>Save</Button>
         </div>
       </form>
+      <Alert
+        open={open}
+        setOpen={setOpen}
+        action={handleDelete}
+        title='Are you sure?'
+        description='Once a booking is deleted, it cannot be recovered. Deleting a booking is permanent.'
+        confirmText='Yes, delete booking'
+      />
     </div>
   )
 

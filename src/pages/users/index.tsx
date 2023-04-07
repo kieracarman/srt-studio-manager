@@ -1,17 +1,15 @@
 import { useState } from 'react'
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 
 import styles from './Users.module.css'
-import Layout from '@components/Layout/Layout'
-import SearchBar from '@components/SearchBar/SearchBar'
+import { Layout, SearchBar } from '@components/ui'
 import UserList from '@modules/users/UserList/UserList'
 
 const Users = () => {
   const [searchQuery, setSearchQuery] = useState('')
 
-  const { data, isLoading, isSuccess, isError, error } = trpc.useQuery([
-    'user.getAll'
-  ])
+  const { data, isLoading, isSuccess, isError, error } =
+    api.user.getAll.useQuery()
 
   let content
   let usersList
@@ -32,7 +30,7 @@ const Users = () => {
     <Layout>
       <section className={styles.users}>
         <SearchBar
-          item='User'
+          item='user'
           newItemPath='/users/new'
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}

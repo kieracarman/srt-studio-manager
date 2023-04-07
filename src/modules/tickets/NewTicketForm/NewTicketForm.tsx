@@ -3,7 +3,8 @@ import { useSession } from 'next-auth/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import styles from './NewTicketForm.module.css'
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
+import { Button } from '@components/form'
 
 type FormValues = {
   title: string
@@ -19,11 +20,11 @@ const NewTicketForm = () => {
 
   const { register, handleSubmit } = useForm<FormValues>()
 
-  const utils = trpc.useContext()
+  const utils = api.useContext()
 
-  const addTicket = trpc.useMutation(['ticket.add'], {
+  const addTicket = api.ticket.add.useMutation({
     async onSuccess() {
-      await utils.invalidateQueries(['ticket.getAll'])
+      await utils.ticket.invalidate()
     }
   })
 
@@ -57,7 +58,7 @@ const NewTicketForm = () => {
         </select>
         <div>
           <span></span>
-          <button type='submit'>Save</button>
+          <Button type='submit'>Save</Button>
         </div>
       </form>
     </div>

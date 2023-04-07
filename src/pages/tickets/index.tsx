@@ -1,17 +1,15 @@
 import { useState } from 'react'
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 
 import styles from './Tickets.module.css'
-import Layout from '@components/Layout/Layout'
-import SearchBar from '@components/SearchBar/SearchBar'
+import { Layout, SearchBar } from '@components/ui'
 import TicketList from '@modules/tickets/TicketList/TicketList'
 
 const Tickets = () => {
   const [searchQuery, setSearchQuery] = useState('')
 
-  const { data, isLoading, isSuccess, isError, error } = trpc.useQuery([
-    'ticket.getAll'
-  ])
+  const { data, isLoading, isSuccess, isError, error } =
+    api.ticket.getAll.useQuery()
 
   let content
   let ticketList
@@ -32,7 +30,7 @@ const Tickets = () => {
     <Layout>
       <section className={styles.tickets}>
         <SearchBar
-          item='Ticket'
+          item='ticket'
           newItemPath='/tickets/new'
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}

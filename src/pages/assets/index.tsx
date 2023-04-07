@@ -1,22 +1,19 @@
 import { useState } from 'react'
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 
-import styles from './Assets.module.css'
-import Layout from '@components/Layout/Layout'
-import SearchBar from '@components/SearchBar/SearchBar'
+import { Layout, SearchBar, Loader } from '@components/ui'
 import AssetList from '@modules/assets/AssetList/AssetList'
 
 const Assets = () => {
   const [searchQuery, setSearchQuery] = useState('')
 
-  const { data, isLoading, isSuccess, isError, error } = trpc.useQuery([
-    'asset.getAll'
-  ])
+  const { data, isLoading, isSuccess, isError, error } =
+    api.asset.getAll.useQuery()
 
   let content
   let assetsList
 
-  if (isLoading) content = <p>Loading...</p>
+  if (isLoading) content = <Loader />
 
   if (isError) {
     assetsList = (
@@ -30,9 +27,9 @@ const Assets = () => {
 
   content = (
     <Layout>
-      <section className={styles.assets}>
+      <section className='grid grid-rows-[auto_1fr]'>
         <SearchBar
-          item='Asset'
+          item='asset'
           newItemPath='/assets/new'
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
