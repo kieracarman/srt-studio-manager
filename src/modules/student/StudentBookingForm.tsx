@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react'
 import DatePicker from 'react-datepicker'
 import { setHours, setMinutes } from 'date-fns'
 
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 import { Button, FormInput, FormSelect, Input } from '@components/form'
 
 type StudentBookingFormProps = {
@@ -28,15 +28,15 @@ const StudentBookingForm = ({ onCompleted }: StudentBookingFormProps) => {
     formState: { errors, isDirty, isValid }
   } = useForm<StudentBookingFormFields>({ mode: 'onChange' })
 
-  const utils = trpc.useContext()
+  const utils = api.useContext()
 
-  const addBooking = trpc.useMutation(['booking.add'], {
+  const addBooking = api.booking.add.useMutation({
     async onSuccess() {
-      await utils.invalidateQueries(['booking.getAll'])
+      await utils.booking.invalidate()
     }
   })
 
-  const { data: rooms } = trpc.useQuery(['room.getAll'])
+  const { data: rooms } = api.room.getAll.useQuery()
 
   const { data: userData } = useSession()
 

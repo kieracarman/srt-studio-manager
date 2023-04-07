@@ -1,16 +1,15 @@
 import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 import { Loader } from '@components/ui'
 import BookingCard from './BookingCard'
 import NewBookingCard from './NewBookingCard'
 import BookingModal from './BookingModal'
 
 const StudentBookingList = () => {
-  const { data, isLoading, isSuccess, isError, error } = trpc.useQuery([
-    'booking.getAll'
-  ])
+  const { data, isLoading, isSuccess, isError, error } =
+    api.booking.getAll.useQuery()
 
   const { data: userData } = useSession()
 

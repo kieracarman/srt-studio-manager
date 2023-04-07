@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import styles from './EditTicketForm.module.css'
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 import { Ticket } from '@prisma/client'
 import { Alert } from '@components/ui'
 import { Button } from '@components/form'
@@ -20,18 +20,17 @@ const EditTicketForm = ({ ticket }: { ticket: Ticket }) => {
 
   const { register, handleSubmit } = useForm<FormValues>()
 
-  const utils = trpc.useContext()
+  const utils = api.useContext()
 
-  const editTicket = trpc.useMutation('ticket.edit', {
+  const editTicket = api.ticket.edit.useMutation({
     async onSuccess() {
-      await utils.invalidateQueries(['ticket.getAll'])
-      await utils.invalidateQueries(['ticket.getOne', { id: ticket.id }])
+      await utils.ticket.invalidate()
     }
   })
 
-  const deleteTicket = trpc.useMutation(['ticket.delete'], {
+  const deleteTicket = api.ticket.delete.useMutation({
     async onSuccess() {
-      await utils.invalidateQueries(['ticket.getAll'])
+      await utils.ticket.invalidate()
     }
   })
 

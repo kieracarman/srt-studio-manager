@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import styles from './EditBookingForm.module.css'
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 import { Prisma } from '@prisma/client'
 import { Alert } from '@components/ui'
 import { Button } from '@components/form'
@@ -25,22 +25,21 @@ const EditBookingForm = ({ booking }: { booking: BookingWithRoom }) => {
 
   const { register, handleSubmit } = useForm<FormValues>()
 
-  const utils = trpc.useContext()
+  const utils = api.useContext()
 
-  const editBooking = trpc.useMutation('booking.edit', {
+  const editBooking = api.booking.edit.useMutation({
     async onSuccess() {
-      await utils.invalidateQueries(['booking.getAll'])
-      await utils.invalidateQueries(['booking.getOne', { id: booking.id }])
+      await utils.booking.invalidate()
     }
   })
 
-  const deleteBooking = trpc.useMutation(['booking.delete'], {
+  const deleteBooking = api.booking.delete.useMutation({
     async onSuccess() {
-      await utils.invalidateQueries(['booking.getAll'])
+      await utils.booking.invalidate()
     }
   })
 
-  const { data: rooms } = trpc.useQuery(['room.getAll'])
+  const { data: rooms } = api.room.getAll.useQuery()
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     await editBooking.mutateAsync({
