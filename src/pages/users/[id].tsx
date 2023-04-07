@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 
 import { Modal } from '@components/ui'
 import EditUserForm from '@modules/users/EditUserForm/EditUserForm'
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 
 const EditUser: NextPage = () => {
   const router = useRouter()
@@ -12,7 +12,7 @@ const EditUser: NextPage = () => {
 
   const id = router.query.id.toString()
 
-  const { data, isSuccess } = trpc.useQuery(['user.getOne', { id }])
+  const { data, isSuccess } = api.user.getOne.useQuery({ id })
 
   if (isSuccess) {
     return (

@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 import { Modal, Loader } from '@components/ui'
 import EditAssetForm from '@modules/assets/EditAssetForm'
 
@@ -12,7 +12,7 @@ const EditAsset: NextPage = () => {
 
   const id = router.query.id.toString()
 
-  const { data, isSuccess } = trpc.useQuery(['asset.getOne', { id }])
+  const { data, isSuccess } = api.asset.getOne.useQuery({ id })
 
   if (isSuccess) {
     return (

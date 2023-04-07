@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 
 import { Modal } from '@components/ui'
 import EditBookingForm from '@modules/bookings/EditBookingForm/EditBookingForm'
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 
 const EditBooking: NextPage = () => {
   const router = useRouter()
@@ -12,7 +12,7 @@ const EditBooking: NextPage = () => {
 
   const id = router.query.id.toString()
 
-  const { data, isSuccess } = trpc.useQuery(['booking.getOne', { id }])
+  const { data, isSuccess } = api.booking.getOne.useQuery({ id })
 
   if (isSuccess) {
     return (

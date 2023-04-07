@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 
 import styles from './Tickets.module.css'
 import { Layout, SearchBar } from '@components/ui'
@@ -8,9 +8,8 @@ import TicketList from '@modules/tickets/TicketList/TicketList'
 const Tickets = () => {
   const [searchQuery, setSearchQuery] = useState('')
 
-  const { data, isLoading, isSuccess, isError, error } = trpc.useQuery([
-    'ticket.getAll'
-  ])
+  const { data, isLoading, isSuccess, isError, error } =
+    api.ticket.getAll.useQuery()
 
   let content
   let ticketList

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 import { Prisma } from '@prisma/client'
 import { Alert } from '@components/ui'
 import { Button, FormInput, FormSelect } from '@components/form'
@@ -33,22 +33,21 @@ const EditAssetForm = ({ asset }: { asset: AssetWithLocation }) => {
     formState: { errors, isDirty, isValid }
   } = useForm<AssetFormFields>({ mode: 'onChange' })
 
-  const utils = trpc.useContext()
+  const utils = api.useContext()
 
-  const editAsset = trpc.useMutation('asset.edit', {
+  const editAsset = api.asset.edit.useMutation({
     async onSuccess() {
-      await utils.invalidateQueries(['asset.getAll'])
-      await utils.invalidateQueries(['asset.getOne', { id: asset.id }])
+      await utils.asset.invalidate()
     }
   })
 
-  const deleteAsset = trpc.useMutation(['asset.delete'], {
+  const deleteAsset = api.asset.delete.useMutation({
     async onSuccess() {
-      await utils.invalidateQueries(['asset.getAll'])
+      await utils.asset.invalidate()
     }
   })
 
-  const { data: rooms } = trpc.useQuery(['room.getAll'])
+  const { data: rooms } = api.room.getAll.useQuery()
 
   const onSubmit = handleSubmit(async (data) => {
     await editAsset.mutateAsync({

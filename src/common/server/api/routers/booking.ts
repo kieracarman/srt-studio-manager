@@ -1,5 +1,6 @@
-import { createRouter } from '../context'
 import { z } from 'zod'
+
+import { createTRPCRouter, publicProcedure } from '@server/api/trpc'
 
 const bookingSchema = z.object({
   title: z.string(),
@@ -8,22 +9,19 @@ const bookingSchema = z.object({
   approvedDate: z.date().optional()
 })
 
-export const bookingRouter = createRouter()
-  .query('getAll', {
-    async resolve({ ctx }) {
-      return await ctx.prisma.booking.findMany({
-        include: {
-          room: true,
-          createdBy: true
-        }
-      })
-    }
-  })
-  .query('getOne', {
-    input: z.object({
-      id: z.string().cuid()
-    }),
-    async resolve({ ctx, input }) {
+export const bookingRouter = createTRPCRouter({
+  getAll: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.booking.findMany({
+      include: {
+        room: true,
+        createdBy: true
+      }
+    })
+  }),
+
+  getOne: publicProcedure
+    .input(z.object({ id: z.string().cuid() }))
+    .query(async ({ ctx, input }) => {
       const { id } = input
 
       const booking = await ctx.prisma.booking.findUnique({
@@ -35,21 +33,21 @@ export const bookingRouter = createRouter()
         }
       })
 
-      if (!booking) {
-        throw new Error(`No booking with id: ${id}`)
-      }
+      if (!booking) throw new Error(`No booking with id: ${id}`)
 
       return booking
-    }
-  })
-  .mutation('add', {
-    input: z.object({
-      createdBy: z.string().cuid().optional(),
-      room: z.string().cuid(),
-      assets: z.array(z.string().cuid()).optional(),
-      data: bookingSchema
     }),
-    async resolve({ ctx, input }) {
+
+  add: publicProcedure
+    .input(
+      z.object({
+        createdBy: z.string().cuid().optional(),
+        room: z.string().cuid(),
+        assets: z.array(z.string().cuid()).optional(),
+        data: bookingSchema
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
       const { createdBy, room, assets, data } = input
 
       const booking = await ctx.prisma.booking.create({
@@ -62,17 +60,19 @@ export const bookingRouter = createRouter()
       })
 
       return booking
-    }
-  })
-  .mutation('edit', {
-    input: z.object({
-      id: z.string().cuid(),
-      createdBy: z.string().cuid().optional(),
-      room: z.string().cuid(),
-      assets: z.array(z.string().cuid()).optional(),
-      data: bookingSchema
     }),
-    async resolve({ ctx, input }) {
+
+  edit: publicProcedure
+    .input(
+      z.object({
+        id: z.string().cuid(),
+        createdBy: z.string().cuid().optional(),
+        room: z.string().cuid(),
+        assets: z.array(z.string().cuid()).optional(),
+        data: bookingSchema
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
       const { id, createdBy, room, assets, data } = input
 
       const booking = await ctx.prisma.booking.update({
@@ -86,17 +86,15 @@ export const bookingRouter = createRouter()
       })
 
       return booking
-    }
-  })
-  .mutation('delete', {
-    input: z.object({
-      id: z.string()
     }),
-    async resolve({ ctx, input }) {
+
+  delete: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
       const { id } = input
 
       await ctx.prisma.booking.delete({ where: { id } })
 
       return { id }
-    }
-  })
+    })
+})

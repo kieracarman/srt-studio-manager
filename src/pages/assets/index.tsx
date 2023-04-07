@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 
 import { Layout, SearchBar, Loader } from '@components/ui'
 import AssetList from '@modules/assets/AssetList/AssetList'
@@ -7,9 +7,8 @@ import AssetList from '@modules/assets/AssetList/AssetList'
 const Assets = () => {
   const [searchQuery, setSearchQuery] = useState('')
 
-  const { data, isLoading, isSuccess, isError, error } = trpc.useQuery([
-    'asset.getAll'
-  ])
+  const { data, isLoading, isSuccess, isError, error } =
+    api.asset.getAll.useQuery()
 
   let content
   let assetsList

@@ -1,5 +1,6 @@
-import { createRouter } from '../context'
 import { z } from 'zod'
+
+import { createTRPCRouter, publicProcedure } from '@server/api/trpc'
 
 const assetSchema = z.object({
   tagNumber: z.string(),
@@ -15,21 +16,18 @@ const assetSchema = z.object({
   dateOutService: z.date().optional()
 })
 
-export const assetRouter = createRouter()
-  .query('getAll', {
-    async resolve({ ctx }) {
-      return await ctx.prisma.asset.findMany({
-        include: {
-          location: true
-        }
-      })
-    }
-  })
-  .query('getOne', {
-    input: z.object({
-      id: z.string().cuid()
-    }),
-    async resolve({ ctx, input }) {
+export const assetRouter = createTRPCRouter({
+  getAll: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.asset.findMany({
+      include: {
+        location: true
+      }
+    })
+  }),
+
+  getOne: publicProcedure
+    .input(z.object({ id: z.string().cuid() }))
+    .query(async ({ ctx, input }) => {
       const { id } = input
 
       const asset = await ctx.prisma.asset.findUnique({
@@ -39,20 +37,20 @@ export const assetRouter = createRouter()
         }
       })
 
-      if (!asset) {
-        throw new Error(`No asset with id: ${id}`)
-      }
+      if (!asset) throw new Error(`No asset with id: ${id}`)
 
       return asset
-    }
-  })
-  .mutation('add', {
-    input: z.object({
-      location: z.string(),
-      data: assetSchema
     }),
-    async resolve({ ctx, input }) {
-      const asset = ctx.prisma.asset.create({
+
+  add: publicProcedure
+    .input(
+      z.object({
+        location: z.string(),
+        data: assetSchema
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const asset = await ctx.prisma.asset.create({
         data: {
           ...input.data,
           location: { connect: { id: input.location } }
@@ -60,15 +58,17 @@ export const assetRouter = createRouter()
       })
 
       return asset
-    }
-  })
-  .mutation('edit', {
-    input: z.object({
-      id: z.string().cuid(),
-      location: z.string().cuid(),
-      data: assetSchema
     }),
-    async resolve({ ctx, input }) {
+
+  edit: publicProcedure
+    .input(
+      z.object({
+        id: z.string().cuid(),
+        location: z.string().cuid(),
+        data: assetSchema
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
       const { id, location, data } = input
 
       const asset = await ctx.prisma.asset.update({
@@ -80,17 +80,15 @@ export const assetRouter = createRouter()
       })
 
       return asset
-    }
-  })
-  .mutation('delete', {
-    input: z.object({
-      id: z.string()
     }),
-    async resolve({ ctx, input }) {
+
+  delete: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
       const { id } = input
 
       await ctx.prisma.asset.delete({ where: { id } })
 
       return { id }
-    }
-  })
+    })
+})

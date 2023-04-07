@@ -1,0 +1,5 @@
+export { assetRouter } from './asset'
+export { bookingRouter } from './booking'
+export { roomRouter } from './room'
+export { ticketRouter } from './ticket'
+export { userRouter } from './user'

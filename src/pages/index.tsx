@@ -2,11 +2,11 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 
 import { Layout } from '@components/ui'
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 import StudentHome from '@modules/student/StudentHome'
 
 const Home: NextPage = () => {
-  const { data: role } = trpc.useQuery(['user.getCurrentRole'])
+  const { data: role } = api.user.getCurrentRole.useQuery()
 
   if (role === 'basic') {
     return <StudentHome />

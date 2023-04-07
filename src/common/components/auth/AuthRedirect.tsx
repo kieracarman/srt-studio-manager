@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 
 import { Loader } from '@components/ui'
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 
 const RedirectStudent = () => {
   const router = useRouter()
@@ -20,7 +20,7 @@ const AuthRedirect = ({ children }: PropsWithChildren) => {
     required: true
   })
 
-  const { data: role, isLoading } = trpc.useQuery(['user.getCurrentRole'])
+  const { data: role, isLoading } = api.user.getCurrentRole.useQuery()
 
   if (status !== 'authenticated' || isLoading) {
     return <Loader />
