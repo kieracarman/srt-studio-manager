@@ -3,8 +3,9 @@ import { z } from 'zod'
 import { createTRPCRouter, publicProcedure } from '@server/api/trpc'
 
 const bookingSchema = z.object({
-  title: z.string(),
-  bookingDate: z.date(),
+  description: z.string(),
+  startDate: z.date(),
+  endDate: z.date(),
   status: z.string().optional(),
   approvedDate: z.date().optional()
 })
