@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import styles from './NewUserForm.module.css'
-import { trpc } from '@utils/trpc'
+import { api } from '@utils/api'
 import { Button } from '@components/form'
 
 type FormValues = {
@@ -18,11 +18,11 @@ const NewUserForm = () => {
 
   const { register, handleSubmit } = useForm<FormValues>()
 
-  const utils = trpc.useContext()
+  const utils = api.useContext()
 
-  const addUser = trpc.useMutation(['user.add'], {
+  const addUser = api.user.add.useMutation({
     async onSuccess() {
-      await utils.invalidateQueries(['user.getAll'])
+      await utils.user.invalidate()
     }
   })
 

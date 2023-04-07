@@ -50,7 +50,7 @@ const StudentBookingForm = ({ onCompleted }: StudentBookingFormProps) => {
     onCompleted()
   })
 
-  const filterPassedTime = (time) => {
+  const filterPassedTime = (time: any) => {
     const currentDate = new Date()
     const selectedDate = new Date(time)
     return currentDate.getTime() < selectedDate.getTime()
