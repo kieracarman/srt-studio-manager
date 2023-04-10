@@ -88,7 +88,7 @@ model User {
   email         String?   @unique
   emailVerified String?
   image         String?
-  role          String    @default("basic")
+  role          String    @default("admin")
   accessLevel   String    @default("staff")
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
