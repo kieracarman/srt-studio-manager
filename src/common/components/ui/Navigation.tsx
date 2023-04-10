@@ -9,8 +9,8 @@ const links = [
   { path: '/', name: 'Dashboard' },
   { path: '/assets', name: 'Assets' },
   { path: '/users', name: 'Users' },
-  { path: '/tickets', name: 'Tickets' },
-  { path: '/bookings', name: 'Bookings' }
+  { path: '/tickets', name: 'Tickets' }
+  // { path: '/bookings', name: 'Bookings' }
 ]
 
 const Navigation = () => {

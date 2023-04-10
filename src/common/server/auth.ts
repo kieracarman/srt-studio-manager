@@ -4,7 +4,7 @@ import {
   type NextAuthOptions,
   type DefaultSession
 } from 'next-auth'
-import AzureADProvider from 'next-auth/providers/azure-ad'
+import GoogleProvider from 'next-auth/providers/google'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { env } from '@common/env.mjs'
 import { prisma } from '@server/db'
@@ -47,10 +47,9 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(prisma),
   providers: [
-    AzureADProvider({
-      clientId: env.AZURE_AD_CLIENT_ID,
-      clientSecret: env.AZURE_AD_CLIENT_SECRET,
-      tenantId: env.AZURE_AD_TENANT_ID
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET
     })
     /**
      * ...add more providers here.
