@@ -8,6 +8,7 @@ import { Button } from '@components/form'
 const links = [
   { path: '/', name: 'Dashboard' },
   { path: '/assets', name: 'Assets' },
+  { path: '/rooms', name: 'Rooms' },
   { path: '/users', name: 'Users' },
   { path: '/tickets', name: 'Tickets' }
   // { path: '/bookings', name: 'Bookings' }
